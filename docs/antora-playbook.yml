@@ -12,10 +12,14 @@ content:
     edit_url: 'https://github.com/michalharakal/KPTChat/{path}'
 ui:
   bundle:
-
     url: ./ui-bundle.zip
-
     snapshot: false
+  supplemental_files:
+    - path: ui.yml
+      contents: |
+        static_files:
+        - .nojekyll
+    - path: .nojekyll
 
 runtime:
   cache_dir: ./.cache/antora
