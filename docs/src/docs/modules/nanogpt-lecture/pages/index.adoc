@@ -30,7 +30,7 @@ This endeavor is not just a learning exercise, but also a tribute to the educati
 
 == Steps
 
-* analysis - link:analysis.md[Learn about our Model Architecture]
+* analysis - link:analysis.adoc[Learn about our Model Architecture]
 * modularizing python scripts
 * writing test suite to obtain golden standard, which will be used as reference comparison with other implementation
 
