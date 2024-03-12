@@ -10,7 +10,7 @@ Michal Harakal, Alexander von Below, Falk Sippach
 
 image:https://www.javaland.eu/fileadmin/Event/JavaLand/Banner/2024/JavaLand_2024-Banner-512x256-Twitter-Ich_bin_dabei.jpg[JavaLand 2023,link=https://shop.doag.org/events/javaland/2023/agenda/#eventDay.1679439600]
 
-== Workhop materials and code
+== Workshop materials and code
 
 TBD
 
