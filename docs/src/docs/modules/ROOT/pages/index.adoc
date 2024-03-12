@@ -20,4 +20,4 @@ TBD
 
 == Setup the environment
 
-See detailed instructions in the link:setup.md[setup] section.
+See detailed instructions in the xref:setup.adoc[] section.
