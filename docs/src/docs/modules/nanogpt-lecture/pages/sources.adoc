@@ -1,0 +1,12 @@
+= Links and sources
+
+== Supplementary links
+
+* Attention is All You Need paper: https://arxiv.org/abs/1706.03762
+* OpenAI GPT-3 paper: https://arxiv.org/abs/2005.14165
+* nanoGPT repo: https://github.com/karpathy/nanoGPT
+* my website: https://karpathy.ai
+
+== General learning
+
+* Transformers, explained: Understand the model behind GPT, BERT, and T5 https://www.youtube.com/watch?v=SZorAJ4I-sA

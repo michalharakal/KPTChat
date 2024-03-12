@@ -1,0 +1,35 @@
+site:
+  title: KPTChat
+  url: https://michalharakal.github.io/KPTChat
+  start_page: fj::index.adoc
+  keys:
+    google_analytics: ''
+content:
+  sources:
+  - url: ../                 # The current folder is a git repo
+    branches: HEAD         # "HEAD" uses whichever branch is currently checked out
+    start_path: docs/src/docs
+    edit_url: 'https://github.com/michalharakal/KPTChat/{path}'
+ui:
+  bundle:
+
+    url: ./ui-bundle.zip
+
+    snapshot: false
+
+runtime:
+  cache_dir: ./.cache/antora
+
+asciidoc:
+  attributes:
+    page-pagination: ''
+    hide-uri-scheme: ''
+    experimental: ''
+    stem: ''
+    icons: font
+output:
+  destinations:
+  - provider: fs
+    path: ./_public
+    clean: true
+

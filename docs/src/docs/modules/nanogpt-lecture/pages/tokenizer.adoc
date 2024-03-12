@@ -1,0 +1,10 @@
+= Text tokenizers
+
+Converting text to numbers based on characters. So vocalary is long as the number of unique characters in text.
+
+Trade of between vocabulary size and encoded text size.
+
+== Other approaches
+
+* *Google* : https://github.com/google/sentencepiece, Unsupervised text tokenizer for Neural Network-based text generation working with sub-units.
+* *OpenAI* : Tiktoken https://github.com/openai/tiktoken very fast

@@ -1,0 +1,53 @@
+= Pytorch
+
+Certainly, the original PyTorch code snippet you provided utilizes a variety of functions and classes from the PyTorch library. Here's a comprehensive list of all the PyTorch-related functions and classes used in the code, categorized for clarity:
+
+== Core PyTorch and Neural Network Module (`torch` and `torch.nn`)
+
+* *torch*:
+* `torch.tensor`
+* `torch.long`
+* `torch.randint`
+* `torch.stack`
+* `torch.cuda.is_available()`
+* `torch.manual_seed`
+* `torch.zeros`
+* `torch.cat`
+* `torch.multinomial`
+* `torch.tril`
+* `torch.ones`
+* *torch.nn*:
+
+* `nn.Module`
+* `nn.Linear`
+* `nn.Dropout`
+* `nn.Embedding`
+* `nn.LayerNorm`
+* `nn.Sequential`
+
+=== Functions from `torch.nn.functional`
+
+* `F.softmax`
+* `F.cross_entropy`
+
+=== Optimizer from `torch.optim`
+
+* `torch.optim.AdamW`
+
+=== No-Gradient Context
+
+* `torch.no_grad()`
+
+=== PyTorch Utilities and Data Handling
+
+While not directly calling specific functions for data handling, the code implies the use of tensors and possibly the device management (`.to(device)`) for GPU computation support.
+
+=== Summary of Functionalities Used:
+
+* *Data Manipulation*: Tensor creation and operations, including stacking, concatenation, and indexing.
+* *Model Building Blocks*: Linear layers, dropout, embeddings, layer normalization, and the custom implementation of self-attention within the `Head` class.
+* *Activation and Loss Functions*: Softmax for the output layer activation and cross-entropy for the loss calculation.
+* *Optimization*: The AdamW optimizer for adjusting model parameters based on computed gradients.
+* *Utility Functions*: Seed setting for reproducibility, device selection for GPU support, and the no-grad context for evaluation phases to improve performance and memory usage.
+
+This list encompasses the core PyTorch functionalities leveraged in your GPT-like model implementation, illustrating a wide use of the library's capabilities for deep learning model development and training.

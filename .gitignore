@@ -1,44 +1,21 @@
-# gradle
 .gradle
-local.properties
 build/
-/captures
-.externalNativeBuild
-.cxx
+!gradle/wrapper/gradle-wrapper.jar
 
-# Idea
-*.iml
+## antora
+_public
+.cache
+
+### IntelliJ IDEA ###
 .idea
-.idea/caches
-.idea/libraries
-.idea/modules.xml
-.idea/workspace.xml
-.idea/navEditor.xml
-.idea/assetWizardSettings.xml
+*.iws
+*.iml
+*.ipr
+out/
+
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
 .DS_Store
-
-
-
-# Compiled class file
-*.class
-
-# Log file
-*.log
-
-# BlueJ files
-*.ctxt
-
-# Mobile Tools for Java (J2ME)
-.mtj.tmp/
-
-# Package Files #
-*.jar
-*.war
-*.nar
-*.ear
-*.zip
-*.tar.gz
-*.rar
-
-# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
-hs_err_pid*
