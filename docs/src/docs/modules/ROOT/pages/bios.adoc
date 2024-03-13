@@ -14,4 +14,6 @@ hat schon vor 30 Jahren Software für den Apple Macintosh geschrieben und seit 2
 
 == Falk Sippach
 
-TBD
+image::falk.jpg[Falk Sippach]
+
+Falk Sippach ist Softwarearchitekt, Berater und Trainer bei der embarc Software Consulting GmbH. Er engagiert sich in der Java-Community und teilt sein Wissen in Artikeln, Blogbeiträgen und Vorträgen.
