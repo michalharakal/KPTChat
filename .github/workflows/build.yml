@@ -42,6 +42,12 @@ jobs:
           name: unit-tests-results
           path: KnanoGPT/build/reports/tests/test
 
+      - name: ⏫ Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: ${{ github.workspace }}/*/test-results/*.xml
+
 
   dependency-submission:
 
