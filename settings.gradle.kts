@@ -4,3 +4,4 @@ plugins {
 
 rootProject.name = "KPTChat"
 include("docs")
+include("KnanoGPT")

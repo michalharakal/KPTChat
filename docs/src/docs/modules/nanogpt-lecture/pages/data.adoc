@@ -1,7 +1,0 @@
-= Training data
-
-For educational purposed a simple data set is used for training. It is called `tiny shakespaere` and consists from
-40,000 lines of Shakespeare from a variety of Shakespeare's plays. It was featured in Andrej Karpathy's blog post 'The
-Unreasonable Effectiveness of Recurrent Neural Networks': http://karpathy.github.io/2015/05/21/rnn-effectiveness/
-
-Its a simple text file, so it can so also loaded.
