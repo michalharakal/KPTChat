@@ -19,7 +19,7 @@ class ResourcesDataProvider(private val resourceName: String) : DataProvider<Ten
     }
 
     override fun load(): Tensor =
-        Tensor(Shape(textContent.length), CharTokenizer(textContent).encode(textContent).map {
+        Tensor(Shape(1, textContent.length), CharTokenizer(textContent).encode(textContent).map {
             it.toFloat()
         }.toFloatArray())
 

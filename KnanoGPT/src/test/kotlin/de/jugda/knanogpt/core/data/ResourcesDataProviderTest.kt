@@ -1,8 +1,5 @@
 package de.jugda.knanogpt.core.data
 
-import org.junit.Assert.*
-
-import de.jugda.de.jugda.knanogpt.core.CharTokenizer
 import de.jugda.de.jugda.knanogpt.core.data.ResourcesDataProvider
 import kotlin.test.Test
 import kotlin.test.assertEquals

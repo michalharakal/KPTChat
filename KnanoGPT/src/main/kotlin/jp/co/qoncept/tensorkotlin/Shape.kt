@@ -19,5 +19,9 @@ class Shape(vararg dimensions: Int) {
         return dimensions.hashCode()
     }
 
+    override fun toString(): String {
+        return "Shape(Dimension ${dimensions.size}})"
+    }
+
 }
 

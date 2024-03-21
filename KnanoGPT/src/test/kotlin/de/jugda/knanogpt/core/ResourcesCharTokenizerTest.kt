@@ -9,7 +9,7 @@ import kotlin.test.BeforeTest
 
 class ResourcesCharTokenizerTest {
 
-    lateinit var textContent: String
+    private lateinit var textContent: String
 
     @BeforeTest
     fun setUp() {
