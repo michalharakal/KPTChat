@@ -10,6 +10,7 @@ repositories {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/org.nd4j/nd4j-native-platform
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("junit:junit:4.13.2")
 }
