@@ -9,8 +9,8 @@ class CharTokenizerTest {
 
     @Test
     fun `encode test`() {
-        val tokenizer = CharTokenizer("ahello world")
-        val encoded = tokenizer.encode("ahello")
+        val tokenizer = CharTokenizer("hello world")
+        val encoded = tokenizer.encode("hello")
         assertEquals(listOf(3, 2, 4, 4, 5), encoded)
     }
 
