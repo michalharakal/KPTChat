@@ -1,7 +1,7 @@
 site:
   title: KPTChat
   url: https://michalharakal.github.io/KPTChat
-  start_page: fj::index.adoc
+  start_page: kgpt::index.adoc
   keys:
     google_analytics: ''
 content:
@@ -10,6 +10,11 @@ content:
     branches: HEAD         # "HEAD" uses whichever branch is currently checked out
     start_path: docs/src/docs
     edit_url: 'https://github.com/michalharakal/KPTChat/{path}'
+  - url: https://github.com/michalharakal/karpathy-GPT-from-scratch-in-python.git
+    branches: master
+    start_path: docs/src/docs
+    edit_url: false
+
 ui:
   bundle:
     url: ./ui-bundle.zip
@@ -27,10 +32,22 @@ runtime:
 asciidoc:
   attributes:
     page-pagination: ''
-    hide-uri-scheme: ''
-    experimental: ''
     stem: ''
     icons: font
+    experimental: ''
+    idprefix: '@'
+    idseparator: '-@'
+    table-caption: false
+    example-caption: false
+    listing-caption: false
+    hide-uri-scheme: '@'
+    kroki-server-url: https://kroki.vshn.net/
+    kroki-fetch-diagram: ''
+    plantuml-server-url: 'https://www.plantuml.com/plantuml'
+  extensions:
+    - asciidoctor-kroki
+    - asciidoctor-plantuml
+
 output:
   destinations:
   - provider: fs

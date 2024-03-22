@@ -4,4 +4,3 @@ version:
 start_page: ROOT:index.adoc
 nav:
 - modules/ROOT/nav.adoc
-- modules/nanogpt-lecture/nav.adoc
