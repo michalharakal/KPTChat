@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<url>
-<loc>https://michalharakal.github.io/KPTChat/kgpt/bios.html</loc>
-<lastmod>2024-03-21T21:22:19.820Z</lastmod>
-</url>
-<url>
-<loc>https://michalharakal.github.io/KPTChat/kgpt/index.html</loc>
-<lastmod>2024-03-21T21:22:19.820Z</lastmod>
-</url>
-<url>
-<loc>https://michalharakal.github.io/KPTChat/kgpt/setup.html</loc>
-<lastmod>2024-03-21T21:22:19.820Z</lastmod>
-</url>
-</urlset>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<sitemap>
+<loc>https://michalharakal.github.io/KPTChat/sitemap-kgpt.xml</loc>
+</sitemap>
+<sitemap>
+<loc>https://michalharakal.github.io/KPTChat/sitemap-nanogpt.xml</loc>
+</sitemap>
+</sitemapindex>

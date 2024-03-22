@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: KPTChat</title>
+    <link rel="canonical" href="https://michalharakal.github.io/KPTChat/nanogpt/de/analysis.html">
+    <meta name="generator" content="Antora 3.1.7">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://michalharakal.github.io/KPTChat">KPTChat</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Resource A</a>
+            <a class="navbar-item" href="#">Resource B</a>
+            <a class="navbar-item" href="#">Resource C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="nanogpt" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">nanoGPT Explained</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">NanoGPT erklärt</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">NanoGTP erklärt</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Schritt nach Schritt</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-1.html">Step 1. Imports-Block</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-2.html">Step 2. Initialisierung-Block</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-3.html">Step 3. Daten laden</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-4.html">Step 4. Encoder &amp; Decoder</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-5.html">Step 5. Train &amp; Test Spilt</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">nanoGPT Explained</span>
+    <span class="version">default</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../kgpt/index.html">KGPTChat</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kgpt/index.html">default</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="index.html">nanoGPT Explained</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">default</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../kgpt/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<div class="paragraph">
+<p>NanoGTP, ein von Andrej Karpathy entwickeltes GitHub-Projekt, zielt darauf ab, eine einfachere und schneller zu bedienende Plattform für das Training und Feintuning mittelgroßer GPT-Modelle zu bieten. Das Projekt steht in der Tradition von minGPT und legt Wert auf Verständlichkeit und Schnelligkeit in der Entwicklung und dem Einsatz von GPT-Modellen【8†source】.</p>
+</div>
+<div class="paragraph">
+<p>Das Projekt beinhaltet eine minimalistische Architektur mit zwei Hauptkomponenten: eine rund 300 Zeilen umfassende <code>train.py</code>, die als Trainingsrahmen dient, und eine ebenfalls etwa 300 Zeilen umfassende <code>model.py</code>, die die Definition des GPT-Modells enthält und optional die Gewichte von OpenAI&#8217;s GPT-2 laden kann【10†source】. NanoGTP unterstützt eine Vielzahl von Abhängigkeiten, darunter PyTorch, Hugging Face&#8217;s Transformers und Datasets, TikToken für OpenAI&#8217;s schnelle BPE-Codierung, Wandb für optionales Logging und tqdm für Fortschrittsanzeigen【8†source】【10†source】.</p>
+</div>
+<div class="paragraph">
+<p>Ein Kernmerkmal von NanoGTP ist die Möglichkeit, das Modell auf verschiedenen Hardwarekonfigurationen zu trainieren, von leistungsstarken GPUs bis hin zu einfachen CPUs, wobei spezifische Konfigurationen für unterschiedliche Ressourcen bereitgestellt werden. Beispielsweise können Benutzer ein Charakter-Level GPT auf Shakespeares Werken mit vorgegebenen Einstellungen in etwa 3 Minuten auf einer A100 GPU trainieren oder eine angepasste, weniger ressourcenintensive Konfiguration für CPUs nutzen, die dennoch innerhalb von ungefähr 3 Minuten trainiert und unterhaltsame Ergebnisse liefert【8†source】.</p>
+</div>
+<div class="paragraph">
+<p>Für die Implementierung des Scaled Dot Product Attention (SDPA), einem kritischen Bestandteil des GPT-Modells, nutzt NanoGTP PyTorch 2.0&#8217;s beschleunigte Transformer. Dies ermöglicht signifikante Leistungssteigerungen und verbesserte numerische Stabilität im Vergleich zu früheren Implementierungen. Ein spezielles Augenmerk liegt auf der Optimierung der Vokabelgröße, die zu einer deutlichen Beschleunigung der Matrixmultiplikationen und damit der Trainingszeit führt【9†source】.</p>
+</div>
+<div class="paragraph">
+<p>NanoGTP setzt auf PyTorch 2.0, um von der neuen <code>torch.compile()</code> Funktion zu profitieren, die eine merkliche Verbesserung in der Laufzeiteffizienz ermöglicht. Das Projekt plant zudem, weitere Optimierungen und Metriken einzuführen, einschließlich der Bewertung von Zero-Shot-Perplexitäten auf verschiedenen Benchmarks und der Bereitstellung von Feintuning-Datensätzen und -Anleitungen【10†source】.</p>
+</div>
+<div class="paragraph">
+<p>Insgesamt präsentiert sich NanoGTP als ein zugängliches und effizientes Werkzeug für Forschung und Entwicklung im Bereich der generativen prätrainierten Transformer, das sowohl für Einsteiger als auch für fortgeschrittene Nutzer geeignet ist.</p>
+</div>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
