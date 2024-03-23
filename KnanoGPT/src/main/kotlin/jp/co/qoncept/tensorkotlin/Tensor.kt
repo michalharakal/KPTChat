@@ -142,7 +142,24 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
     }
 
     override fun toString(): String {
-        return "Tensor(${shape}, ${elements.contentToString()})"
+        return when (shape.dimensions.size) {
+            1 -> vectorToString() // 1D tensor
+            2 -> matrixToString() // 2D tensor
+            else -> "Tensor(${shape}, ${elements.contentToString()})" // higher dimensions
+        }
+    }
+
+    private fun vectorToString(): String {
+        return elements.joinToString(prefix = "[", postfix = "]")
+    }
+
+    private fun matrixToString(): String {
+        val (rows, cols) = shape.dimensions
+        return (0 until rows).joinToString(separator = "\n", prefix = "[\n", postfix = "\n]") { r ->
+            (0 until cols).joinToString(prefix = " [", postfix = "]") { c ->
+                elements[r * cols + c].toString()
+            }
+        }
     }
 
     override fun equals(other: Any?): Boolean {

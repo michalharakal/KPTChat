@@ -1,8 +1,5 @@
 package de.jugda.knanogpt.core.tensor
 
-import org.junit.Assert.*
-
-
 import de.jugda.de.jugda.knanogpt.core.data.ResourcesDataProvider
 import de.jugda.de.jugda.knanogpt.core.tensor.TrainTestSplitter
 import kotlin.test.Test

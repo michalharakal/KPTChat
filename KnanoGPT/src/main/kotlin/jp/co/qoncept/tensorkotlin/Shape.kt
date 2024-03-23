@@ -7,10 +7,14 @@ class Shape(vararg dimensions: Int) {
         get() = dimensions.fold(1) { a, x -> a * x }
 
     override fun equals(other: Any?): Boolean {
-        if (other !is Shape) { return false }
+        if (other !is Shape) {
+            return false
+        }
 
         return dimensions.size == other.dimensions.size && zipFold(dimensions, other.dimensions, true) { result, a, b ->
-            if (!result) { return false }
+            if (!result) {
+                return false
+            }
             a == b
         }
     }
@@ -24,4 +28,3 @@ class Shape(vararg dimensions: Int) {
     }
 
 }
-
