@@ -1,4 +1,4 @@
-package de.jugda.de.jugda.knanogpt.core.data
+package de.jugda.knanogpt.core.data
 
 import de.jugda.de.jugda.knanogpt.core.CharTokenizer
 import de.jugda.knanogpt.core.tensor.Tensor

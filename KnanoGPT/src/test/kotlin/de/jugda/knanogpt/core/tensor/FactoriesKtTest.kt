@@ -1,7 +1,6 @@
 package de.jugda.knanogpt.core.tensor
 
-import de.jugda.de.jugda.knanogpt.core.data.ResourcesDataProvider
-import de.jugda.de.jugda.knanogpt.core.tensor.randint
+import de.jugda.knanogpt.core.data.ResourcesDataProvider
 import kotlin.random.Random
 import kotlin.test.Test
 import kotlin.test.assertContentEquals

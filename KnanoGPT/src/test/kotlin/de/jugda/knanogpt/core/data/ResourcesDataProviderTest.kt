@@ -1,6 +1,5 @@
 package de.jugda.knanogpt.core.data
 
-import de.jugda.de.jugda.knanogpt.core.data.ResourcesDataProvider
 import kotlin.test.Test
 import kotlin.test.assertEquals
 

@@ -1,6 +1,5 @@
 package de.jugda.knanogpt.core.tensor
 
-import de.jugda.de.jugda.knanogpt.core.tensor.stack
 
 import kotlin.test.Test
 import kotlin.test.assertContentEquals

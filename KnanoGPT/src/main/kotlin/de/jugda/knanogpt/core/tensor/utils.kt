@@ -1,10 +1,7 @@
-package de.jugda.de.jugda.knanogpt.core.tensor
-
-import de.jugda.knanogpt.core.tensor.Shape
-import de.jugda.knanogpt.core.tensor.Tensor
+package de.jugda.knanogpt.core.tensor
 
 fun Tensor.slice(from: Int, to: Int): Tensor =
-    Tensor(Shape(1, to - from), elements.slice(from..to).toFloatArray())
+    Tensor(Shape(this.shape.dimensions.size, to - from), elements.slice(from..to).toFloatArray())
 
 class TrainTestSplitter(private val data: Tensor) {
     fun split(factor: Float): Pair<Tensor, Tensor> {

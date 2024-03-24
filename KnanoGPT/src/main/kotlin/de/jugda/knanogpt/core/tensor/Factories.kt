@@ -1,7 +1,5 @@
-package de.jugda.de.jugda.knanogpt.core.tensor
+package de.jugda.knanogpt.core.tensor
 
-import de.jugda.knanogpt.core.tensor.Shape
-import de.jugda.knanogpt.core.tensor.Tensor
 import kotlin.random.Random
 
 
