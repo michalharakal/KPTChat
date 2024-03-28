@@ -24,7 +24,10 @@ class Shape(vararg dimensions: Int) {
     }
 
     override fun toString(): String {
-        return "Shape(Dimension ${dimensions.size}})"
+        // Create a string representation of the dimensions array
+        val dimensionsString = dimensions.joinToString(separator = " x ", prefix = "[", postfix = "]")
+        // Return the formatted string including dimensions and volume
+        return "Shape: Dimensions = $dimensionsString, Size (Volume) = $volume"
     }
 
 }

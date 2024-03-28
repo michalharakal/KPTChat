@@ -1,5 +1,6 @@
 plugins {
     kotlin("jvm")
+    kotlin("plugin.serialization")
 }
 
 group = "de.jugda"
@@ -10,8 +11,7 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":SKaiNET"))
-    // https://mvnrepository.com/artifact/org.nd4j/nd4j-native-platform
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("junit:junit:4.13.2")
 }

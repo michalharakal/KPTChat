@@ -9,7 +9,7 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
             { indices.size == shape.dimensions.size },
             { "`indices.size` must be ${shape.dimensions.size}: ${indices.size}" })
         return shape.dimensions.zip(indices).fold(0) { a, x ->
-            assert({ 0 <= x.second && x.second < x.first }, { "Illegal index: indices = ${indices}, shape = ${shape}" })
+            assert({ 0 <= x.second && x.second < x.first }, { "Illegal index: indices = ${indices}, shape = $shape" })
             a * x.first + x.second
         }
     }
@@ -114,37 +114,64 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
         return Tensor(shape, elements.map { it / scalar })
     }
 
-    fun matmul(tensor: Tensor): Tensor {
-        assert({ shape.dimensions.size == 2 }, { "This tensor is not a matrix: shape = ${shape}" })
-        assert({ tensor.shape.dimensions.size == 2 }, { "The given tensor is not a matrix: shape = ${tensor.shape}" })
-
-        val inCols1Rows2 = shape.dimensions[1]
-        assert(
-            { tensor.shape.dimensions[0] == inCols1Rows2 },
-            { "Incompatible shapes of matrices: self.shape = ${shape}, tensor.shape = ${tensor.shape}" })
-
-        val outRows = shape.dimensions[0]
-        val outCols = tensor.shape.dimensions[1]
-
-        val elements = FloatArray(outRows * outCols)
-        for (r in 0 until outRows) {
-            for (i in 0 until inCols1Rows2) {
-                var elementIndex = r * outCols
-                val left = this.elements[r * inCols1Rows2 + i]
-                for (c in 0 until outCols) {
-                    elements[elementIndex] += left * tensor.elements[i * outCols + c]
-                    elementIndex++
-                }
-            }
+    fun matmul(other: Tensor): Tensor {
+        // Scalar multiplication
+        if (shape.dimensions.isEmpty() && other.shape.dimensions.isEmpty()) {
+            return Tensor(Shape(), floatArrayOf(elements[0] * other.elements[0]))
         }
 
-        return Tensor(Shape(outRows, outCols), elements)
+        // Scalar and Vector multiplication (scalar is `this`)
+        if (shape.dimensions.isEmpty()) {
+            return Tensor(other.shape, other.elements.map { (it * elements[0]) }.toList().toFloatArray())
+        }
+
+        // Scalar and Vector multiplication (scalar is `other`)
+        if (other.shape.dimensions.isEmpty()) {
+            return Tensor(shape, elements.map { it * other.elements[0] }.toList().toFloatArray())
+        }
+
+        // Vector and Matrix multiplication
+        if (shape.dimensions.size == 1 && other.shape.dimensions.size == 2) {
+            if (shape.dimensions[0] != other.shape.dimensions[0]) throw IllegalArgumentException("Shapes do not align.")
+            val result = FloatArray(other.shape.dimensions[1]) { 0f }
+            for (i in elements.indices) {
+                for (j in 0 until other.shape.dimensions[1]) {
+                    result[j] += elements[i] * other.elements[i * other.shape.dimensions[1] + j]
+                }
+            }
+            return Tensor(Shape(other.shape.dimensions[1]), result)
+        }
+
+        // Matrix and Matrix multiplication
+        if (shape.dimensions.size == 2 && other.shape.dimensions.size == 2) {
+            if (shape.dimensions[1] != other.shape.dimensions[0]) throw IllegalArgumentException("Shapes do not align.")
+            val newShape = Shape(shape.dimensions[0], other.shape.dimensions[1])
+            val result = FloatArray(newShape.volume) { 0f }
+            for (i in 0 until shape.dimensions[0]) {
+                for (j in 0 until other.shape.dimensions[1]) {
+                    for (k in 0 until shape.dimensions[1]) {
+                        result[i * newShape.dimensions[1] + j] += elements[i * shape.dimensions[1] + k] * other.elements[k * other.shape.dimensions[1] + j]
+                    }
+                }
+            }
+            return Tensor(newShape, result)
+        }
+
+        throw IllegalArgumentException("Unsupported tensor shapes for multiplication.")
     }
 
     override fun toString(): String {
         return when (shape.dimensions.size) {
-            1 -> vectorToString() // 1D tensor
-            2 -> matrixToString() // 2D tensor
+            1 -> { // 1D tensor
+                //println(shape)
+                vectorToString()
+            }
+
+            2 -> { // 2D tensor
+                //println(shape)
+                matrixToString()
+            }
+
             else -> "Tensor(${shape}, ${elements.contentToString()})" // higher dimensions
         }
     }
@@ -181,9 +208,8 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
     }
 
     companion object {
-        fun random(numEmbeddings: Int, embeddingDim: Int): Tensor =
-            Tensor(Shape(embeddingDim), floatArrayOfRandom(numEmbeddings))
-
+        fun random(shapeDimension: Int, elements: Int): Tensor =
+            Tensor(Shape(shapeDimension), floatArrayOfRandom(elements))
     }
 }
 
