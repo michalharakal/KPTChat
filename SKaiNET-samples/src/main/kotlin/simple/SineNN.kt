@@ -12,13 +12,13 @@ class SineNN : Module() {
 
     private val sineModule = network {
         input(1)
-        dense(1, 16) {
+        dense(16) {
             activation = relu
         }
-        dense(16, 16) {
+        dense(16) {
             activation = relu
         }
-        dense(16, 1)
+        dense(1)
     }
 
     override fun forward(input: Tensor): Tensor =

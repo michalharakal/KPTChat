@@ -24,7 +24,7 @@ interface NetworkDslItem {
 interface NETWORK : NetworkDslItem {
     fun input(inputSize: Int, id: String = "")
 
-    fun dense(inputDimension: Int, outputDimension: Int, id: String = "", content: DENSE.() -> Unit = {})
+    fun dense(outputDimension: Int, id: String = "", content: DENSE.() -> Unit = {})
 }
 
 @NetworkDsl
@@ -57,13 +57,17 @@ class DenseImpl(private val inputDimension: Int, private val outputDimension: In
 private class NetworkImpl : NETWORK {
 
     val modules = mutableListOf<Module>()
+    var lastDimension = 0
 
     fun create() = NetworkBuilder().add(*modules.toTypedArray()).build()
     override fun input(inputSize: Int, id: String) {
+        lastDimension = inputSize
         modules.add(Input(Shape(inputSize), id = getDefaultName(id, "Input", modules.size)))
     }
 
-    override fun dense(inputDimension: Int, outputDimension: Int, id: String, content: DENSE.() -> Unit) {
+    override fun dense(outputDimension: Int, id: String, content: DENSE.() -> Unit) {
+        val inputDimension = lastDimension
+        lastDimension = outputDimension
         val impl = DenseImpl(
             inputDimension = inputDimension,
             outputDimension = outputDimension,
