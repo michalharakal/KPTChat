@@ -9,7 +9,7 @@ import kotlin.random.Random
  */
 fun randint(random: Random, low: Int, high: Int, shape: Shape): Tensor {
     require(high > low) { "High bound must be greater than low bound." }
-    val elements = FloatArray(shape.volume) { random.nextInt(low, high).toFloat() }
+    val elements = DoubleArray(shape.volume) { random.nextInt(low, high).toDouble() }
     return Tensor(shape, elements)
 }
 

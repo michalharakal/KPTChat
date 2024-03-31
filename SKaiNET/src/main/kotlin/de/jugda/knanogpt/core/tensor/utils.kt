@@ -1,14 +1,14 @@
 package de.jugda.knanogpt.core.tensor
 
 fun Tensor.slice(from: Int, to: Int): Tensor =
-    Tensor(Shape(this.shape.dimensions.size, to - from), elements.slice(from..to).toFloatArray())
+    Tensor(Shape(this.shape.dimensions.size, to - from), elements.slice(from..to).toDoubleArray())
 
 class TrainTestSplitter(private val data: Tensor) {
     fun split(factor: Float): Pair<Tensor, Tensor> {
         val n = (factor * data.shape.volume).toInt()
-        val trainData = Tensor(Shape(n), data.elements.slice(0..n).toFloatArray())
+        val trainData = Tensor(Shape(n), data.elements.slice(0..n).toDoubleArray())
         val valData =
-            Tensor(Shape(data.shape.volume - n), data.elements.slice(n..<data.shape.volume).toFloatArray())
+            Tensor(Shape(data.shape.volume - n), data.elements.slice(n..<data.shape.volume).toDoubleArray())
         return Pair(trainData, valData)
     }
 }
@@ -30,7 +30,7 @@ fun stack(tensors: List<Tensor>, dim: Int = 0): Tensor {
 
     // Allocate new elements array
     val totalSize = newShape.reduce { acc, i -> acc * i }
-    val newElements = FloatArray(totalSize)
+    val newElements = DoubleArray(totalSize)
 
     // Fill newElements with tensor data
     var currentIndex = 0

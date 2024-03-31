@@ -1,29 +1,41 @@
 package org.skainet.nn
 
 import de.jugda.knanogpt.core.tensor.Shape
+import de.jugda.knanogpt.core.tensor.Tensor
 import de.jugda.knanogpt.core.tensor.ext.t
-import jp.co.qoncept.tensorkotlin.Tensor
-import jp.co.qoncept.tensorkotlin.pow
 
-class Linear(inFeatures: Int, outFeatures: Int, val name: String) : Module() {
-    var weight: Tensor = Tensor(
-        Shape(inFeatures, outFeatures),
-        List(inFeatures * outFeatures) { 0 }.map { it.toFloat() }.toFloatArray()
+class Linear(private val inFeatures: Int, private val outFeatures: Int, override val name: String = "Linear") :
+    Module() {
+    private val bias: NamedParameter = NamedParameter("bias",
+        Tensor(
+            Shape(outFeatures),
+            List(outFeatures) { 0.0 }.map { it }.toDoubleArray()
+        )
     )
-    var bias: Tensor = Tensor(
-        Shape(outFeatures),
-        List(outFeatures) { 0 }.map { it.toFloat() }.toFloatArray()
+    private val weight: NamedParameter = NamedParameter("weight",
+        Tensor(
+            Shape(outFeatures, inFeatures),
+            List(inFeatures * outFeatures) { 0.0 }.map { it }.toDoubleArray()
+        )
     )
+    override val params: List<NamedParameter>
+        get() = listOf(weight, bias)
+
+
+    override val modules: List<Module>
+        get() = emptyList()
+
 
     override fun forward(input: Tensor): Tensor {
+        val weight = params.by("W")
+        val bias = params.by("B")
         println(name)
         println("inp = $input")
         println("weight = $weight")
         println("===========")
 
-        val trans = weight.t()
         // Assuming Tensor has a matmul (matrix multiplication) method and a plus method for addition
-        val output = input.matmul(weight) + bias
+        val output = input.matmul(weight.value.t()) + bias.value
         return output
     }
 }

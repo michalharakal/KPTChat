@@ -1,7 +1,7 @@
 package jp.co.qoncept.tensorkotlin
 
-data class Tensor(val shape: Shape, val elements: FloatArray) {
-    constructor(shape: Shape, element: Float = 0.0f) : this(shape, floatArrayOf(shape.volume, element)) {
+data class Tensor(val shape: Shape, val elements: DoubleArray) {
+    constructor(shape: Shape, element: Double = 0.0) : this(shape, doubleArrayOf(shape.volume, element)) {
     }
 
     internal fun index(indices: IntArray): Int {
@@ -14,7 +14,7 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
         }
     }
 
-    operator fun get(vararg indices: Int): Float {
+    operator fun get(vararg indices: Int): Double {
         return elements[index(indices)]
     }
 
@@ -23,7 +23,7 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
         val shape = ranges.map { x -> x.endInclusive - x.start + 1 }
         val reversedShape = shape.reversed()
         val indices = IntArray(size)
-        val elements = FloatArray(shape.fold(1, Int::times)) {
+        val elements = DoubleArray(shape.fold(1, Int::times)) {
             var i = it
             var dimensionIndex = size - 1
             for (dimension in reversedShape) {
@@ -37,7 +37,7 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
     }
 
 
-    private inline fun commutativeBinaryOperation(tensor: Tensor, operation: (Float, Float) -> Float): Tensor {
+    private inline fun commutativeBinaryOperation(tensor: Tensor, operation: (Double, Double) -> Double): Tensor {
         val lSize = shape.dimensions.size
         val rSize = tensor.shape.dimensions.size
 
@@ -66,8 +66,8 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
 
     private inline fun noncommutativeBinaryOperation(
         tensor: Tensor,
-        operation: (Float, Float) -> Float,
-        reverseOperation: (Float, Float) -> Float
+        operation: (Double, Double) -> Double,
+        reverseOperation: (Double, Double) -> Double
     ): Tensor {
         val lSize = shape.dimensions.size
         val rSize = tensor.shape.dimensions.size
@@ -106,34 +106,34 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
         return noncommutativeBinaryOperation(tensor, { lhs, rhs -> lhs / rhs }, { lhs, rhs -> rhs / lhs })
     }
 
-    operator fun times(scalar: Float): Tensor {
-        return Tensor(shape, elements.map { it * scalar })
+    operator fun times(scalar: Double): Tensor {
+        return Tensor(shape, elements.map { it * scalar }.toDoubleArray())
     }
 
-    operator fun div(scalar: Float): Tensor {
-        return Tensor(shape, elements.map { it / scalar })
+    operator fun div(scalar: Double): Tensor {
+        return Tensor(shape, elements.map { it / scalar }.toDoubleArray())
     }
 
     fun matmul(other: Tensor): Tensor {
         // Scalar multiplication
         if (shape.dimensions.isEmpty() && other.shape.dimensions.isEmpty()) {
-            return Tensor(Shape(), floatArrayOf(elements[0] * other.elements[0]))
+            return Tensor(Shape(), doubleArrayOf(elements[0] * other.elements[0]))
         }
 
         // Scalar and Vector multiplication (scalar is `this`)
         if (shape.dimensions.isEmpty()) {
-            return Tensor(other.shape, other.elements.map { (it * elements[0]) }.toList().toFloatArray())
+            return Tensor(other.shape, other.elements.map { (it * elements[0]) }.toList().toDoubleArray())
         }
 
         // Scalar and Vector multiplication (scalar is `other`)
         if (other.shape.dimensions.isEmpty()) {
-            return Tensor(shape, elements.map { it * other.elements[0] }.toList().toFloatArray())
+            return Tensor(shape, elements.map { it * other.elements[0] }.toList().toDoubleArray())
         }
 
         // Vector and Matrix multiplication
         if (shape.dimensions.size == 1 && other.shape.dimensions.size == 2) {
             if (shape.dimensions[0] != other.shape.dimensions[0]) throw IllegalArgumentException("Shapes do not align.")
-            val result = FloatArray(other.shape.dimensions[1]) { 0f }
+            val result = DoubleArray(other.shape.dimensions[1]) { 0.0 }
             for (i in elements.indices) {
                 for (j in 0 until other.shape.dimensions[1]) {
                     result[j] += elements[i] * other.elements[i * other.shape.dimensions[1] + j]
@@ -146,7 +146,7 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
         if (shape.dimensions.size == 2 && other.shape.dimensions.size == 2) {
             if (shape.dimensions[1] != other.shape.dimensions[0]) throw IllegalArgumentException("Shapes do not align.")
             val newShape = Shape(shape.dimensions[0], other.shape.dimensions[1])
-            val result = FloatArray(newShape.volume) { 0f }
+            val result = DoubleArray(newShape.volume) { 0.0 }
             for (i in 0 until shape.dimensions[0]) {
                 for (j in 0 until other.shape.dimensions[1]) {
                     for (k in 0 until shape.dimensions[1]) {
@@ -209,11 +209,11 @@ data class Tensor(val shape: Shape, val elements: FloatArray) {
 
     companion object {
         fun random(shapeDimension: Int, elements: Int): Tensor =
-            Tensor(Shape(shapeDimension), floatArrayOfRandom(elements))
+            Tensor(Shape(shapeDimension), doubleArrayOfRandom(elements))
     }
 }
 
-operator fun Float.times(tensor: Tensor): Tensor {
+operator fun Double.times(tensor: Tensor): Tensor {
     return tensor.times(this)
 }
 

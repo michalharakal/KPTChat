@@ -1,11 +1,11 @@
 package de.jugda.knanogpt.core.model.io
 
-import kotlinx.serialization.Serializable
+import de.jugda.knanogpt.core.tensor.Tensor
+import org.skainet.nn.NamedParameter
 
 
-@Serializable
 data class ModelParameters(
-    val parameters: Map<String, List<Double>>
+    val parameters: List<NamedParameter>
 )
 
 interface WeighsAndBiasesLoader {

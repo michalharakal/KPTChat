@@ -1,10 +1,10 @@
 plugins {
     kotlin("jvm")
-    kotlin("plugin.serialization")
+    id("maven-publish")
 }
 
-group = "de.jugda"
-version = "1.0-SNAPSHOT"
+group = "sk.ai.net"
+version = "0.0.1"
 
 repositories {
     mavenCentral()
@@ -21,4 +21,24 @@ tasks.test {
 }
 kotlin {
     jvmToolchain(17)
+}
+
+publishing {
+
+
+    publications {
+        // Create a publication named 'myLibrary'
+        create("skainet", MavenPublication::class) {
+            // Set the artifact ID
+            artifactId = "core"
+
+            // Include components from the 'java' plugin
+            from(components["java"])
+        }
+    }
+
+    repositories {
+        // Publish to the local Maven repository
+        mavenLocal()
+    }
 }

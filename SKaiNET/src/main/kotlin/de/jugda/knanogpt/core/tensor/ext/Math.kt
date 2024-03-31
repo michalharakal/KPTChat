@@ -13,7 +13,7 @@ fun Tensor.t(): Tensor {
     val newShape = Shape(this.shape.dimensions[1], this.shape.dimensions[0])
 
     // Create a new elements array to hold the transposed elements
-    val newElements = FloatArray(this.elements.size)
+    val newElements = DoubleArray(this.elements.size)
 
     // Populate the new elements array with the transposed elements
     for (i in 0 until shape.dimensions[0]) { // Original rows

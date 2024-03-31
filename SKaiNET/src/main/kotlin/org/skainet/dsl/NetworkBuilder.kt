@@ -4,6 +4,7 @@ import de.jugda.knanogpt.core.tensor.Shape
 import de.jugda.knanogpt.core.tensor.Tensor
 import org.skainet.nn.Input
 import org.skainet.Dense
+import org.skainet.activations.ActivationsWrapperModule
 import org.skainet.topologies.FeedForwardNetwork
 import org.skainet.nn.Module
 
@@ -38,20 +39,24 @@ private fun getDefaultName(id: String, s: String, size: Int): String {
 }
 
 
-class DenseImpl(private val inputDimension: Int, private val outputDimension: Int, private val id: String) : DENSE {
+class DenseImpl(
+    private val inputDimension: Int, private val outputDimension: Int, private val id: String
+) : DENSE {
 
     private var _activation: (Tensor) -> Tensor = { tensor -> tensor }
+
+    fun create(): List<Module> {
+        return listOf(
+            Dense(inputDimension, outputDimension, id),
+            ActivationsWrapperModule(activation, "activation")
+        )
+    }
+
     override var activation: (Tensor) -> Tensor
         get() = _activation
         set(value) {
             _activation = value
         }
-
-    fun create(): List<Module> {
-        return listOf(
-            Dense(inputDimension, outputDimension, id),
-        )
-    }
 }
 
 private class NetworkImpl : NETWORK {
@@ -62,7 +67,7 @@ private class NetworkImpl : NETWORK {
     fun create() = NetworkBuilder().add(*modules.toTypedArray()).build()
     override fun input(inputSize: Int, id: String) {
         lastDimension = inputSize
-        modules.add(Input(Shape(inputSize), id = getDefaultName(id, "Input", modules.size)))
+        modules.add(Input(Shape(inputSize), name = getDefaultName(id, "Input", modules.size)))
     }
 
     override fun dense(outputDimension: Int, id: String, content: DENSE.() -> Unit) {

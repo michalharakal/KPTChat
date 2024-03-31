@@ -6,9 +6,22 @@ internal fun floatArrayOf(size: Int, repeatedValue: Float): FloatArray {
     return array
 }
 
+internal fun doubleArrayOf(size: Int, repeatedValue: Double): DoubleArray {
+    val array = DoubleArray(size)
+    array.fill(repeatedValue)
+    return array
+}
+
+
 internal fun floatArrayOfRandom(size: Int): FloatArray {
     val array = FloatArray(size)
     array.fill(kotlin.random.Random.nextFloat())
+    return array
+}
+
+internal fun doubleArrayOfRandom(size: Int): DoubleArray {
+    val array = DoubleArray(size)
+    array.fill(kotlin.random.Random.nextDouble())
     return array
 }
 
@@ -21,6 +34,15 @@ internal inline fun zipMap(a: FloatArray, b: FloatArray, operation: (Float, Floa
     return result
 }
 
+internal inline fun zipMap(a: DoubleArray, b: DoubleArray, operation: (Double, Double) -> Double): DoubleArray {
+    val result = DoubleArray(a.size)
+    for (i in a.indices) {
+        result[i] = operation(a[i], b[i])
+    }
+    return result
+}
+
+
 internal inline fun zipMapRepeat(a: FloatArray, infiniteB: FloatArray, operation: (Float, Float) -> Float): FloatArray {
     val result = FloatArray(a.size)
     for (i in a.indices) {
@@ -28,6 +50,19 @@ internal inline fun zipMapRepeat(a: FloatArray, infiniteB: FloatArray, operation
     }
     return result
 }
+
+internal inline fun zipMapRepeat(
+    a: DoubleArray,
+    infiniteB: DoubleArray,
+    operation: (Double, Double) -> Double
+): DoubleArray {
+    val result = DoubleArray(a.size)
+    for (i in a.indices) {
+        result[i] = operation(a[i], infiniteB[i % infiniteB.size])
+    }
+    return result
+}
+
 
 internal inline fun <R> zipFold(a: FloatArray, b: FloatArray, initial: R, operation: (R, Float, Float) -> R): R {
     var result: R = initial

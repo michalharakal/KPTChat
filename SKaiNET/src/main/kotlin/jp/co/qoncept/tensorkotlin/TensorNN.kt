@@ -6,13 +6,13 @@ import kotlin.math.min
 val Tensor.softmax: Tensor
     get() {
         val exps = exp
-        val sum = exps.elements.fold(0.0f) { r, x -> r + x }
+        val sum = exps.elements.fold(0.0) { r, x -> r + x }
         return exps / sum
     }
 
 val Tensor.relu: Tensor
     get() {
-        return Tensor(shape, this.elements.map { max(it, 0.0f) })
+        return Tensor(shape, this.elements.map { max(it, 0.0) }.toDoubleArray())
     }
 
 fun Tensor.maxPool(kernelSize: IntArray, strides: IntArray): Tensor {
@@ -40,7 +40,7 @@ fun Tensor.maxPool(kernelSize: IntArray, strides: IntArray): Tensor {
     val outRows = inRows ceilDiv rowStride
     val outCols = inCols ceilDiv colStride
 
-    val elements = FloatArray(outCols * outRows * numChannels)
+    val elements = DoubleArray(outCols * outRows * numChannels)
 
     var elementIndex = 0
     for (y in 0 until outRows) {
@@ -54,7 +54,7 @@ fun Tensor.maxPool(kernelSize: IntArray, strides: IntArray): Tensor {
             val inMaxX = min(inX0 + inMaxDx, inCols - 1)
 
             for (c in 0 until numChannels) {
-                var maxElement = Float.MIN_VALUE
+                var maxElement = Double.MIN_VALUE
                 for (inY in inMinY..inMaxY) {
                     for (inX in inMinX..inMaxX) {
                         maxElement = max(maxElement, this.elements[(inY * inCols + inX) * numChannels + c])
@@ -99,7 +99,7 @@ fun Tensor.conv2d(filter: Tensor, strides: IntArray): Tensor {
     val outCols = shape.dimensions[1] ceilDiv colStride
     val outChannels = filter.shape.dimensions[3]
 
-    val elements = FloatArray(outCols * outRows * outChannels)
+    val elements = DoubleArray(outCols * outRows * outChannels)
 
     for (y in 0 until outRows) {
         val inY0 = y * rowStride
@@ -138,11 +138,11 @@ internal fun matmuladd(
     inCols1Rows2: Int,
     outCols: Int,
     o1: Int,
-    vec: FloatArray,
+    vec: DoubleArray,
     o2: Int,
-    mat: FloatArray,
+    mat: DoubleArray,
     oo: Int,
-    out: FloatArray
+    out: DoubleArray
 ) {
     for (i in 0 until inCols1Rows2) {
         var elementIndex = oo
