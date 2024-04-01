@@ -94,6 +94,10 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
         return commutativeBinaryOperation(tensor) { lhs, rhs -> lhs + rhs }
     }
 
+    operator fun plus(scalar: Double): Tensor {
+        return Tensor(shape, elements.map { it + scalar }.toDoubleArray())
+    }
+
     operator fun minus(tensor: Tensor): Tensor {
         return noncommutativeBinaryOperation(tensor, { lhs, rhs -> lhs - rhs }, { lhs, rhs -> rhs - lhs })
     }
