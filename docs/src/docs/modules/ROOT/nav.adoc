@@ -4,4 +4,10 @@
 * xref:building-blocks.adoc[]
 * xref:bios.adoc[]
 
+.ML Intro
+* xref:kgpt:ml-intro-de:index.adoc[]
+
+.nanoGPT erklärt
+* xref:nanogpt:de:index.adoc[]
+
 
