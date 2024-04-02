@@ -4,7 +4,4 @@
 * xref:building-blocks.adoc[]
 * xref:bios.adoc[]
 
-.nanoGPT erklärt
-* xref:nanogpt:de:index.adoc[]
-
 
