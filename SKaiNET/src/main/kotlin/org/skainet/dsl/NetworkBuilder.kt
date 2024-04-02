@@ -26,6 +26,8 @@ interface NETWORK : NetworkDslItem {
     fun input(inputSize: Int, id: String = "")
 
     fun dense(outputDimension: Int, id: String = "", content: DENSE.() -> Unit = {})
+
+    fun dropout(dropout: Double, id: String = "")
 }
 
 @NetworkDsl
@@ -81,6 +83,10 @@ private class NetworkImpl : NETWORK {
         impl.content()
         // dense layer consinst from linear module and activation function module (2 modules)
         modules += impl.create()
+    }
+
+    override fun dropout(dropout: Double, id: String) {
+        modules.add(org.skainet.nn.Dropout(dropout, name = getDefaultName(id, "Dropout", modules.size)))
     }
 }
 
