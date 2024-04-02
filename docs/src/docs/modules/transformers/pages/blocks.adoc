@@ -1,0 +1,15 @@
+= Transformers
+
+The Transformers ist eine Architektur von tiefen neuronallen Netzten, die von Vaswani et al. 2017 entwickelt wurde. Sie wurde ursprünglich für die Verarbeitung von Texten entwickelt, hat sich aber auch in anderen Bereichen wie der Bildverarbeitung als sehr effektiv erwiesen. Die Architektur besteht aus einem Encoder und einem Decoder, die beide aus einer Reihe von Schichten bestehen. Die Schichten bestehen aus Multi-Head Attention Mechanismen und Feed-Forward-Netzwerken. Die Transformer-Architektur hat die Fähigkeit, lange Abhängigkeiten in den Daten zu modellieren und ist daher sehr effektiv bei der Verarbeitung von Sequenzen. In diesem Notebook werden wir die Transformer-Architektur verwenden, um eine Sentiment-Analyse auf dem IMDB-Datensatz durchzuführen.
+
+== Bausteine
+
+image:biology-12-01033-g001.png[]
+
+Die Hauptbausteine des Transformers sind:
+
+* *Multi-Head Attention*: Ein Mechanismus, der es dem Modell ermöglicht, Beziehungen zwischen Wörtern in einem Satz zu modellieren.
+* *Masked Multi-Head Attention*: Ein Mechanismus, der es dem Modell ermöglicht, die Position der Wörter in einem Satz zu berücksichtigen.
+* *Feed-Forward-Netzwerk*: Ein Netzwerk, das es dem Modell ermöglicht, nicht lineare Beziehungen zwischen den Wörtern in einem Satz zu modellieren.
+* *Positional Encoding*: Ein Mechanismus, der es dem Modell ermöglicht, die Position der Wörter in einem Satz zu berücksichtigen.
+* *Layer Normalization*: Ein Mechanismus, der es dem Modell ermöglicht, die Aktivierung der Neuronen in den Schichten zu normalisieren.

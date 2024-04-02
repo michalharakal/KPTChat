@@ -1,0 +1,35 @@
+
+|===
+|Aktivität |Dauer |Format |Beschreibung | Link
+
+|Intro
+|20 Minuten
+|Presentation
+|Presentation der Aufgabe, der Mitteln und der Ziele
+| xref:intro.adoc[]
+
+|Einführung in das maschinelle Lernen
+|60 Minuten
+|Presentation und live coding
+|Grundprinzipien des machine learnings und Hands-On mit einfachem tiefen neuronal Netz
+| xref:kgpt:ml-intro-de:index.adoc[]
+
+|Transformers buildings blocks
+|20 Minuten
+|Presentation und live coding
+|Einführung in die Transformes Architektur
+| xref:transformers.adoc[]
+
+|Transformers buiddings blocks
+|20 Minuten
+|Presentation der Aufgabe und der Ziele
+
+
+|Column 1, row 1
+|Column 2, row 1
+|Koan
+
+|Column 1, row 2
+|Column 2, row 2
+|Column 3, row 2
+|===

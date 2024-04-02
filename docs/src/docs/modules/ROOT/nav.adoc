@@ -1,7 +1,6 @@
 .Workshop
 
 * xref:setup.adoc[]
-* xref:building-blocks.adoc[]
 * xref:bios.adoc[]
 
 .ML Intro
