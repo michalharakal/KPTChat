@@ -1,4 +1,4 @@
-package de.jugda.de.jugda.knanogpt.transformer
+package de.jugda.knanogpt.transformer
 
 import de.jugda.knanogpt.core.tensor.Shape
 import de.jugda.knanogpt.core.tensor.Tensor
@@ -12,12 +12,12 @@ import de.jugda.knanogpt.core.tensor.ext.maskedFill
 import org.skainet.activations.softmax
 
 class Head(
-    config: de.jugda.de.jugda.de.jugda.knanogpt.transformer.TransformerConfig,
+    config: TransformerConfig,
     dropout: Double,
     private val headNumber: Int
 ) : Module() {
 
-    val _modules = mutableListOf<Module>()
+    private val _modules = mutableListOf<Module>()
 
     init {
         with(config) {
