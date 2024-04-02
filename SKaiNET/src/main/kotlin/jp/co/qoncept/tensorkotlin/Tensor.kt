@@ -210,11 +210,6 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
         result = 31 * result + elements.contentHashCode()
         return result
     }
-
-    companion object {
-        fun random(shapeDimension: Int, elements: Int): Tensor =
-            Tensor(Shape(shapeDimension), doubleArrayOfRandom(elements))
-    }
 }
 
 operator fun Double.times(tensor: Tensor): Tensor {

@@ -4,7 +4,7 @@ import de.jugda.knanogpt.core.tensor.Shape
 import de.jugda.knanogpt.core.tensor.Tensor
 import de.jugda.knanogpt.core.tensor.ext.t
 
-class Linear(inFeatures: Int, private val outFeatures: Int, override val name: String = "Linear") :
+class Linear(inFeatures: Int, outFeatures: Int, override val name: String = "Linear") :
     Module() {
     private val bias: NamedParameter = NamedParameter("bias",
         Tensor(

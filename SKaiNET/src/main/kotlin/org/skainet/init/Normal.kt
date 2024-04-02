@@ -20,7 +20,7 @@ import org.skainet.nn.Module
  */
 fun normalInit(tensor: Shape, mu: Double = 0.0, sigma: Double = 1.0, random: Random = Random.Default): Tensor {
     var z0: Double
-    var z1: Double = 0.0
+    var z1 = 0.0
     var generate = false
     val elements = DoubleArray(tensor.volume)
 

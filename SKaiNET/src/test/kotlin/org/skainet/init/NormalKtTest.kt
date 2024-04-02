@@ -4,7 +4,6 @@ import org.skainet.utils.calculateMean
 import org.skainet.utils.calculateVariance
 
 import de.jugda.knanogpt.core.tensor.Shape
-import de.jugda.knanogpt.core.tensor.Tensor
 import kotlin.test.Test
 
 import kotlin.test.assertContentEquals
