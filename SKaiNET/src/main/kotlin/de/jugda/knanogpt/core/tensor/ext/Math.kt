@@ -64,7 +64,7 @@ fun computeStrides(dimensions: IntArray): IntArray {
     return strides
 }
 
-private fun unravelIndex(index: Int, dimensions: IntArray, strides: IntArray): IntArray {
+fun unravelIndex(index: Int, dimensions: IntArray, strides: IntArray): IntArray {
     var idx = index
     val indices = IntArray(dimensions.size)
     for (i in strides.indices) {

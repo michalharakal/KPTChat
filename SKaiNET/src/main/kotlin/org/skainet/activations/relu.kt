@@ -1,10 +1,8 @@
 package org.skainet.activations
 
 import de.jugda.knanogpt.core.tensor.Tensor
-import jp.co.qoncept.tensorkotlin.exp
 import org.skainet.nn.Module
 import org.skainet.nn.NamedParameter
-import kotlin.math.max
 
 /**
  * The ReLU function itself is simple: for a given input x, it returns x if x>0, and 0 otherwise.
@@ -12,7 +10,7 @@ import kotlin.math.max
 fun relu(x: Tensor): Tensor =
     Tensor(x.shape, x.elements.map { elem -> if (elem > 0) elem else 0.0 }.toDoubleArray())
 
-class ReLU(override val name: String = "ReLU") : org.skainet.nn.Module() {
+class ReLU(override val name: String = "ReLU") : Module() {
     override val params: List<NamedParameter>
         get() = emptyList()
     override val modules: List<Module>

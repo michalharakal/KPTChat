@@ -1,6 +1,5 @@
 package de.jugda.knanogpt.core.tensor.ext
 
-import de.jugda.knanogpt.core.tensor.Shape
 import de.jugda.knanogpt.core.tensor.Tensor
 
 

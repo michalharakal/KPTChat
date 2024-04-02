@@ -6,9 +6,6 @@ import de.jugda.knanogpt.core.tensor.Tensor
 
 import kotlin.test.Test
 import kotlin.test.assertContentEquals
-import kotlin.test.assertEquals
-import kotlin.test.assertFailsWith
-
 
 class TensorTrilTest {
 
