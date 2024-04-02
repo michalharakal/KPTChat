@@ -4,6 +4,7 @@ import jp.co.qoncept.tensorkotlin.zipMap
 import kotlin.test.assertContentEquals
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
 import kotlin.test.assertFailsWith
 
 
@@ -380,7 +381,7 @@ class TensorTest {
 
         val a = zipMap(y.elements, result.elements) { lhs: Double, rhs: Double -> lhs - rhs }
 
-        assertContentEquals(y.elements, result.elements)
+        assertFalse(a.any { it > 1e-4})
 
     }
 

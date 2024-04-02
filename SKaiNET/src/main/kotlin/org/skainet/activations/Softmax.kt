@@ -3,23 +3,24 @@ package org.skainet.activations
 import org.skainet.nn.Module
 import org.skainet.nn.NamedParameter
 import de.jugda.knanogpt.core.tensor.Tensor
+import jp.co.qoncept.tensorkotlin.exp
 
-fun softmax(tensor: Tensor): Tensor {
-    val expValues = DoubleArray(tensor.elements.size) { i -> Math.exp(tensor.elements[i]) }
-    val sumOfExpValues = expValues.sum()
-    val softmaxValues = DoubleArray(tensor.elements.size) { i -> expValues[i] / sumOfExpValues }
-    return Tensor(tensor.shape, softmaxValues)
-
+fun softmax(tensor: Tensor, dimension: Int): Tensor {
+    val exps = tensor.exp
+    val sum = exps.elements.fold(0.0) { r, x -> r + x }
+    return exps / sum
 }
 
-class Softmax(override val name: String = "Softmax") : Module() {
+fun Tensor.softmax(dimension: Int): Tensor = softmax(this, dimension)
+
+class Softmax(private val dimension: Int, override val name: String = "Softmax") : Module() {
     override val params: List<NamedParameter>
         get() = emptyList()
     override val modules: List<Module>
         get() = emptyList()
 
     override fun forward(input: Tensor): Tensor {
-        return softmax(input)
+        return softmax(input, dimension)
     }
 }
 

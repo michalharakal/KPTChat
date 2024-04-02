@@ -3,17 +3,6 @@ package jp.co.qoncept.tensorkotlin
 import kotlin.math.max
 import kotlin.math.min
 
-val Tensor.softmax: Tensor
-    get() {
-        val exps = exp
-        val sum = exps.elements.fold(0.0) { r, x -> r + x }
-        return exps / sum
-    }
-
-val Tensor.relu: Tensor
-    get() {
-        return Tensor(shape, this.elements.map { max(it, 0.0) }.toDoubleArray())
-    }
 
 fun Tensor.maxPool(kernelSize: IntArray, strides: IntArray): Tensor {
     assert({ shape.dimensions.size == 3 }, { "`shape.dimensions.size` must be 3: ${shape.dimensions.size}" })

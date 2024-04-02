@@ -15,12 +15,8 @@ class NormalInitTest {
     @Test
     fun testNormalInit() {
         val normalTensor = normalInit(Shape(3), mu = 0.0, sigma = 1.0)
-        val elements = normalTensor.elements
-        val expectedOutput = doubleArrayOf(
-            0.0, 0.0, 0.0
-        )
 
-        assertContentEquals(expectedOutput, elements)
+        assertFalse(normalTensor.elements.any { it == 0.0 })
     }
 
     @Test
