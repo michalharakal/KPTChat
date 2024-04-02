@@ -42,7 +42,7 @@ fun normalInit(tensor: Shape, mu: Double = 0.0, sigma: Double = 1.0, random: Ran
     return Tensor(tensor, elements)
 }
 
-class Normal(
+class InitNormal(
     nestedModule: Module,
     initHandler: (Tensor) -> Tensor,
     override val name: String

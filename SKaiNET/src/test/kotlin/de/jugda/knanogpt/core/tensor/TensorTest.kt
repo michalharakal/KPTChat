@@ -381,7 +381,7 @@ class TensorTest {
 
         val a = zipMap(y.elements, result.elements) { lhs: Double, rhs: Double -> lhs - rhs }
 
-        assertFalse(a.any { it > 1e-4})
+        assertFalse(a.any { it > 1e-4 })
 
     }
 
@@ -408,42 +408,12 @@ class TensorTest {
             )
         )
 
-        val k_result = Tensor(
-            Shape(16),
-            doubleArrayOf(
-                0.14715009951128355,
-                -0.5347793632213214,
-                -0.7685050211424569,
-                0.09199372190648035,
-                -0.7744296001144447,
-                -0.018974465136792996,
-                0.07594175692651706,
-                0.45442529276305443,
-                0.12254289209012115,
-                -0.3715247926166551,
-                -0.8137658227132489,
-                0.7751583103545383,
-                0.6016385010477432,
-                -0.15099300264902527,
-                0.47237550701877384,
-                -0.0562314417199441
-            )
-        )
 
-
-        val py_result_full = Tensor(
+        val pyResultFull = Tensor(
             Shape(16),
             doubleArrayOf(
                 1.1854, -0.6741, -0.6295, -1.1592, -0.6302, 0.9370, 1.1144, -0.4297,
                 -0.3898, -0.4299, -0.0920, -0.4295, 1.5924, -0.2030, -0.7689, -0.1651
-            )
-        )
-
-        val py_result = Tensor(
-            Shape(16),
-            doubleArrayOf(
-                -0.0696, -0.2808, -0.4745, 0.0948, -0.5939, -0.0089, -0.2549, 0.5010,
-                0.1389, -0.3880, -0.6445, 0.9623, 0.3263, -0.0596, 0.5342, -0.2002
             )
         )
 
@@ -452,7 +422,7 @@ class TensorTest {
 
         val b = input.matmul(fc2weight) + fc2bias
 
-        print(b - py_result_full)
+        print(b - pyResultFull)
     }
 
 }

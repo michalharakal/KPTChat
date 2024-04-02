@@ -10,7 +10,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
-class NormalInitTest {
+class InitNormalInitTest {
     @Test
     fun testNormalInit() {
         val normalTensor = normalInit(Shape(3), mu = 0.0, sigma = 1.0)
