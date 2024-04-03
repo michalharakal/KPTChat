@@ -19,10 +19,10 @@ class BatchProvider(
         val data = if (selectTrainingData) trainingData else validationData
         val ix = randint(random, 0, data.elements.size - blockSize, Shape(batchSize))
         val x = stack(ix.elements.map {
-            Tensor(Shape(blockSize), data.elements.slice(it.toInt()..<it.toInt() + blockSize).toFloatArray())
+            Tensor(Shape(blockSize), data.elements.slice(it.toInt()..<it.toInt() + blockSize).toDoubleArray())
         })
         val y = stack(ix.elements.map {
-            Tensor(Shape(blockSize), data.elements.slice(it.toInt() + 1..<it.toInt() + blockSize + 1).toFloatArray())
+            Tensor(Shape(blockSize), data.elements.slice(it.toInt() + 1..<it.toInt() + blockSize + 1).toDoubleArray())
         })
         return Pair(x, y)
     }
