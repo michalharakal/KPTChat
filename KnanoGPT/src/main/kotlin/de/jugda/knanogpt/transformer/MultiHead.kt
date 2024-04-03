@@ -14,7 +14,6 @@ import de.jugda.knanogpt.core.tensor.ext.cat
  */
 class MultiHeadAttention(
     config: TransformerConfig,
-    dropout: Double,
     override val name: String = "MultiHeadAttention"
 ) : Module() {
 

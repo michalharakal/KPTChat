@@ -11,11 +11,10 @@ import org.skainet.topologies.FeedForwardNetwork
 
 class FeedForward(
     config: TransformerConfig,
-    private val dropout: Double,
-    override val name: String = "MultiHeadAttention"
+    override val name: String = "FeedForward"
 ) : Module() {
 
-    private lateinit var sequential: FeedForwardNetwork
+    private val sequential: FeedForwardNetwork
 
     init {
         with(config) {
