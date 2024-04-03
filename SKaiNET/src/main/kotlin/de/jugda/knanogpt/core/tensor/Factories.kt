@@ -13,3 +13,6 @@ fun randint(random: Random, low: Int, high: Int, shape: Shape): Tensor {
     return Tensor(shape, elements)
 }
 
+fun Shape.zeros(): Tensor = Tensor(this, DoubleArray(volume) { 0.0 })
+
+fun Shape.ones(): Tensor = Tensor(this, DoubleArray(volume) { 1.0 })

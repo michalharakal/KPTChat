@@ -1,11 +1,9 @@
-package de.jugda.de.jugda.knanogpt.transformer
+package de.jugda.knanogpt.transformer
 
 import de.jugda.knanogpt.core.tensor.Tensor
-import de.jugda.knanogpt.transformer.TransformerConfig
 import org.skainet.nn.Module
 import org.skainet.nn.NamedParameter
 import org.skainet.nn.LayerNorm
-import de.jugda.knanogpt.transformer.MultiHeadAttention
 
 
 class Block(
