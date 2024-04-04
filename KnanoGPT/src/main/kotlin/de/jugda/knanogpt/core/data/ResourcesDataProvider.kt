@@ -19,7 +19,7 @@ class ResourcesDataProvider(resourceName: String) : DataProvider<Tensor> {
     }
 
     override fun load(): Tensor =
-        Tensor(Shape(1, textContent.length), CharTokenizer(textContent).encode(textContent).map {
+        Tensor(Shape(textContent.length), CharTokenizer(textContent).encode(textContent).map {
             it.toDouble()
         }.toDoubleArray())
 }
