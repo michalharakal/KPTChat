@@ -1,6 +1,9 @@
 name: kgpt
 title: KGPTChat
-version: 
+version:
 start_page: ROOT:index.adoc
 nav:
 - modules/ROOT/nav.adoc
+- modules/ml-intro-de/nav.adoc
+- modules/workshop-de/nav.adoc
+- modules/skainet/nav.adoc

@@ -20,7 +20,7 @@ class FactoriesTest {
         val randtensor = randint(random, 0, dataLen - blockSize, Shape(batchSize))
         assertContentEquals(
             randtensor.elements,
-            Tensor(Shape(batchSize), listOf(139827.0f, 146480.0f, 314577.0f, 99015.0f).toFloatArray()).elements
+            Tensor(Shape(batchSize), listOf(139827.0, 146480.0, 314577.0, 99015.0).toDoubleArray()).elements
         )
     }
 

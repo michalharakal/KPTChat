@@ -6,7 +6,7 @@ import de.jugda.knanogpt.core.tensor.Shape
 import java.nio.file.Files
 import java.nio.file.Paths
 
-class ResourcesDataProvider(private val resourceName: String) : DataProvider<Tensor> {
+class ResourcesDataProvider(resourceName: String) : DataProvider<Tensor> {
 
     private val textContent: String
 
@@ -19,9 +19,7 @@ class ResourcesDataProvider(private val resourceName: String) : DataProvider<Ten
     }
 
     override fun load(): Tensor =
-        Tensor(Shape(1, textContent.length), CharTokenizer(textContent).encode(textContent).map {
-            it.toFloat()
-        }.toFloatArray())
-
-
+        Tensor(Shape(textContent.length), CharTokenizer(textContent).encode(textContent).map {
+            it.toDouble()
+        }.toDoubleArray())
 }

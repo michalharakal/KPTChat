@@ -1,0 +1,3 @@
+* Andrej Karpathy's Projekt https://karpathy.ai/zero-to-hero.html[Neural Networks: Zero to Hero]
+* Andrej Karpathy's https://github.com/karpathy/ng-video-lecture[Code]
+*  https://www.youtube.com/playlist?list=PLAqhIrjkxbuWI23v9cThsA9GvCAUhRvKZ[Andrej Karpathy's Youtube Channel]

@@ -1,0 +1,7 @@
+.Transformers
+
+.Blocks
+* xref:blocks.adoc[]
+** xref:kgpt:ml-intro-de:linear.adoc[]
+** xref:kgpt:ml-intro-de:softmax.adoc[]
+

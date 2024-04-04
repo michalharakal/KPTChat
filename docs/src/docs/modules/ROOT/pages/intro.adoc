@@ -1,0 +1,10 @@
+= Intro
+
+In diesem Workshop bauen with in Kotlin eine einfache Implementierung von Transformers Architektur, die später zum einen einfachen generativen Sprach-Model benutzt wird. Das Zeil ist die Grundbausteine zu verstehen und in Kotlin implementieren.
+
+Ein Vorbild zu diesem Workshop ist  https://github.com/karpathy/ng-video-lecture[die Implementierung von Andrej Karpathy]. Seine Implementierung ist in Python geschrieben sehr gut erklärt. Unsere Kommentare und Analyse mit Fokus auf diesen Workshop kann man in separaten repository finden.
+
+
+== Links
+include::partial$karpathy-links.adoc[]
+* https://michalharakal.github.io/karpathy-GPT-from-scratch-in-python/nanogpt/de/index.html[auf Deutsch kommentierte Version]
