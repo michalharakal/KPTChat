@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Step 5. Transformers - Head :: KPTChat</title>
+    <link rel="canonical" href="https://michalharakal.github.io/KPTChat/nanogpt/de/step-8.html">
+    <link rel="prev" href="step-7.html">
+    <meta name="generator" content="Antora 3.1.7">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://michalharakal.github.io/KPTChat">KPTChat</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Resource A</a>
+            <a class="navbar-item" href="#">Resource B</a>
+            <a class="navbar-item" href="#">Resource C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="nanogpt" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">nanoGPT Explained</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Schritt nach Schritt</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-1.html">Step 1. Imports-Block</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-2.html">Step 2. Initialisierung-Block</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-3.html">Step 3. Daten laden</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-4.html">Step 4. Encoder &amp; Decoder</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-5.html">Step 5. Train &amp; Test Spilt</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-6.html">Step 5. get_batch()</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-7.html">Step 5. estimate_loss()</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="step-8.html">Step 5. Transformers - Head</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">nanoGPT Explained</span>
+    <span class="version">default</span>
+  </div>
+  <ul class="components">
+    <li class="component">
+      <a class="title" href="../../kgpt/index.html">KGPTChat</a>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../kgpt/index.html">default</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <a class="title" href="index.html">nanoGPT Explained</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">default</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../kgpt/index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">nanoGPT Explained</a></li>
+    <li>Schritt nach Schritt</li>
+    <li><a href="step-8.html">Step 5. Transformers - Head</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Step 5. Transformers - Head</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class Head(nn.Module):
+    """ one head of self-attention """
+
+    def __init__(self, head_size):
+        super().__init__()
+        self.key = nn.Linear(n_embd, head_size, bias=False)
+        self.query = nn.Linear(n_embd, head_size, bias=False)
+        self.value = nn.Linear(n_embd, head_size, bias=False)
+        self.register_buffer('tril', torch.tril(torch.ones(block_size, block_size)))
+
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, x):
+        # input of size (batch, time-step, channels)
+        # output of size (batch, time-step, head size)
+        B,T,C = x.shape
+        k = self.key(x)   # (B,T,hs)
+        q = self.query(x) # (B,T,hs)
+        # compute attention scores ("affinities")
+        wei = q @ k.transpose(-2,-1) * k.shape[-1]**-0.5 # (B, T, hs) @ (B, hs, T) -&gt; (B, T, T)
+        wei = wei.masked_fill(self.tril[:T, :T] == 0, float('-inf')) # (B, T, T)
+        wei = F.softmax(wei, dim=-1) # (B, T, T)
+        wei = self.dropout(wei)
+        # perform the weighted aggregation of the values
+        v = self.value(x) # (B,T,hs)
+        out = wei @ v # (B, T, T) @ (B, T, hs) -&gt; (B, T, hs)
+        return out</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="b-t-c"><a class="anchor" href="#b-t-c"></a>B, T, C</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In dem Python-Code, stehen <code>B</code>, <code>T</code> und <code>C</code> für Dimensionen, die häufig im Kontext von Sequenzen und Batches in maschinellem Lernen verwendet werden, insbesondere in der natürlichen Sprachverarbeitung (NLP) und ähnlichen Bereichen. Hier ist, was sie bedeuten:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>B</code></strong>: Batch-Größe. Die Anzahl der Datensätze, die in einem Durchgang des Vorwärts-/Rückwärtsdurchlaufs beim Training verarbeitet werden. Es ist üblich, Batches im Training für Effizienz und Generalisierung zu verwenden.</p>
+</li>
+<li>
+<p><strong><code>T</code></strong>: Sequenzlänge oder Zeitpunkte. Im Kontext von Sequenzen, wie Sätzen in Texten oder Zeitreihendaten, repräsentiert <code>T</code> die Länge der Sequenz. In der NLP könnte dies die Anzahl der Wörter oder Token im längsten Satz im Batch sein, wobei kürzere Sequenzen auf diese Länge aufgefüllt werden.</p>
+</li>
+<li>
+<p><strong><code>C</code></strong>: Anzahl der Kanäle oder Merkmale. In der NLP entspricht dies oft der Größe des Einbettungsvektors für jedes Token. Bei Bilddaten könnte <code>C</code> die Farbkanäle repräsentieren (z. B. 3 für RGB-Bilder).</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="code-erklärung"><a class="anchor" href="#code-erklärung"></a>Code Erklärung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dieser Code ist ein Teil einer Vorwärts-Pass-Methode (<code>forward</code>) eines selbst-aufmerksamkeitsbasierten Mechanismus, wie er in Transformer-Modellen verwendet wird. Hier ist eine detaillierte Erklärung:</p>
+</div>
+<div class="sect2">
+<h3 id="eingabe-und-ausgabe"><a class="anchor" href="#eingabe-und-ausgabe"></a>Eingabe und Ausgabe</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Eingabe (<code>x</code>)</strong>: Die Eingabe ist ein Tensor der Größe <code>(batch, time-step, channels)</code>, der eine Batch-Größe (<code>B</code>), eine Anzahl an Zeitpunkten oder Sequenzlängen (<code>T</code>) und eine Anzahl an Kanälen oder Merkmalen (<code>C</code>) hat.</p>
+</li>
+<li>
+<p><strong>Ausgabe</strong>: Die Ausgabe ist ein Tensor der Größe <code>(batch, time-step, head size)</code>, also ein Tensor mit denselben Dimensionen für Batch und Zeitpunkte, aber möglicherweise einer anderen Dimension für die Merkmale, hier bezeichnet als "head size" (<code>hs</code>).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="schlüssel-abfrage-und-wertfunktionen"><a class="anchor" href="#schlüssel-abfrage-und-wertfunktionen"></a>Schlüssel-, Abfrage- und Wertfunktionen</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>self.key(x)</code>, <code>self.query(x)</code>, <code>self.value(x)</code></strong>: Diese Funktionen erzeugen jeweils Tensoren der Größe <code>(B,T,hs)</code> für Schlüssel (<code>k</code>), Abfragen (<code>q</code>) und Werte (<code>v</code>) basierend auf der Eingabe. Sie transformieren die Eingabedaten in verschiedene Darstellungen für den Aufmerksamkeitsmechanismus.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="berechnung-der-aufmerksamkeitsscores"><a class="anchor" href="#berechnung-der-aufmerksamkeitsscores"></a>Berechnung der Aufmerksamkeitsscores</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Affinitäten (<code>wei</code>)</strong>: Der Abfrage-Tensor (<code>q</code>) wird mit der transponierten Version des Schlüssel-Tensors (<code>k</code>) multipliziert. Dies erfolgt mittels der Matrizenmultiplikation <code>@</code>, wobei <code>k.transpose(-2,-1)</code> die letzte und vorletzte Dimension von <code>k</code> vertauscht, um die Dimensionen für die Multiplikation passend zu machen. Dieser Schritt berechnet die Affinität oder "Aufmerksamkeitsscores" zwischen allen Paaren von Abfragen und Schlüsseln. Die Multiplikation mit <code>k.shape[-1]**-0.5</code> dient dazu, die Werte zu skalieren und zu stabilisieren (dies entspricht der Wurzel der Dimension der Schlüssel/Abfragen).</p>
+</li>
+<li>
+<p><strong>Maskierung</strong>: Die Variable <code>self.tril</code> ist eine untere Dreiecksmatrix, die verwendet wird, um bestimmte Aufmerksamkeitsscores zu maskieren (zu "verstecken"), indem sie auf <code>-inf</code> gesetzt werden. Dies wird oft verwendet, um zu verhindern, dass die Vorhersage für einen Zeitpunkt Informationen von zukünftigen Zeitpunkten berücksichtigt, und implementiert damit eine kausale oder maskierte Aufmerksamkeit.</p>
+</li>
+<li>
+<p><strong>Softmax</strong>: Die Anwendung der Softmax-Funktion auf die Aufmerksamkeitsscores (<code>wei</code>) entlang der letzten Dimension verwandelt sie in Wahrscheinlichkeiten, wobei die Softmax-Normalisierung sicherstellt, dass die Scores für jeden Zeitpunkt zu 1 summiert werden.</p>
+</li>
+<li>
+<p><strong>Dropout</strong>: <code>self.dropout(wei)</code> wendet Dropout auf die normalisierten Aufmerksamkeitsscores an, um Überanpassung zu verhindern und die Generalisierungsfähigkeit des Modells zu verbessern.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="gewichtete-aggregation-der-werte"><a class="anchor" href="#gewichtete-aggregation-der-werte"></a>Gewichtete Aggregation der Werte</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Die normalisierten und eventuell maskierten Aufmerksamkeitsscores (<code>wei</code>) werden dann verwendet, um eine gewichtete Summe der Werte (<code>v</code>) zu berechnen. Die Matrizenmultiplikation <code>wei @ v</code> bewirkt, dass die "Aufmerksamkeit" oder das "Gewicht", das jedem Wert zugewiesen wird, basierend auf den Affinitäten zwischen den Abfragen und den Schlüsseln berechnet wird.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="rückgabe"><a class="anchor" href="#rückgabe"></a>Rückgabe</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Der resultierende Tensor <code>out</code> der Größe <code>(B, T, hs)</code> ist das Ergebnis des Aufmerksamkeitsmechanismus und gibt für jede Abfrage im Batch und zu jedem Zeitpunkt einen gewichteten aggregierten Wert basierend auf den berechneten Aufmerksamkeitsscores zurück.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="step-7.html">Step 5. estimate_loss()</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <p>This page was built using the Antora default UI.</p>
+  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
+</footer>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

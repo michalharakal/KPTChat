@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Step 1. Imports-Block :: KPTChat</title>
-    <link rel="canonical" href="https://michalharakal.github.io/KPTChat/nanogpt/de/step-1.html">
-    <link rel="prev" href="index.html">
-    <link rel="next" href="step-2.html">
+    <title>Step 5. get_batch() :: KPTChat</title>
+    <link rel="canonical" href="https://michalharakal.github.io/KPTChat/nanogpt/de/step-6.html">
+    <link rel="prev" href="step-5.html">
+    <link rel="next" href="step-7.html">
     <meta name="generator" content="Antora 3.1.7">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script>var uiRootPath = '../../_'</script>
@@ -70,7 +70,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Schritt nach Schritt</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="step-1.html">Step 1. Imports-Block</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -85,7 +85,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="step-5.html">Step 5. Train &amp; Test Spilt</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="step-6.html">Step 5. get_batch()</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -134,7 +134,7 @@
   <ul>
     <li><a href="index.html">nanoGPT Explained</a></li>
     <li>Schritt nach Schritt</li>
-    <li><a href="step-1.html">Step 1. Imports-Block</a></li>
+    <li><a href="step-6.html">Step 5. get_batch()</a></li>
   </ul>
 </nav>
 </div>
@@ -143,33 +143,71 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Step 1. Imports-Block</h1>
+<h1 class="page">Step 5. get_batch()</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">import torch
-import torch.nn as nn
-from torch.nn import functional as F</code></pre>
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># data loading
+def get_batch(split):
+    # generate a small batch of data of inputs x and targets y
+    data = train_data if split == 'train' else val_data
+    ix = torch.randint(len(data) - block_size, (batch_size,))
+    x = torch.stack([data[i:i+block_size] for i in ix])
+    y = torch.stack([data[i+1:i+block_size+1] for i in ix])
+    x, y = x.to(device), y.to(device)
+    return x, y</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p><code>PyTorch</code>, eine ML Bibliothek ist benutzt:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Tensors und mathematische Operationen</p>
-</li>
-<li>
-<p>vordefinierte Klassen zum Aufbauen von tiefen neuronalen Netzen(Blöcke, Aktivierung Funktion &#8230;&#8203;)</p>
-</li>
-<li>
-<p>Unterstützt HW Beschleunigung</p>
-</li>
-</ul>
+</div>
+<div class="sect1">
+<h2 id="batch-block-explanation"><a class="anchor" href="#batch-block-explanation"></a>Batch &amp; Block explanation</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">x = train_data[:block_size]
+y = train_data[1:block_size+1]
+for t in range(block_size):
+    context = x[:t+1]
+    target = y[t]
+    print(f"when input is {context} the target: {target}")</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">when input is tensor([18]) the target: 47
+when input is tensor([18, 47]) the target: 56
+when input is tensor([18, 47, 56]) the target: 57
+when input is tensor([18, 47, 56, 57]) the target: 58
+when input is tensor([18, 47, 56, 57, 58]) the target: 1
+when input is tensor([18, 47, 56, 57, 58,  1]) the target: 15
+when input is tensor([18, 47, 56, 57, 58,  1, 15]) the target: 47
+when input is tensor([18, 47, 56, 57, 58,  1, 15, 47]) the target: 58</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="get-batch-code"><a class="anchor" href="#get-batch-code"></a>get batch Code</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def get_batch(split):
+    # generate a small batch of data of inputs x and targets y
+    data = train_data if split == 'train' else val_data
+    ix = torch.randint(len(data) - block_size, (batch_size,))
+    x = torch.stack([data[i:i+block_size] for i in ix])
+    y = torch.stack([data[i+1:i+block_size+1] for i in ix])
+    x, y = x.to(device), y.to(device)
+    return x, y</code></pre>
+</div>
+</div>
+</div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="index.html">nanoGPT Explained</a></span>
-  <span class="next"><a href="step-2.html">Step 2. Initialisierung-Block</a></span>
+  <span class="prev"><a href="step-5.html">Step 5. Train &amp; Test Spilt</a></span>
+  <span class="next"><a href="step-7.html">Step 5. estimate_loss()</a></span>
 </nav>
 </article>
   </div>
