@@ -10,3 +10,6 @@ summary: |-
 programming_language: Kotlin
 content:
   - lesson1
+  - lesson2
+environment_settings:
+  jvm_language_level: JDK_1_8

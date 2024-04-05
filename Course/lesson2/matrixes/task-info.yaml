@@ -1,0 +1,10 @@
+type: edu
+files:
+  - name: src/Task.kt
+    visible: true
+    placeholders:
+      - offset: 496
+        length: 226
+        placeholder_text: Implement Matrix multiplication
+  - name: test/Tests.kt
+    visible: false
