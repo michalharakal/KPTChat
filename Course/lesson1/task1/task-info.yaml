@@ -1,0 +1,18 @@
+type: edu
+files:
+  - name: src/Task.kt
+    visible: true
+    placeholders:
+      - offset: 197
+        length: 21
+        placeholder_text: TODO("Text in ein Set von Character umwandeln und sortieren")
+      - offset: 258
+        length: 51
+        placeholder_text: TODO("Index Character zu Asciicode aufbauen")
+      - offset: 349
+        length: 51
+        placeholder_text: TODO("Reverse-Index Asciicode zu Character aufbauen")
+  - name: test/Tests.kt
+    visible: false
+  - name: input.txt
+    visible: true

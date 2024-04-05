@@ -1,0 +1,15 @@
+# Kurs: ChatGPT Klon in Kotlin
+
+* In diesem Workshop implementieren wir ein Sprachmodell, mit einer ähnlichen Architektur, auf der auch die bekannte "Large Language Models" wie z.B. ChatGPT aufbauen, mit Kotlin für JVM von Grund auf. Wir lernen dabei, wie das ganze funktioniert. Wir werden sämtliche relevanten Konzepte und Ideen erläutern und sie auf eine Weise präsentieren, die es erlaubt, sie in anderen Sprachen selbst nachzubauen.
+* Quelle JavaLand 2024: https://meine.doag.org/events/javaland/2024/agenda/#agendaId.4078
+
+
+## Implementierung der Koans
+* entwickelt als Koans mit dem Jetbrains Academy Plugin
+* Starter Guide: https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/educator-start-guide.html
+** Lessons mit einzelnen Aufgaben, jeweils einen implementierten Test und die zu entwickelnde Koan mit Platzhaltern
+** Ausprobieren über Rechtsklick auf Kurs -> Course Creator -> Create Course Preview
+** Auslieferung an die Teilnehmer mit verschiedenen Optionen, unter anderem als Zip-Datei: https://plugins.jetbrains.com/plugin/10081-jetbrains-academy/docs/educator-start-guide.html#course_distribution
+
+## Inhaltlich
+* Lessons orientieren sich an den folgenden Schritten: https://michalharakal.github.io/KPTChat/nanogpt/de/index.html

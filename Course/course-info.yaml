@@ -1,0 +1,12 @@
+type: marketplace
+title: ChatGPT Klon in Kotlin
+language: German
+summary: |-
+  In diesem Workshop implementieren wir ein Sprachmodell, mit einer ähnlichen Architektur, auf der auch die bekannte "Large Language Models" wie z.B. ChatGPT aufbauen, mit Kotlin für JVM von Grund auf. Wir lernen dabei, wie das ganze funktioniert. Wir werden sämtliche relevanten Konzepte und Ideen erläutern und sie auf eine Weise präsentieren, die es erlaubt, sie in anderen Sprachen selbst nachzubauen.
+
+  Quelle JavaLand 2024: https://meine.doag.org/events/javaland/2024/agenda/#agendaId.4078
+
+  Begleitendes Repo: https://github.com/michalharakal/KPTChat
+programming_language: Kotlin
+content:
+  - lesson1
