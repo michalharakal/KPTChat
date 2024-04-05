@@ -6,4 +6,5 @@ rootProject.name = "KPTChat"
 include("docs")
 include("KnanoGPT")
 include("SKaiNET")
+include("SKaiNET-gguf")
 include("SKaiNET-samples")
