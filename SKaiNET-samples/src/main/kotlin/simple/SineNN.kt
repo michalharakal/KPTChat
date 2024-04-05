@@ -2,6 +2,7 @@ package de.jugda.simple
 
 import de.jugda.knanogpt.core.tensor.Shape
 import de.jugda.knanogpt.core.tensor.Tensor
+import org.skainet.summary
 import org.skainet.activations.relu
 import org.skainet.dsl.network
 import org.skainet.nn.Module
@@ -42,41 +43,5 @@ fun SineNN.of(vararg values: Double): Tensor =
 
 fun main() {
     val model = SineNN()
-
-    model.params.forEach { namedParameter ->
-        //  println(namedParameter)
-    }
-
-    model.modules.forEach { module ->
-//        module.params
-        //     println(module.params)
-    }
-
-    val wandb = de.jugda.simple.pretrained.tensorMap
-
-    val linear = model.modules.filter { module ->
-        module.name.startsWith("Li")
-    }
-    linear.forEachIndexed { index, layer ->
-        val weightKey = "fc${index + 1}.weight"
-        layer.params.firstOrNull { it.name.startsWith("w") }?.let { weightParam ->
-            wandb[weightKey]?.let { newWeightValue ->
-                weightParam.value = newWeightValue
-            }
-        }
-    }
-
-    linear.forEachIndexed { index, layer ->
-        val biasKey = "fc${index + 1}.bias"
-        layer.params.firstOrNull { it.name.startsWith("b") }?.let { biasParam ->
-            wandb[biasKey]?.let { newBiasValue ->
-                biasParam.value = newBiasValue
-            }
-        }
-    }
-
-
-
-    print(model.of(kotlin.math.PI / 2))
-
+    println(model.summary(Shape(1), 1))
 }

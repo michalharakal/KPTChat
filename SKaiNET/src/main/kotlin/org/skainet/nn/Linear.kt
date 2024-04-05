@@ -27,12 +27,8 @@ class Linear(inFeatures: Int, outFeatures: Int, override val name: String = "Lin
 
 
     override fun forward(input: Tensor): Tensor {
-        val weight = params.by("W")
-        val bias = params.by("B")
-        println(name)
-        println("inp = $input")
-        println("weight = $weight")
-        println("===========")
+        val weight = params.by("W")!!
+        val bias = params.by("B")!!
 
         // Assuming Tensor has a matmul (matrix multiplication) method and a plus method for addition
         val output = input.matmul(weight.value.t()) + bias.value
