@@ -12,7 +12,9 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+    implementation("com.jakewharton.picnic:picnic:0.7.0")
+
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("junit:junit:4.13.2")
 }
