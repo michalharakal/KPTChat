@@ -82,4 +82,7 @@ private fun ravelIndex(indices: IntArray, dimensions: IntArray, strides: IntArra
     return index
 }
 
+fun Tensor.prod(): Double = this.elements.fold(1.0) { acc, element -> acc * element }
+
+
 
