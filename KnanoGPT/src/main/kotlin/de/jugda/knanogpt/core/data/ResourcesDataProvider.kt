@@ -1,6 +1,6 @@
 package de.jugda.knanogpt.core.data
 
-import de.jugda.de.jugda.knanogpt.core.CharTokenizer
+import de.jugda.knanogpt.core.CharTokenizer
 import de.jugda.knanogpt.core.tensor.Tensor
 import de.jugda.knanogpt.core.tensor.Shape
 import java.nio.file.Files

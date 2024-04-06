@@ -10,22 +10,23 @@ import org.skainet.nn.Module
 
 // DSL Marker to restrict the DSL to its intended scope
 @DslMarker
-private annotation class NetworkDsl
+annotation class NetworkDsl
 
 @NetworkDsl
-fun network(content: NETWORK.() -> Unit) = NetworkImpl()
+fun network(content: NeuralNetworkDsl.() -> Unit) = NeuralNetworkDslImpl()
     .apply(content)
     .create()
 
 @NetworkDsl
-interface NetworkDslItem {
-}
+interface NetworkDslItem
 
 @NetworkDsl
-interface NETWORK : NetworkDslItem {
+interface NeuralNetworkDsl : NetworkDslItem {
     fun input(inputSize: Int, id: String = "")
 
     fun dense(outputDimension: Int, id: String = "", content: DENSE.() -> Unit = {})
+
+    fun embedding(numEmbeddings: Int, embeddingDim: Int, id: String = "")
 
     fun dropout(dropout: Double, id: String = "")
 }
@@ -33,6 +34,8 @@ interface NETWORK : NetworkDslItem {
 @NetworkDsl
 interface DENSE : NetworkDslItem {
     var activation: (Tensor) -> Tensor
+    fun weights(initBlock: (Shape) -> Tensor)
+    fun bias(initBlock: (Shape) -> Tensor)
 }
 
 private fun getDefaultName(id: String, s: String, size: Int): String {
@@ -45,6 +48,7 @@ class DenseImpl(
     private val inputDimension: Int, private val outputDimension: Int, private val id: String
 ) : DENSE {
 
+    private var weightsValue: Tensor? = null
     private var _activation: (Tensor) -> Tensor = { tensor -> tensor }
 
     fun create(): List<Module> {
@@ -59,9 +63,17 @@ class DenseImpl(
         set(value) {
             _activation = value
         }
+
+    override fun weights(initBlock: (Shape) -> Tensor) {
+        weightsValue = initBlock(Shape(outputDimension, inputDimension))
+    }
+
+    override fun bias(initBlock: (Shape) -> Tensor) {
+        weightsValue = initBlock(Shape(outputDimension))
+    }
 }
 
-private class NetworkImpl : NETWORK {
+private class NeuralNetworkDslImpl : NeuralNetworkDsl {
 
     val modules = mutableListOf<Module>()
     var lastDimension = 0
@@ -85,6 +97,14 @@ private class NetworkImpl : NETWORK {
         modules += impl.create()
     }
 
+    override fun embedding(numEmbeddings: Int, embeddingDim: Int, id: String) {
+        modules += org.skainet.nn.Embedding(
+            numEmbeddings,
+            embeddingDim,
+            name = getDefaultName(id, "Embedding", modules.size)
+        )
+    }
+
     override fun dropout(dropout: Double, id: String) {
         modules.add(org.skainet.nn.Dropout(dropout, name = getDefaultName(id, "Dropout", modules.size)))
     }
@@ -100,5 +120,5 @@ class NetworkBuilder {
         return this
     }
 
-    fun build(): FeedForwardNetwork = FeedForwardNetwork(*modules.toTypedArray())
+    fun build(): Module = FeedForwardNetwork(*modules.toTypedArray())
 }

@@ -6,6 +6,8 @@ import org.skainet.nn.Module
 import org.skainet.nn.Linear
 import org.skainet.nn.NamedParameter
 import de.jugda.knanogpt.core.tensor.ext.cat
+import de.jugda.knanogpt.transformer.dsl.transformer
+import org.skainet.dsl.network
 
 
 /**
@@ -22,13 +24,24 @@ class MultiHeadAttention(
 
     init {
         with(config) {
-            _heads += List(num_heads) {
-                Head(config, dropout, it)
+            _heads += transformer {
+                multihead(num_heads) {
+                    head {
+                        n_embd = config.n_embd
+                        head_size = config.head_size
+                        dropout = config.dropout
+                    }
+
+                }
             }
-            _modules += listOf(
-                Linear(head_size * num_heads, n_embd),
-                Dropout(dropout)
-            )
+            _modules +=
+                listOf(
+                    network {
+                        input(n_embd)
+                        dense(head_size * num_heads)
+                        dropout(dropout)
+                    }
+                )
         }
     }
 

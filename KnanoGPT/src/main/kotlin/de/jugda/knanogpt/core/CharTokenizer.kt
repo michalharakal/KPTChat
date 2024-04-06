@@ -1,4 +1,4 @@
-package de.jugda.de.jugda.knanogpt.core
+package de.jugda.knanogpt.core
 
 class CharTokenizer(text: String) : Tokenizer<Int> {
     private val chars: List<Char> = text.toSet().sorted()

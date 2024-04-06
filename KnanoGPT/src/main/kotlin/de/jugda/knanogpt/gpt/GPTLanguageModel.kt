@@ -32,14 +32,17 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
     private fun initWeights() {
         modules.forEach { module ->
             if (module is Linear) {
-                val weights = module.params.by("W")
-                weights.value = normalInit(weights.value.shape, 0.0, 0.02)
-                val bias = module.params.by("B")
-                bias.value = weights.value.shape.zeros()
+                module.params.by("W")?.let { weights ->
+                    weights.value = normalInit(weights.value.shape, 0.0, 0.02)
+                }
+                module.params.by("B")?.let { bias ->
+                    bias.value = bias.value.shape.zeros()
+                }
             }
             if (module is Embedding) {
-                val weights = module.params.by("W")
-                weights.value = normalInit(weights.value.shape, 0.0, 0.02)
+                module.params.by("W")?.let { weights ->
+                    weights.value = normalInit(weights.value.shape, 0.0, 0.02)
+                }
             }
         }
     }

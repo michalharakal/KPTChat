@@ -8,10 +8,12 @@ version = "0.0.1"
 
 repositories {
     mavenCentral()
-
 }
 
 dependencies {
+    implementation(project(":SKaiNET"))
+
+    implementation("com.jakewharton.picnic:picnic:0.7.0")
 
 
     testImplementation("org.jetbrains.kotlin:kotlin-test")
@@ -30,7 +32,7 @@ publishing {
         // Create a publication named 'myLibrary'
         create("skainet", MavenPublication::class) {
             // Set the artifact ID
-            artifactId = "core"
+            artifactId = "reflection"
 
             // Include components from the 'java' plugin
             from(components["java"])
