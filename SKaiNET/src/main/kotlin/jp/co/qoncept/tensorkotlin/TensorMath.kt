@@ -54,3 +54,7 @@ val Tensor.cbrt: Tensor
 
 val Tensor.sigmoid: Tensor
     get() = Tensor(shape, elements.map { (1.0 / exp(-it)) }.toDoubleArray())
+
+
+val Tensor.ln: Tensor
+    get() = Tensor(shape, elements.map { ln(it) }.toDoubleArray())

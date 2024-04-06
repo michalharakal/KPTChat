@@ -102,6 +102,14 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
         return noncommutativeBinaryOperation(tensor, { lhs, rhs -> lhs - rhs }, { lhs, rhs -> rhs - lhs })
     }
 
+    operator fun minus(scalar: Double): Tensor {
+        return noncommutativeBinaryOperation(
+            Tensor(Shape(1), scalar),
+            { lhs, rhs -> lhs - rhs },
+            { lhs, rhs -> rhs - lhs })
+    }
+
+
     operator fun times(tensor: Tensor): Tensor {
         return commutativeBinaryOperation(tensor) { lhs, rhs -> lhs * rhs }
     }
