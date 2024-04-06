@@ -2,39 +2,31 @@ package de.jugda.de.jugda.knanogpt.llm
 
 
 import de.jugda.knanogpt.core.tensor.Tensor
-import de.jugda.knanogpt.transformer.TransformerConfig
-import jp.co.qoncept.tensorkotlin.Shape
 import org.skainet.nn.Module
 import org.skainet.nn.NamedParameter
 import org.skainet.nn.Embedding
 
 
-class Block(
-    config: TransformerConfig,
+class BigramLanguageModel(
+    vocabSize: Int,
     override val name: String = "Block"
 ) : Module() {
-    private val token_embedding_table: Module
-
-    init {
-        with(config) {
-            // each token directly reads off the logits for the next token from a lookup table
-            token_embedding_table = Embedding(vocab_size, vocab_size)
-        }
-
-    }
+    private val tokenEmbeddingTable: Module = Embedding(vocabSize, vocabSize)
 
     override val params: List<NamedParameter>
-        get() = TODO("Not yet implemented")
+        get() = emptyList()
     override val modules: List<Module>
-        get() = listOf(token_embedding_table)
+        get() = listOf(tokenEmbeddingTable)
 
     override fun forward(input: Tensor): Tensor {
 
         //# idx and targets are both (B,T) tensor of integers
-        return token_embedding_table(input) // # (B,T,C)
+        return tokenEmbeddingTable(input) // # (B,T,C)
     }
 
     fun generate(input: Tensor, maxNewTokens: Int): Tensor {
+        return input
+        /*
         val idx = input
         val targets = input
         val B = idx.shape.dimensions[0]
@@ -47,5 +39,7 @@ class Block(
             newTokens.add(nextToken)
         }
         return Tensor(Shape(*intArrayOf(B, maxNewTokens)), newTokens.map { it.toDouble() }.toDoubleArray())
+
+         */
     }
 }
