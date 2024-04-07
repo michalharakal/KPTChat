@@ -21,7 +21,7 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(8)
 }
 
 publishing {
