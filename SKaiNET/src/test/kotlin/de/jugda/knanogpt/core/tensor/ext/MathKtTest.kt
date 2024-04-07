@@ -9,6 +9,13 @@ import kotlin.test.assertEquals
 
 class TensorProdTest {
 
+    @Test
+    fun testProdEmptyTensor() {
+        // Empty tensor should have a product of 1.
+        val tensor = Tensor(Shape(), doubleArrayOf())
+        assertEquals(1.0, tensor.prod(), 0.0, "Product of an empty tensor should be 1")
+    }
+
 
     @Test
     fun testProdSingleElement() {
