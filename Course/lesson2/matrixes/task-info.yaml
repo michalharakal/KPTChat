@@ -3,8 +3,10 @@ files:
   - name: src/Task.kt
     visible: true
     placeholders:
-      - offset: 496
-        length: 226
-        placeholder_text: Implement Matrix multiplication
+      - offset: 86
+        length: 219
+        placeholder_text: Implementiere die Matrix Addition
   - name: test/Tests.kt
     visible: false
+  - name: ../../util/MatrixSupport.kt
+    visible: true

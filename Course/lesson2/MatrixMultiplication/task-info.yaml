@@ -2,5 +2,9 @@ type: edu
 files:
   - name: src/Task.kt
     visible: true
+    placeholders:
+      - offset: 72
+        length: 449
+        placeholder_text: Implementiere hier die Matrix multiplikation
   - name: test/Tests.kt
     visible: false
