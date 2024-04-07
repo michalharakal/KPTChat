@@ -3,7 +3,6 @@ package org.skainet.diff
 import de.jugda.knanogpt.core.tensor.Tensor
 import jp.co.qoncept.tensorkotlin.*
 
-import kotlin.math.*
 
 /*
  * Implementation of backward-mode automatic differentiation.
@@ -130,7 +129,6 @@ private class ADImpl : AD() {
     private var stack = arrayOfNulls<Any?>(8)
     private var sp = 0
 
-    @Suppress("UNCHECKED_CAST")
     override fun <R> derive(value: R, block: (R) -> Unit): R {
         // save block to stack for backward pass
         if (sp >= stack.size) stack = stack.copyOf(stack.size * 2)

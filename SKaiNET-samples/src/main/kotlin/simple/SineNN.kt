@@ -7,10 +7,12 @@ import org.skainet.activations.relu
 import org.skainet.dsl.network
 import org.skainet.nn.Module
 import org.skainet.nn.NamedParameter
-import org.skainet.reflection.dot.toDotGraph
 
 // https://www.hackster.io/news/easy-tinyml-on-esp32-and-arduino-a9dbc509f26c
 import com.example.annotation.Builder
+import org.markup.dsl.graphviz.dot.GraphViz
+import org.skainet.reflection.dot.toDot
+import org.markup.dsl.graphviz.dot.render
 
 @Builder
 class SineNN(override val name: String = "SineNN") : Module() {
@@ -48,6 +50,7 @@ fun SineNN.of(vararg values: Double): Tensor =
 fun main() {
     val model = SineNN()
     println(model.summary(Shape(1), 1))
-    val b = model.toDotGraph().dot()
-    print(b)
+    val b: GraphViz = model.toDot()
+    val c = b.render()
+    print(c)
 }
