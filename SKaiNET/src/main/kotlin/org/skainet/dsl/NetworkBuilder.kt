@@ -90,7 +90,7 @@ private class NeuralNetworkDslImpl : NeuralNetworkDsl {
         val impl = DenseImpl(
             inputDimension = inputDimension,
             outputDimension = outputDimension,
-            id = getDefaultName(id, "Linear", modules.size)
+            id = getDefaultName(id, "linear", modules.size)
         )
         impl.content()
         // dense layer consinst from linear module and activation function module (2 modules)

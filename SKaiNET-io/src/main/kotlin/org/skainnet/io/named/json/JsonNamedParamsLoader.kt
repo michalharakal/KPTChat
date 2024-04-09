@@ -8,7 +8,7 @@ import org.skainnet.io.named.NamedParamsLoader
 import java.io.File
 
 class JsonNamedParamsLoader(private val jsonFile: File) : NamedParamsLoader {
-    override fun emit(event: (NamedParameter) -> Unit) {
+    override fun load(namedParameterEvent: (NamedParameter) -> Unit) {
         // Example: Loading JSON from a file
         val jsonString = jsonFile.readText(Charsets.UTF_8)
 
@@ -20,7 +20,7 @@ class JsonNamedParamsLoader(private val jsonFile: File) : NamedParamsLoader {
 
         // Emit an event for every item
         tensorItems.forEach { tensorItem ->
-            event(
+            namedParameterEvent(
                 NamedParameter(
                     tensorItem.unique_parameter_name,
                     Tensor(

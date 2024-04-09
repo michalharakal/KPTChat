@@ -4,5 +4,5 @@ import org.skainet.nn.NamedParameter
 
 
 interface NamedParamsLoader {
-    fun emit(event: (NamedParameter) -> Unit)
+    fun load(namedParameterEvent: (NamedParameter) -> Unit)
 }
