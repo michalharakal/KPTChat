@@ -12,7 +12,8 @@ repositories {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3")
+
+
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("junit:junit:4.13.2")
 }
@@ -21,12 +22,10 @@ tasks.test {
     useJUnitPlatform()
 }
 kotlin {
-    jvmToolchain(17)
+    jvmToolchain(8)
 }
 
 publishing {
-
-
     publications {
         // Create a publication named 'myLibrary'
         create("skainet", MavenPublication::class) {

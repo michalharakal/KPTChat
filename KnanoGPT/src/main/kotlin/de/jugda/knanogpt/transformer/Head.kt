@@ -12,22 +12,21 @@ import de.jugda.knanogpt.core.tensor.ext.maskedFill
 import org.skainet.activations.softmax
 
 class Head(
-    config: TransformerConfig,
+    n_embd: Int,
+    head_size: Int,
     dropout: Double,
-    private val headNumber: Int
+    val headNumber: Int
 ) : Module() {
 
     private val _modules = mutableListOf<Module>()
 
     init {
-        with(config) {
-            _modules += listOf(
-                Linear(n_embd, head_size, "key"),
-                Linear(n_embd, head_size, "query"),
-                Linear(n_embd, head_size, "value"),
-                Dropout(dropout)
-            )
-        }
+        _modules += listOf(
+            Linear(n_embd, head_size, "key"),
+            Linear(n_embd, head_size, "query"),
+            Linear(n_embd, head_size, "value"),
+            Dropout(dropout)
+        )
     }
 
     override fun forward(input: Tensor): Tensor {

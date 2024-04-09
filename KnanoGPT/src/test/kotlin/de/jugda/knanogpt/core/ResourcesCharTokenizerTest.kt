@@ -1,6 +1,5 @@
 package de.jugda.knanogpt.core
 
-import de.jugda.de.jugda.knanogpt.core.CharTokenizer
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import java.nio.file.Files

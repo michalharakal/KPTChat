@@ -1,4 +1,4 @@
-package de.jugda.de.jugda.knanogpt.core
+package de.jugda.knanogpt.core
 
 interface Tokenizer<T> {
 
