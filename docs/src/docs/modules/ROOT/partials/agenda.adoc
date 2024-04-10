@@ -50,9 +50,12 @@
 
 |Kotlin GTP
 |Rest der Zeit
-|Kotlin codin in IDE
-|Nach dem wir alles gelernt haben, wir bauen ein GTP Modell in Kotlin
+|Slides, Kotlin coding in IDE, Kotlin Jupyter
+|Nach dem wir alles gelernt haben, wir bauen ein einfaches Modell in Kotlin auf.
 |
+  `git clone github.com:michalharakal/KPTChat`
+  `git checkout develop`
+
 |===
 
 == Bonus task

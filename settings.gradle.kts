@@ -5,9 +5,9 @@ plugins {
 
 rootProject.name = "KPTChat"
 include("docs")
-include("KnanoGPT")
+include("K-transformers")
 include("SKaiNET")
 include("SKaiNET-io")
 include("SKaiNET-samples")
-include("SKaiNET-reflection")
-include("SKaiNET-processor")
+include("SKaiNET-summary")
+include("Javaland-KGPT")

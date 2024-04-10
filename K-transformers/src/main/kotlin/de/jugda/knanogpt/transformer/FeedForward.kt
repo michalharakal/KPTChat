@@ -1,7 +1,6 @@
 package de.jugda.knanogpt.transformer
 
 import de.jugda.knanogpt.core.tensor.Tensor
-import de.jugda.knanogpt.transformer.TransformerConfig
 import org.skainet.activations.relu
 import org.skainet.dsl.network
 import org.skainet.nn.Module
@@ -14,7 +13,7 @@ class FeedForward(
     override val name: String = "FeedForward"
 ) : Module() {
 
-    private val sequential: FeedForwardNetwork
+    private val sequential: Module
 
     init {
         with(config) {

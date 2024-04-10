@@ -1,0 +1,17 @@
+= Schritt 1
+
+image::transformer-1.drawio.svg[]
+
+
+|===
+|Input |Output
+
+|Input
+|Tensor(64,256)
+|batch_size = 64 # how many independent sequences will we process in parallel?
+block_size = 256 # what is the maximum context length for predictions?
+
+
+|Column 1, row 2
+|Column 2, row 2
+|===

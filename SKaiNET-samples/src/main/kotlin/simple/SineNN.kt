@@ -2,6 +2,7 @@ package de.jugda.simple
 
 import de.jugda.knanogpt.core.tensor.Shape
 import de.jugda.knanogpt.core.tensor.Tensor
+import org.skainet.Summary
 import org.skainet.summary
 import org.skainet.activations.relu
 import org.skainet.dsl.network
@@ -10,13 +11,10 @@ import org.skainet.nn.NamedParameter
 import java.io.File
 
 // https://www.hackster.io/news/easy-tinyml-on-esp32-and-arduino-a9dbc509f26c
-import com.example.annotation.Builder
 import org.skainnet.io.named.ModelsNamedParamsUpdater
 import org.skainnet.io.named.json.JsonNamedParamsLoader
-import java.nio.file.Files
 import java.nio.file.Paths
 
-@Builder
 class SineNN(override val name: String = "SineNN") : Module() {
 
     private val sineModule = network {
@@ -51,6 +49,9 @@ fun SineNN.of(vararg values: Double): Tensor =
 
 fun main() {
     val model = SineNN()
+    val summary = Summary().summary(model, Shape())
+    println(summary)
+
     println(model.summary(Shape(1), 1))
     val url = SineNN::class.java.classLoader.getResource("sinus_model_parameters.json")
     val uri = url?.toURI() ?: throw IllegalArgumentException("File not found in resources.")
