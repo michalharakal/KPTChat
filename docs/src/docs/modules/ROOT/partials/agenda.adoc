@@ -8,6 +8,13 @@
 |Presentation der Aufgabe, der Mitteln und der Ziele
 | xref:intro.adoc[]
 
+|Daten Aufbereitung
+|30 Minuten
+|Koans Übungen
+|Interaktive Coding Session
+| xref:attachment$koan.zip[KOAN Kurse]
+
+
 |Einführung in das maschinelle Lernen
 |60 Minuten
 |Presentation und live coding
