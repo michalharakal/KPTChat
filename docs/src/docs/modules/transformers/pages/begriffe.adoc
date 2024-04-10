@@ -26,6 +26,10 @@ Wie viele verschiedene Zeichen gibt es im Text definieren die Größe des Vokabu
 Wie viele Dimensionen hat der Embedding-Vektor?
 
 
+[[positional_encoding]]
+== positional_encoding
+Positional Encoding ist eine Methode, um die Position von Wörtern in einem Satz zu kodieren. Es wird verwendet, um die Reihenfolge der Wörter in einem Satz zu berücksichtigen.
+
 [[num_attention_heads]]
 == num_attention_heads = 12
 Wie viele Köpfe hat die Aufmerksamkeit?

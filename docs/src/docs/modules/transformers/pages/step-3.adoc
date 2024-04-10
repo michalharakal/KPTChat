@@ -1,0 +1,27 @@
+= Token Embedding
+
+Token-Embeddings sind Vektorrepräsentationen von Wörtern, Zeichen, Satzteilen oder anderen Informationseinheiten (Tokens) für die Verarbeitung in maschinellen Lernmodellen, insbesondere in der Verarbeitung natürlicher Sprache (NLP). Die Idee hinter Token-Embeddings ist, Wörter oder Tokens in einen hochdimensionalen Vektorraum einzubetten, sodass die semantische Ähnlichkeit zwischen den Tokens durch ihre räumliche Nähe im Vektorraum ausgedrückt wird. Das bedeutet, dass ähnliche Wörter ähnliche Vektorrepräsentationen haben sollten.
+
+image::transformer-token-embeding.drawio.svg[]
+
+
+
+|===
+|Wert |Shape | Form |Description
+
+|Input
+|Tensor(64,256)
+| (B,T)
+a|
+* `batch_size = 64` xref:begriffe.adoc#batch_size[batch_size]
+* `block_size = 256` xref:begriffe.adoc#block_size[block_size]
+
+|Output
+|Tensor(64,256)
+| `(B,T,C) = (64,256,364)`
+a|
+* `batch_size = 64` xref:begriffe.adoc#batch_size[batch_size]
+* `block_size = 256` xref:begriffe.adoc#block_size[block_size]
+* `n_embd = 384` xref:begriffe.adoc#n_embd[n_embd]
+
+|===
