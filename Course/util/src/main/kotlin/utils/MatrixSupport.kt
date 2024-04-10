@@ -27,7 +27,7 @@ fun Matrix.print() {
                 if (i == 0) {
                     parentheisChar = "⎛"
                 } else if (i < this.size - 1) {
-                    parentheisChar = "⎟"
+                    parentheisChar = "⎜"
                 } else {
                     parentheisChar = "⎝"
                 }
