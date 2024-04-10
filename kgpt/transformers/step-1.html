@@ -87,6 +87,15 @@
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
+    <span class="nav-text">Transformers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Transformers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
     <span class="nav-text">Blocks</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
@@ -149,24 +158,40 @@
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Input</th>
-<th class="tableblock halign-left valign-top">Output</th>
+<th class="tableblock halign-left valign-top">Wert</th>
+<th class="tableblock halign-left valign-top">Shape</th>
+<th class="tableblock halign-left valign-top">Form</th>
+<th class="tableblock halign-left valign-top">Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Input</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Tensor(64,256)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(B,T)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p><code>batch_size = 64</code> <a href="begriffe.html#batch_size" class="xref page">batch_size</a></p>
+</li>
+<li>
+<p><code>block_size = 256</code> <a href="begriffe.html#block_size" class="xref page">block_size</a></p>
+</li>
+</ul>
+</div></div></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">batch_size = 64 # how many independent sequences will we process in parallel?
-block_size = 256 # what is the maximum context length for predictions?</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Column 1, row 2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output - Logist</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tensor(16384,256)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(B*T, T) = (64*256, 256)</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"></div></td>
 </tr>
 </tbody>
 </table>
