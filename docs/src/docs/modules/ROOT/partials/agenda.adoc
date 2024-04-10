@@ -54,3 +54,8 @@
 |Nach dem wir alles gelernt haben, wir bauen ein GTP Modell in Kotlin
 |
 |===
+
+== Bonus task
+
+* Implement weight&bias loader in Kotlin
+* Model Visualisierung in Kotlin
