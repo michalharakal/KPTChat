@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Untitled :: KPTChat</title>
+    <title>Encoder :: KPTChat</title>
     <link rel="canonical" href="https://michalharakal.github.io/KPTChat/kgpt/transformers/step-2.html">
     <meta name="generator" content="Antora 3.1.7">
     <link rel="stylesheet" href="../../_/css/site.css">
@@ -138,6 +138,10 @@
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">KGPTChat</a></li>
+    <li><a href="step-2.html">Encoder</a></li>
+  </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/michalharakal/KPTChat/docs/src/docs/modules/transformers/pages/step-2.adoc">Edit this Page</a></div>
   </div>
@@ -146,7 +150,20 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-
+<h1 class="page">Encoder</h1>
+<div class="imageblock">
+<div class="content">
+<img src="_images/aiayn.png" alt="Attension is all you need">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/encoder.png" alt="encoder">
+</div>
+</div>
+<div class="paragraph">
+<p>Encoder besteht aus 6 identischen Schichten. Jede Schicht besteht aus zwei Subschichten. Die erste ist ein Multi-Head Self-Attention Mechanismus und die zweite ist ein einfacher, positionswise voll verbundener Feed-Forward Netzwerk. Zwischen den Schichten gibt es Residual-Verbindungen und Layer-Normalization. Die Eingabe wird durch eine Positional Encoding ergänzt, um die Positionsinformationen zu erhalten. Die <a href="begriffe.html#positional_encoding" class="xref page">Positional Encoding</a> wird addiert, um die Eingabe zu erhalten. Die Ausgabe des Encoders ist die Eingabe für den Decoder.</p>
+</div>
 </article>
   </div>
 </main>

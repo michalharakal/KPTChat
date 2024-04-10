@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Transformers :: KPTChat</title>
-    <link rel="canonical" href="https://michalharakal.github.io/KPTChat/kgpt/transformers/index.html">
-    <link rel="prev" href="../../nanogpt/de/index.html">
-    <link rel="next" href="blocks.html">
+    <title>Token Embedding :: KPTChat</title>
+    <link rel="canonical" href="https://michalharakal.github.io/KPTChat/kgpt/transformers/step-3.html">
     <meta name="generator" content="Antora 3.1.7">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script>var uiRootPath = '../../_'</script>
@@ -91,7 +89,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Transformers</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="index.html">Transformers</a>
   </li>
 </ul>
@@ -142,35 +140,76 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">KGPTChat</a></li>
-    <li>Transformers</li>
-    <li><a href="index.html">Transformers</a></li>
+    <li><a href="step-3.html">Token Embedding</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/michalharakal/KPTChat/docs/src/docs/modules/transformers/pages/index.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/michalharakal/KPTChat/docs/src/docs/modules/transformers/pages/step-3.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Transformers</h1>
-<div class="ulist">
+<h1 class="page">Token Embedding</h1>
+<div class="paragraph">
+<p>Token-Embeddings sind Vektorrepräsentationen von Wörtern, Zeichen, Satzteilen oder anderen Informationseinheiten (Tokens) für die Verarbeitung in maschinellen Lernmodellen, insbesondere in der Verarbeitung natürlicher Sprache (NLP). Die Idee hinter Token-Embeddings ist, Wörter oder Tokens in einen hochdimensionalen Vektorraum einzubetten, sodass die semantische Ähnlichkeit zwischen den Tokens durch ihre räumliche Nähe im Vektorraum ausgedrückt wird. Das bedeutet, dass ähnliche Wörter ähnliche Vektorrepräsentationen haben sollten.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/transformer-token-embeding.drawio.svg" alt="transformer token embeding.drawio">
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Wert</th>
+<th class="tableblock halign-left valign-top">Shape</th>
+<th class="tableblock halign-left valign-top">Form</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Input</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tensor(64,256)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(B,T)</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
 <ul>
 <li>
-<p><a href="begriffe.html" class="xref page">Begriffe</a></p>
+<p><code>batch_size = 64</code> <a href="begriffe.html#batch_size" class="xref page">batch_size</a></p>
 </li>
 <li>
-<p><a href="step-1.html" class="xref page">Schritt 1</a></p>
-</li>
-<li>
-<p><a href="step-2.html" class="xref page">Encoder</a></p>
+<p><code>block_size = 256</code> <a href="begriffe.html#block_size" class="xref page">block_size</a></p>
 </li>
 </ul>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="../../nanogpt/de/index.html">NanoGTP erklärt</a></span>
-  <span class="next"><a href="blocks.html">Transformers</a></span>
-</nav>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tensor(64,256)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>(B,T,C) = (64,256,364)</code></p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
+<ul>
+<li>
+<p><code>batch_size = 64</code> <a href="begriffe.html#batch_size" class="xref page">batch_size</a></p>
+</li>
+<li>
+<p><code>block_size = 256</code> <a href="begriffe.html#block_size" class="xref page">block_size</a></p>
+</li>
+<li>
+<p><code>n_embd = 384</code> <a href="begriffe.html#n_embd" class="xref page">n_embd</a></p>
+</li>
+</ul>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </article>
   </div>
 </main>
