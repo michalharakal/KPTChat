@@ -1,6 +1,4 @@
-type: edu
+type: theory
 files:
-  - name: src/Task.kt
+  - name: src/Main.kt
     visible: true
-  - name: test/Tests.kt
-    visible: false

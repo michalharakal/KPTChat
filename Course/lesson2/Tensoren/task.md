@@ -1,48 +1,29 @@
+# Tensoren
 
-This is a task description file.
-Its content will be displayed to a learner
-in the **Task Description** window.
+## Motivation
 
-It supports both Markdown and HTML.
-To toggle the format, you can rename **task.md**
-to **task.html**, or vice versa.
-The default task description format can be changed
-in **Preferences | Tools | Education**,
-but this will not affect any existing task description files.
+Nach dem Encodieren der Daten werden sie in ein Trainings- und ein Testset aufgeteilt. Hierbei taucht der Begriff "Tensor" auf:
 
-The following features are available in
-**task.md/task.html** which are specific to the JetBrains Academy plugin:
+```
+# Train and test splits
+data = torch.tensor(encode(text), dtype=torch.long)
+n = int(0.9*len(data)) # first 90% will be train, rest val
+train_data = data[:n]
+val_data = data[n:]
+```
+![TrainTestSplit](https://www.plantuml.com/plantuml/png/JOmn3i8m34NtdCBg1PXOEg0oCbDrjne35gaJsMubbfuTDQgWszDxNxypH_LvIg7xKQA7WsTGVhuS8YkDpbc2lLaAAauWEP9HWNC86q9p4x-gugS1D60fi--XLsIfrZVQxO298phLi60wZayzcSEz9FQQqKAeZx2kbqsqCD3eMGCQL5UVeGKdiODUCFrbHnBdANq1)
 
-- Hints can be added anywhere in the task text.
-  Type "hint" and press Tab.
-  Hints should be added to an empty line in the task text.
-  In hints you can use both HTML and Markdown.
-<div class="hint">
+## Was ist ein Tensor
 
-Text of your hint
+Allgemein: "Tensoren sind Größen, mit deren Hilfe man Skalare, Vektoren sowie weitere Größen analoger Struktur in ein einheitliches Schema einordnen kann, um mathematische und physikalische Zusammenhänge zu beschreiben."
 
-</div>
+So wie ein Vektor mit nur einem Element ein Skalar ist und eine Matrix mit einer Spalte ein Vector, ist eine Matrix ein Tensor in der Dimension 2 ⨯ 2.
+Daher können wir auch sagen, dass ein Tensor 0-ter Stufe ein Skalar, ein Tensor 1. Stufe ein Vektor, und ein Tensor 2. Stufe eine Matrix ist.
+Also sind Skalare, Vektoren und Matrizen einfach nur Formen von Tensoren.
+Tensoren darüber hinaus aber in beliebigen Stufen definiert, es gibt also Tensoren n-ter Stufe, die noch mehr Dimensionen haben.
 
-- You may need to refer your learners to a particular lesson,
-task, or file. To achieve this, you can use the in-course links.
-Specify the path using the `[link_text](course://lesson1/task1/file1)` format.
+## Und was hat das mit dem Code zu tun?
 
-- You can insert shortcuts in the task description.
-While **task.html/task.md** is open, right-click anywhere
-on the **Editor** tab and choose the **Insert shortcut** option
-from the context menu.
-For example: &shortcut:FileStructurePopup;.
+Tensoren erlauben uns unter anderem, Algorithmen und mathematische Zusammenhänge zu vereinfachen. So wie Rechenoperationen für Zahlen, Vektoren und Matrizen definiert sind, sind sie es auch für Tensoren n-ter Stufe. So ist es dann unerheblich, ob ein Input 2, 3 oder 4 Dimensionen hat.
 
-- Insert the &percnt;`IDE_NAME`&percnt; macro,
-which will be replaced by the actual IDE name.
-For example, **%IDE_NAME%**.
-
-- Insert PSI elements, by using links like
-`[element_description](psi_element://link.to.element)`.
-To get such a link, right-click the class or method
-and select **Copy Reference**.
-Then press &shortcut:EditorPaste; to insert the link where appropriate.
-For example, a [link to the "contains" method](psi_element://java.lang.String#contains).
-
-- You can add link to file using **full path** like this:
-  `[file_link](file://lesson1/task1/file.txt)`.
+Tensoren sind also harmlos, einen dreidimensionalen Tensor können wir uns als Stapel von Matrizen vorstellen. Mit Tensoren kann ganz normal gerechnet werden, und es ist einfach nur ein umfassender Begriff für eine mathematische Sturktur
