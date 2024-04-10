@@ -1,4 +1,7 @@
-@Throws(Exception::class)
+fun main () {
+
+}
+
 fun Matrix.multiply(matrix: Matrix): Matrix {
     val dimA = this.shape()
     val dimB = matrix.shape()
