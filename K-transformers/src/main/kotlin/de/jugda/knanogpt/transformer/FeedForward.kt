@@ -5,8 +5,6 @@ import org.skainet.activations.relu
 import org.skainet.dsl.network
 import org.skainet.nn.Module
 import org.skainet.nn.NamedParameter
-import org.skainet.topologies.FeedForwardNetwork
-
 
 class FeedForward(
     config: TransformerConfig,

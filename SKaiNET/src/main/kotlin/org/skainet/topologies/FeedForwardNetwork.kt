@@ -11,11 +11,5 @@ class FeedForwardNetwork(vararg modules: Module, override val name: String = "Fe
     override val modules: List<Module>
         get() = modulesList
 
-    override fun forward(input: Tensor): Tensor {
-        var tmp = input
-        modulesList.forEach { module ->
-            tmp = module.forward(tmp)
-        }
-        return tmp
-    }
+    override fun forward(input: Tensor) = modules.fold(input) { a, x -> x.forward(a) }
 }
