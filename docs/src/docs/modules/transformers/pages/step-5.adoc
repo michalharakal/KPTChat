@@ -1,0 +1,6 @@
+= Attention
+
+image::transformer_self-attention_visualization.png[]
+
+
+In Transformern ermöglicht die Attention-Mechanik einem Modell, die Wichtigkeit verschiedener Teile einer Eingabesequenz (wie Wörter in einem Satz) zu gewichten, wodurch es relevante Informationen hervorheben kann. Dies geschieht durch Berechnung von Aufmerksamkeits-Scores zwischen allen Paaren von Eingabeelementen, wodurch das Modell lernen kann, Zusammenhänge zwischen ihnen zu erkennen, unabhängig von ihrem Abstand in der Sequenz. In Java, wie in jeder anderen Programmiersprache, würde die Implementierung dieser Logik das Erstellen von Matrizen für die Eingaben, Gewichte für die Attention-Scores und anschließende Matrixmultiplikationen erfordern, um die gewichtete Summe zu erhalten, die die Ausgabe bildet.
