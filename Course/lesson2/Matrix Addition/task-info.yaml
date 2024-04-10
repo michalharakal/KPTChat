@@ -1,0 +1,10 @@
+type: edu
+files:
+  - name: src/Task.kt
+    visible: true
+    placeholders:
+      - offset: 231
+        length: 219
+        placeholder_text: Implementiere die Matrix Addition
+  - name: test/Tests.kt
+    visible: false
