@@ -1,0 +1,32 @@
+= Begriffe
+
+[[batch_size]]
+== batch_size = 64
+Wie viele unabhängige Sequenzen werden parallel verarbeitet?
+
+[[block_size]]
+== block_size = 256
+Wie lang ist der Kontext, der für Vorhersagen maximal genutzt wird?
+
+[[vocab_size]]
+== block_size = 65
+
+[source,python]
+----
+chars = sorted(list(set(text)))
+vocab_size = len(chars)
+
+----
+
+Wie viele verschiedene Zeichen gibt es im Text definieren die Größe des Vokabulars.
+
+
+[[n_embd]]
+== n_embd = 384
+Wie viele Dimensionen hat der Embedding-Vektor?
+
+
+[[num_attention_heads]]
+== num_attention_heads = 12
+Wie viele Köpfe hat die Aufmerksamkeit?
+

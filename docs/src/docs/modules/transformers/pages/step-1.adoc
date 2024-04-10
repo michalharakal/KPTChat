@@ -4,14 +4,18 @@ image::transformer-1.drawio.svg[]
 
 
 |===
-|Input |Output
+|Wert |Shape | Form |Description
 
 |Input
 |Tensor(64,256)
-|batch_size = 64 # how many independent sequences will we process in parallel?
-block_size = 256 # what is the maximum context length for predictions?
+| (B,T)
+a|
+* `batch_size = 64` xref:begriffe.adoc#batch_size[batch_size]
+* `block_size = 256` xref:begriffe.adoc#block_size[block_size]
 
+|Output - Logist
+|Tensor(16384,256)
+| `(B*T, T) = (64*256, 256)`
+a|
 
-|Column 1, row 2
-|Column 2, row 2
 |===

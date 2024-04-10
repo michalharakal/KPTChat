@@ -6,4 +6,6 @@
 .nanoGPT erklärt
 * xref:nanogpt:de:index.adoc[]
 
+.Transformers
+* xref:transformers:index.adoc[]
 
