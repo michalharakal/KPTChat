@@ -1,6 +1,5 @@
 import org.junit.Assert
 import org.junit.Test
-import kotlin.jvm.internal.Intrinsics.Kotlin
 
 class Test {
 
@@ -28,9 +27,14 @@ class Test {
         val A = listOf(1, 2, 3, 4, 5, 6).toMatrix(3)
         val B = listOf(7, 8, 9, 10, 11, 12).toMatrix(3)
 
-       val C = A.add(B)
+        A.print()
+        B.print()
+
+        val C = A.add(B)
         val D = listOf(8, 10, 12, 14, 16, 18).toMatrix(3)
 
+        val E = listOf(1,2,3,4,5,6).toMatrix(2)
+        E.print()
         Assert.assertEquals(D, C)
     }
 }
