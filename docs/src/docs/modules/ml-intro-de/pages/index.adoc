@@ -1,4 +1,0 @@
-= ML
-
-* xref:linear.adoc[]
-* xref:softmax.adoc[]

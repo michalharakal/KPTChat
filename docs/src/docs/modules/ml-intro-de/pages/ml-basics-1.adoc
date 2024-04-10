@@ -1,4 +1,0 @@
-= Neuron
-
-image:ml-neuron.png[]
-

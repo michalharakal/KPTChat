@@ -1,9 +1,0 @@
-= Linear
-
-Linear oder auch Dense Layer genannt, ist die einfachste Form eines Neuronalen Netzes. Es besteht aus einer Schicht von Neuronen, die alle mit allen Neuronen der vorherigen Schicht verbunden sind. Die Verbindungen haben Gewichte, die während des Trainings angepasst werden.
-
-*  xref:ml-basics-1.adoc[]
-*  xref:ml-basics-2.adoc[]
-*  xref:ml-basics-3.adoc[]
-*  xref:ml-basics-4.adoc[]
-*  xref:ml-basics-5.adoc[]

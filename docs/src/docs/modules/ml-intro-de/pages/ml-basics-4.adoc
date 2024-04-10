@@ -1,5 +1,0 @@
-= Neuron
-
-image:ml-mlp-step2.png[]
-
-

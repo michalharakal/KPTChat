@@ -5,38 +5,52 @@
 |Intro
 |20 Minuten
 |Presentation
-|Presentation der Aufgabe, der Mitteln und der Ziele
+|Presentation der Aufgabe, der Mitteln und der Ziele (alle)
 | xref:intro.adoc[]
 
 |Daten Aufbereitung
 |30 Minuten
 |Koans Übungen
-|Interaktive Coding Session
-| xref:attachment$koan.zip[KOAN Kurse]
+|Interaktive Coding Session(Falk)
+| xref:attachment$koan.zip[KOAN Kurs]
 
 
 |Einführung in das maschinelle Lernen
-|60 Minuten
+|30 Minuten
 |Presentation und live coding
 |Grundprinzipien des machine learnings und Hands-On mit einfachem tiefen neuronal Netz
-| xref:kgpt:ml-intro-de:index.adoc[]
+| xref:attachment$ML-Intro.pdf[ML-Intro]
+
+|Matrizen&Co
+|30 Minuten
+|Koans Übungen
+|Interaktive Coding Session(Alex)
+| xref:attachment$koan.zip[KOAN Kurs]
+
 
 |Transformers buildings blocks
-|20 Minuten
+|40 Minuten
 |Presentation und live coding
-|Einführung in die Transformes Architektur
+|Einführung in die Transformers Architektur(Michal)
 | xref:transformers.adoc[]
 
-|Transformers buiddings blocks
+
+|Attention is all you need
 |20 Minuten
-|Presentation der Aufgabe und der Ziele
+|Presentation (Alex)
+|Einführung in die Transformers Architektur
+|
+
+|Transformers Blocke in Kotlin
+|20 Minuten
+|Kotlin Jupyter notebook, presentation, (Michal)
+|Ein einfaches tiefes neuronales Netz in Kotlin
+|xref:attachment$sineNN.ipynb[Kotlin Jupyter Notebook] xref:attachment$ML-Kotlin.pdf[ML in Kotlin]
 
 
-|Column 1, row 1
-|Column 2, row 1
-|Koan
-
-|Column 1, row 2
-|Column 2, row 2
-|Column 3, row 2
+|Kotlin GTP
+|Rest der Zeit
+|Kotlin codin in IDE
+|Nach dem wir alles gelernt haben, wir bauen ein GTP Modell in Kotlin
+|
 |===

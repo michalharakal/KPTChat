@@ -1,7 +1,0 @@
-.ML Grundlagen
-* xref:ml-basics-1.adoc[]
-* xref:ml-basics-2.adoc[]
-** xref:ml-basics-3.adoc[]
-** xref:ml-basics-4.adoc[]
-** xref:ml-basics-5.adoc[]
-
