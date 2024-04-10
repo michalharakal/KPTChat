@@ -1,0 +1,22 @@
+= Positional Embedding
+
+image::transformer-position-embeding.drawio.svg[]
+
+
+|===
+|Wert |Shape | Form |Description
+
+|Input
+|Tensor(256)
+| (T)
+a|
+* `block_size = 256` xref:begriffe.adoc#block_size[block_size]
+
+|Output
+|Tensor(256,364)
+| `(T,C) = (256,364)`
+a|
+* `block_size = 256` xref:begriffe.adoc#block_size[block_size]
+* `n_embd = 384` xref:begriffe.adoc#n_embd[n_embd]
+
+|===
