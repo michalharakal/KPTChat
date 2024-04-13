@@ -1,6 +1,7 @@
 package de.jugda.de.jugda.knanogpt.gpt
 
 import de.jugda.knanogpt.core.tensor.Tensor
+import de.jugda.knanogpt.core.tensor.arange
 import de.jugda.knanogpt.transformer.TransformerConfig
 import de.jugda.knanogpt.transformer.Block
 import org.skainet.nn.*
@@ -54,10 +55,21 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
         get() = listOf(token_embedding_table, position_embedding_table, ln_f, lm_head) + blocks
 
     override fun forward(input: Tensor): Tensor {
-        return token_embedding_table(input) // # (B,T,C)
-            .let { it + position_embedding_table(it) } // # (B,T,C)
+         val (B, T) = input.shape.dimensions
+         val tok_emb = token_embedding_table(input)  //# (B,T,C)
+         val pos_emb = position_embedding_table(arange(end = T.toDouble())) // # (T,C)
+         val emb = tok_emb + pos_emb // # (B,T,C)
+        return emb
+
+        /*
+        val (B, T) = input.shape.dimensions
+        return (token_embedding_table(input) + position_embedding_table(arange(end = B.toDouble()))) // # (B,T,C)
             .let { blocks.fold(it) { acc, block -> block(acc) } } // # (B,T,C)
             .let { ln_f(it) } // # (B,T,C)
             .let { lm_head(it) } // # (B,T,V)
+
+
+         */
+
     }
 }

@@ -1,12 +1,10 @@
 package de.jugda.knanogpt.transformer
 
 import de.jugda.knanogpt.core.tensor.Tensor
-import org.skainet.nn.Dropout
 import org.skainet.nn.Module
-import org.skainet.nn.Linear
 import org.skainet.nn.NamedParameter
 import de.jugda.knanogpt.core.tensor.ext.cat
-import de.jugda.knanogpt.transformer.dsl.transformer
+import de.jugda.knanogpt.transformer.dsl.multiHead
 import org.skainet.dsl.network
 
 
@@ -24,16 +22,14 @@ class MultiHeadAttention(
 
     init {
         with(config) {
-            _heads += transformer {
-                multihead(num_heads) {
-                    head {
-                        n_embd = config.n_embd
-                        head_size = config.head_size
-                        dropout = config.dropout
-                    }
-
+            _heads += multiHead(num_heads) {
+                head {
+                    n_embd = config.n_embd
+                    head_size = config.head_size
+                    dropout = config.dropout
                 }
             }
+
             _modules +=
                 listOf(
                     network {

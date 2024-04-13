@@ -1,8 +1,11 @@
 package de.jugda
 
+import de.jugda.de.jugda.knanogpt.gpt.GPTLanguageModel
 import de.jugda.knanogpt.core.data.BatchProvider
 import de.jugda.knanogpt.core.data.ResourcesDataProvider
+import de.jugda.knanogpt.core.tensor.Tensor
 import de.jugda.knanogpt.core.tensor.TrainTestSplitter
+import de.jugda.knanogpt.transformer.TransformerConfig
 
 
 fun main() {
@@ -10,9 +13,10 @@ fun main() {
 
     // Step 2. Initialisierung-Block
     //how many independent sequences will we process in parallel?
-    val batchSize = 4
+    val batchSize = 64
     // what is the maximum context length for predictions?
-    val blockSize = 8
+    val blockSize = 256
+
 
 
     // Step 3. 4.  Load & tokenize data
@@ -48,5 +52,18 @@ fun main() {
             println("when input is $context the target: $target")
         }
     }
+
+    val model = GPTLanguageModel(
+        TransformerConfig(
+            head_size = 64,
+            n_embd = 6,
+            num_heads = 8,
+            dropout = 0.2,
+            vocab_size = 65,
+            block_size = 384,
+            n_layer = 8
+        ), "GPT"
+    )
+    model.forward(xb)
 }
 
