@@ -23,6 +23,7 @@ interface NetworkDslItem
 @NetworkDsl
 interface NeuralNetworkDsl : NetworkDslItem {
     fun input(inputSize: Int, id: String = "")
+    fun input(vararg dimensions: Int, id: String = "")
 
     fun dense(outputDimension: Int, id: String = "", content: DENSE.() -> Unit = {})
 
@@ -42,7 +43,6 @@ private fun getDefaultName(id: String, s: String, size: Int): String {
     if (id.isNotEmpty()) return id
     return "$s-$size"
 }
-
 
 class DenseImpl(
     private val inputDimension: Int, private val outputDimension: Int, private val id: String
@@ -82,6 +82,11 @@ private class NeuralNetworkDslImpl : NeuralNetworkDsl {
     override fun input(inputSize: Int, id: String) {
         lastDimension = inputSize
         modules.add(Input(Shape(inputSize), name = getDefaultName(id, "Input", modules.size)))
+    }
+
+    override fun input(vararg dimensions: Int, id: String) {
+        lastDimension = dimensions.last()
+        modules.add(Input(Shape(*dimensions), name = getDefaultName(id, "Input", modules.size)))
     }
 
     override fun dense(outputDimension: Int, id: String, content: DENSE.() -> Unit) {
