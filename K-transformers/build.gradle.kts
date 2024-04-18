@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     implementation(project(":SKaiNET"))
-    // https://mvnrepository.com/artifact/org.nd4j/nd4j-native-platform
+    implementation(project(":SKaiNET-io"))
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("junit:junit:4.13.2")
 }
