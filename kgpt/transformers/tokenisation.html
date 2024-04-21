@@ -3,11 +3,11 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Jupyter notebook with pipenv :: KPTChat</title>
-    <link rel="canonical" href="https://michalharakal.github.io/KPTChat/nanogpt/pipenv_setup.html">
+    <title>Tokenisierung :: KPTChat</title>
+    <link rel="canonical" href="https://michalharakal.github.io/KPTChat/kgpt/transformers/tokenisation.html">
     <meta name="generator" content="Antora 3.1.7">
-    <link rel="stylesheet" href="../_/css/site.css">
-    <script>var uiRootPath = '../_'</script>
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <script>var uiRootPath = '../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -57,58 +57,49 @@
   </nav>
 </header>
 <div class="body">
-<div class="nav-container" data-component="nanogpt" data-version="">
+<div class="nav-container" data-component="kgpt" data-version="">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="de/index.html">nanoGPT Explained</a></h3>
+    <h3 class="title"><a href="../index.html">KGPTChat</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Schritt nach Schritt</span>
+    <span class="nav-text">Workshop</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-1.html">Step 1. Imports-Block</a>
+    <a class="nav-link" href="../setup.html">Set up an environment</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-2.html">Step 2. Initialisierung-Block</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-3.html">Step 3. Daten laden</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-4.html">Step 4. Tokenisierung</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-5.html">Step 5. Train &amp; Test Spilt</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-6.html">Step 6. Batch &amp; Block</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-7.html">Step 7. estimate_loss()</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-8.html">Step 8. Transformers - Head</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-9.html">Step 9. Transformers - MultiHeadAttention</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-10.html">Step 10. Transformers - Feedforward</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="de/step-11.html">Step 11. Transformers - Block</a>
+    <a class="nav-link" href="../bios.html">Wer wir sind</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Addons</span>
+    <span class="nav-text">nanoGPT erklärt</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="#extra_save_params.adoc">extra_save_params.adoc</a>
+    <a class="nav-link" href="../../nanogpt/de/index.html">NanoGTP erklärt</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Transformers</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Transformers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Blocks</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="blocks.html">Transformers</a>
   </li>
 </ul>
   </li>
@@ -117,23 +108,23 @@
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">nanoGPT Explained</span>
+    <span class="title">KGPTChat</span>
     <span class="version">default</span>
   </div>
   <ul class="components">
-    <li class="component">
-      <a class="title" href="../kgpt/index.html">KGPTChat</a>
+    <li class="component is-current">
+      <a class="title" href="../index.html">KGPTChat</a>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="../kgpt/index.html">default</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">default</a>
         </li>
       </ul>
     </li>
-    <li class="component is-current">
-      <a class="title" href="de/index.html">nanoGPT Explained</a>
+    <li class="component">
+      <a class="title" href="../../nanogpt/de/index.html">nanoGPT Explained</a>
       <ul class="versions">
-        <li class="version is-current is-latest">
-          <a href="de/index.html">default</a>
+        <li class="version is-latest">
+          <a href="../../nanogpt/de/index.html">default</a>
         </li>
       </ul>
     </li>
@@ -145,41 +136,41 @@
 <main class="article">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../kgpt/index.html" class="home-link"></a>
+  <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="de/index.html">nanoGPT Explained</a></li>
-    <li><a href="pipenv_setup.html">Jupyter notebook with pipenv</a></li>
+    <li><a href="../index.html">KGPTChat</a></li>
+    <li><a href="tokenisation.html">Tokenisierung</a></li>
   </ul>
 </nav>
-</div>
+  <div class="edit-this-page"><a href="https://github.com/michalharakal/KPTChat/docs/src/docs/modules/transformers/pages/tokenisation.adoc">Edit this Page</a></div>
+  </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Jupyter notebook with pipenv</h1>
-<div class="listingblock">
+<h1 class="page">Tokenisierung</h1>
+<div class="sect1">
+<h2 id="tokenisierung-and-der-wortebene"><a class="anchor" href="#tokenisierung-and-der-wortebene"></a>Tokenisierung and der Wortebene</h2>
+<div class="sectionbody">
+<div class="imageblock unresolved">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pipen --python 3.8
-pipenv install -d ipykernel jupyterlab
-pipenv shell</code></pre>
+<img src="tokenisierung-Wort.drawio.svg" alt="tokenisierung Wort.drawio">
 </div>
+<div class="title">Figure 1. Tokenisierung and der Wortebene</div>
 </div>
 <div class="paragraph">
-<p>This will bring up a terminal in your virtualenv like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">(karpathy-GPT-from-scratch-in-python)  bash-4.4$</code></pre>
+<p>Bei der Tokenisierung auf Wortebene wird der Text in Wörter zerlegt. Ein Wort ist eine Abfolge von Buchstaben, Zahlen und/oder Sonderzeichen, die durch Leerzeichen oder Satzzeichen voneinander getrennt sind. Zu jedem Wort wird ein Token erstellt, das als eindeutige Repräsentation des Wortes dient.</p>
 </div>
 </div>
+</div>
+<div class="sect1">
+<h2 id="tokenisierung-and-der-buchstabenebene"><a class="anchor" href="#tokenisierung-and-der-buchstabenebene"></a>Tokenisierung and der Buchstabenebene</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>In that shell do:</p>
+<p>Bei der Tokenisierung auf Buchstabenebene, die auch als Zeichen- oder Buchstabentokenisierung bekannt ist, wird der Text in seine grundlegenden Bestandteile, die einzelnen Buchstaben, zerlegt. Im Gegensatz zur Wort- oder Subwort-Tokenisierung, bei der Wörter oder Wortteile als Token dienen, wird hier jedes Zeichen des Textes (inklusive Leerzeichen und Satzzeichen) als eigenständiger Token behandelt.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">python -m ipykernel install --user --name=karpathy-GPT-from-scratch-in-python</code></pre>
 </div>
 </div>
 </article>
@@ -190,7 +181,7 @@ pipenv shell</code></pre>
   <p>This page was built using the Antora default UI.</p>
   <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
 </footer>
-<script src="../_/js/site.js"></script>
-<script async src="../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
   </body>
 </html>

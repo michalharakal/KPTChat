@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Step 5. estimate_loss() :: KPTChat</title>
+    <title>Step 7. estimate_loss() :: KPTChat</title>
     <link rel="canonical" href="https://michalharakal.github.io/KPTChat/nanogpt/de/step-7.html">
     <link rel="prev" href="step-6.html">
     <link rel="next" href="step-8.html">
@@ -80,19 +80,37 @@
     <a class="nav-link" href="step-3.html">Step 3. Daten laden</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="step-4.html">Step 4. Encoder &amp; Decoder</a>
+    <a class="nav-link" href="step-4.html">Step 4. Tokenisierung</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="step-5.html">Step 5. Train &amp; Test Spilt</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="step-6.html">Step 5. get_batch()</a>
+    <a class="nav-link" href="step-6.html">Step 6. Batch &amp; Block</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="step-7.html">Step 5. estimate_loss()</a>
+    <a class="nav-link" href="step-7.html">Step 7. estimate_loss()</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="step-8.html">Step 5. Transformers - Head</a>
+    <a class="nav-link" href="step-8.html">Step 8. Transformers - Head</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-9.html">Step 9. Transformers - MultiHeadAttention</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-10.html">Step 10. Transformers - Feedforward</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-11.html">Step 11. Transformers - Block</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Addons</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#extra_save_params.adoc">extra_save_params.adoc</a>
   </li>
 </ul>
   </li>
@@ -134,7 +152,7 @@
   <ul>
     <li><a href="index.html">nanoGPT Explained</a></li>
     <li>Schritt nach Schritt</li>
-    <li><a href="step-7.html">Step 5. estimate_loss()</a></li>
+    <li><a href="step-7.html">Step 7. estimate_loss()</a></li>
   </ul>
 </nav>
 </div>
@@ -143,9 +161,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Step 5. estimate_loss()</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Step 7. estimate_loss()</h1>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">@torch.no_grad()
@@ -163,74 +179,9 @@ def estimate_loss():
     return out</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Das Modell wird zunächst in den Evaluierungsmodus gesetzt (<code>model.eval()</code>), was bedeutet, dass spezifische Verhaltensweisen wie Dropout deaktiviert werden.</p>
-</li>
-<li>
-<p>Für jeden Datensplit (<code>'train'</code>, <code>'val'</code>) wird eine Reihe von Verlustwerten gesammelt, indem für jede Iteration (<code>eval_iters</code>) ein Datenbatch geholt, durch das Modell geführt und der Verlust berechnet wird.</p>
-</li>
-<li>
-<p>Der Verlust wird von der modifizierten <code>forward</code>-Methode des Modells zurückgegeben, welche die Logits und den Verlust auf Basis der Eingangsdaten <code>X</code> und der tatsächlichen Etiketten <code>Y</code> berechnet.</p>
-</li>
-<li>
-<p>Am Ende wird das Modell wieder in den Trainingsmodus (<code>model.train()</code>) versetzt.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Dieses Muster erlaubt eine flexible Nutzung des Modells sowohl für Vorhersagen als auch für die Verlustberechnung, je nach den übergebenen Argumenten.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="batch-block-explanation"><a class="anchor" href="#batch-block-explanation"></a>Batch &amp; Block explanation</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">x = train_data[:block_size]
-y = train_data[1:block_size+1]
-for t in range(block_size):
-    context = x[:t+1]
-    target = y[t]
-    print(f"when input is {context} the target: {target}")</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">when input is tensor([18]) the target: 47
-when input is tensor([18, 47]) the target: 56
-when input is tensor([18, 47, 56]) the target: 57
-when input is tensor([18, 47, 56, 57]) the target: 58
-when input is tensor([18, 47, 56, 57, 58]) the target: 1
-when input is tensor([18, 47, 56, 57, 58,  1]) the target: 15
-when input is tensor([18, 47, 56, 57, 58,  1, 15]) the target: 47
-when input is tensor([18, 47, 56, 57, 58,  1, 15, 47]) the target: 58</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="get-batch-code"><a class="anchor" href="#get-batch-code"></a>get batch Code</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">def get_batch(split):
-    # generate a small batch of data of inputs x and targets y
-    data = train_data if split == 'train' else val_data
-    ix = torch.randint(len(data) - block_size, (batch_size,))
-    x = torch.stack([data[i:i+block_size] for i in ix])
-    y = torch.stack([data[i+1:i+block_size+1] for i in ix])
-    x, y = x.to(device), y.to(device)
-    return x, y</code></pre>
-</div>
-</div>
-</div>
-</div>
 <nav class="pagination">
-  <span class="prev"><a href="step-6.html">Step 5. get_batch()</a></span>
-  <span class="next"><a href="step-8.html">Step 5. Transformers - Head</a></span>
+  <span class="prev"><a href="step-6.html">Step 6. Batch &amp; Block</a></span>
+  <span class="next"><a href="step-8.html">Step 8. Transformers - Head</a></span>
 </nav>
 </article>
   </div>

@@ -3,10 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Step 5. Train &amp; Test Spilt :: KPTChat</title>
-    <link rel="canonical" href="https://michalharakal.github.io/KPTChat/nanogpt/de/step-5.html">
-    <link rel="prev" href="step-4.html">
-    <link rel="next" href="step-6.html">
+    <title>Step 9. Transformers - MultiHeadAttention :: KPTChat</title>
+    <link rel="canonical" href="https://michalharakal.github.io/KPTChat/nanogpt/de/step-9.html">
+    <link rel="prev" href="step-8.html">
+    <link rel="next" href="step-10.html">
     <meta name="generator" content="Antora 3.1.7">
     <link rel="stylesheet" href="../../_/css/site.css">
     <script>var uiRootPath = '../../_'</script>
@@ -82,7 +82,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="step-4.html">Step 4. Tokenisierung</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="step-5.html">Step 5. Train &amp; Test Spilt</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -94,7 +94,7 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="step-8.html">Step 8. Transformers - Head</a>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="step-9.html">Step 9. Transformers - MultiHeadAttention</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -152,7 +152,7 @@
   <ul>
     <li><a href="index.html">nanoGPT Explained</a></li>
     <li>Schritt nach Schritt</li>
-    <li><a href="step-5.html">Step 5. Train &amp; Test Spilt</a></li>
+    <li><a href="step-9.html">Step 9. Transformers - MultiHeadAttention</a></li>
   </ul>
 </nav>
 </div>
@@ -161,37 +161,59 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Step 5. Train &amp; Test Spilt</h1>
-<div class="ulist">
-<ul>
-<li>
-<p>90% der Daten sind zum Trainieren</p>
-</li>
-<li>
-<p>10% der Daten sind zum Validieren</p>
-</li>
-<li>
-<p>die Daten als Liste mit Integers ist ins 2 Tensoren umgewandelt.</p>
-</li>
-</ul>
-</div>
+<h1 class="page">Step 9. Transformers - MultiHeadAttention</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># Train and test splits
-data = torch.tensor(encode(text), dtype=torch.long)
-n = int(0.9*len(data)) # first 90% will be train, rest val
-train_data = data[:n]
-val_data = data[n:]</code></pre>
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">class MultiHeadAttention(nn.Module):
+    """ multiple heads of self-attention in parallel """
+
+    def __init__(self, num_heads, head_size):
+        super().__init__()
+        self.heads = nn.ModuleList([Head(head_size) for _ in range(num_heads)])
+        self.proj = nn.Linear(head_size * num_heads, n_embd)
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, x):
+        out = torch.cat([h(x) for h in self.heads], dim=-1)
+        out = self.dropout(self.proj(out))
+        return out</code></pre>
 </div>
 </div>
-<div class="imageblock plantuml">
-<div class="content">
-<img src="https://www.plantuml.com/plantuml/png/JOmn3i8m34NtdCBg1PXOEg0oCbDrjne35gaJsMubbfuTDQgWszDxNxypH_LvIg7xKQA7WsTGVhuS8YkDpbc2lLaAAauWEP9HWNC86q9p4x-gugS1D60fi--XLsIfrZVQxO298phLi60wZayzcSEz9FQQqKAeZx2kbqsqCD3eMGCQL5UVeGKdiODUCFrbHnBdANq1" alt="diagram">
+</div>
+</div>
+<div class="sect1">
+<h2 id="code-erklären"><a class="anchor" href="#code-erklären"></a>Code erklären</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><code>MultiHeadAttention</code> als eine Pytorch <code>nn.Module</code> Klasse implementiert "Mutliheads" in self attention. Diese Klasse benutzt  keine globale Variable. Die Parameter <a href="terms.html#num_heads" class="xref page">num_heads</a> und <a href="terms.html#head_size" class="xref page">head_size</a> sind als construktor Parameter übergeben.</p>
+</div>
+<div class="paragraph">
+<p>Die "Multiheads" sind zwar als <code>nn.ModuleList</code> erzeugt, aber die heads werden in parallel, nicht sequenziel ausgeführt. Vorteil vom nutzen der <code>nn.ModuleList</code> Klasse ist, dass das Auswerten von <code>-parametes()</code> automatisch für die Element erfolgt.</p>
+</div>
+<div class="paragraph">
+<p>Die Inferenz ist aber in der <code>forward</code> Methode durch List Comprehension überschrieben und dadurch auch paralelsierbar.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="paralelle-ausführung"><a class="anchor" href="#paralelle-ausführung"></a>Paralelle Ausführung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Die Berechnung erfolgt in der Formulierung des Codes sequentiell für jeden Head, da die List Comprehension <code>[h(x) for h in self.heads]</code> durch die Heads iteriert und für jeden einzelnen das Ergebnis von h(x) berechnet, bevor zum nächsten übergegangen wird. Dies geschieht nacheinander für jeden Head in der Liste.</p>
+</div>
+<div class="paragraph">
+<p>Obwohl die Berechnung im Code sequentiell erscheint, ist es wichtig zu beachten, dass moderne Deep Learning Frameworks wie <code>PyTorch</code> intern stark optimiert sind, um Berechnungen zu parallelisieren, insbesondere auf GPUs. Das bedeutet, dass während der Code sequentiell aussieht, die tatsächliche Ausführung auf der Hardwareebene je nach Situation und Hardwarekonfiguration parallelisiert werden kann. PyTorch und ähnliche Frameworks nutzen die parallele Natur von GPUs, um viele Operationen gleichzeitig auszuführen, was besonders bei größeren Modellen und Datenmengen zu erheblichen Leistungssteigerungen führt.</p>
+</div>
+<div class="paragraph">
+<p>In der Praxis heißt das, dass selbst wenn der Code die Heads sequentiell abarbeitet, die eigentlichen Matrixoperationen innerhalb jedes Heads (z.B. Matrix-Multiplikationen) sehr effizient und möglicherweise parallel auf der Hardware ausgeführt werden können.</p>
+</div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="step-4.html">Step 4. Tokenisierung</a></span>
-  <span class="next"><a href="step-6.html">Step 6. Batch &amp; Block</a></span>
+  <span class="prev"><a href="step-8.html">Step 8. Transformers - Head</a></span>
+  <span class="next"><a href="step-10.html">Step 10. Transformers - Feedforward</a></span>
 </nav>
 </article>
   </div>

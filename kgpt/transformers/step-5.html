@@ -157,6 +157,9 @@
 </div>
 </div>
 <div class="paragraph">
+<p>Selbst-Attention ist eine Sequenz-zu-Sequenz-Operation: Eine Sequenz von Vektoren geht hinein und eine Sequenz von Vektoren kommt heraus. Nennen wir die Eingabevektoren 𝐱1,𝐱2,…,𝐱t und die entsprechenden Ausgabevektoren 𝐲1,𝐲2,…,𝐲t. Die Vektoren haben alle die Dimension k.</p>
+</div>
+<div class="paragraph">
 <p>In Transformern ermöglicht die Attention-Mechanik einem Modell, die Wichtigkeit verschiedener Teile einer Eingabesequenz (wie Wörter in einem Satz) zu gewichten, wodurch es relevante Informationen hervorheben kann. Dies geschieht durch Berechnung von Aufmerksamkeits-Scores zwischen allen Paaren von Eingabeelementen, wodurch das Modell lernen kann, Zusammenhänge zwischen ihnen zu erkennen, unabhängig von ihrem Abstand in der Sequenz. In Java, wie in jeder anderen Programmiersprache, würde die Implementierung dieser Logik das Erstellen von Matrizen für die Eingaben, Gewichte für die Attention-Scores und anschließende Matrixmultiplikationen erfordern, um die gewichtete Summe zu erhalten, die die Ausgabe bildet.</p>
 </div>
 </article>

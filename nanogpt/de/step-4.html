@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Step 4. Encoder &amp; Decoder :: KPTChat</title>
+    <title>Step 4. Tokenisierung :: KPTChat</title>
     <link rel="canonical" href="https://michalharakal.github.io/KPTChat/nanogpt/de/step-4.html">
     <link rel="prev" href="step-3.html">
     <link rel="next" href="step-5.html">
@@ -80,19 +80,37 @@
     <a class="nav-link" href="step-3.html">Step 3. Daten laden</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="step-4.html">Step 4. Encoder &amp; Decoder</a>
+    <a class="nav-link" href="step-4.html">Step 4. Tokenisierung</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="step-5.html">Step 5. Train &amp; Test Spilt</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="step-6.html">Step 5. get_batch()</a>
+    <a class="nav-link" href="step-6.html">Step 6. Batch &amp; Block</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="step-7.html">Step 5. estimate_loss()</a>
+    <a class="nav-link" href="step-7.html">Step 7. estimate_loss()</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="step-8.html">Step 5. Transformers - Head</a>
+    <a class="nav-link" href="step-8.html">Step 8. Transformers - Head</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-9.html">Step 9. Transformers - MultiHeadAttention</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-10.html">Step 10. Transformers - Feedforward</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="step-11.html">Step 11. Transformers - Block</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Addons</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="#extra_save_params.adoc">extra_save_params.adoc</a>
   </li>
 </ul>
   </li>
@@ -134,7 +152,7 @@
   <ul>
     <li><a href="index.html">nanoGPT Explained</a></li>
     <li>Schritt nach Schritt</li>
-    <li><a href="step-4.html">Step 4. Encoder &amp; Decoder</a></li>
+    <li><a href="step-4.html">Step 4. Tokenisierung</a></li>
   </ul>
 </nav>
 </div>
@@ -143,10 +161,7 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Step 4. Encoder &amp; Decoder</h1>
-<div class="paragraph">
-<p>Tokenizers</p>
-</div>
+<h1 class="page">Step 4. Tokenisierung</h1>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python"># here are all the unique characters that occur in this text
@@ -158,6 +173,32 @@ itos = { i:ch for i,ch in enumerate(chars) }
 encode = lambda s: [stoi[c] for c in s] # encoder: take a string, output a list of integers
 decode = lambda l: ''.join([itos[i] for i in l]) # decoder: take a list of integers, output a string</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Bei der Tokenisierung auf Buchstabenebene, die auch als Zeichen- oder Buchstabentokenisierung bekannt ist, wird der Text in seine grundlegenden Bestandteile, die einzelnen Buchstaben, zerlegt.
+Im Gegensatz zur Wort- oder Subwort-Tokenisierung, bei der Wörter oder Wortteile als Token dienen, wird hier jedes Zeichen des Textes (inklusive Leerzeichen und Satzzeichen) als eigenständiger Token behandelt.</p>
+</div>
+<div class="ulist">
+<div class="title">Vorteile</div>
+<ul>
+<li>
+<p>kleines Wörterbuch (Anzahl von Buchstaben)</p>
+</li>
+<li>
+<p>einfache Implementierung</p>
+</li>
+<li>
+<p>Fähigkeit, mit Wörtern umzugehen, die dem Modell während des Trainings nicht begegnet sind, da es immer auf die Buchstabenebene zurückgreifen kann</p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<div class="title">Nachteile</div>
+<ul>
+<li>
+<p>Textsequenzen sind lang, da jede Buchstabe ein Index braucht</p>
+</li>
+</ul>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="step-3.html">Step 3. Daten laden</a></span>
