@@ -8,6 +8,7 @@ import java.nio.file.Paths
 
 class ResourcesDataProvider(resourceName: String) : DataProvider<Tensor> {
 
+    private val tokenizer: CharTokenizer
     private val textContent: String
 
     init {
@@ -16,10 +17,14 @@ class ResourcesDataProvider(resourceName: String) : DataProvider<Tensor> {
 
         val path = Paths.get(uri)
         textContent = String(Files.readAllBytes(path))
+        tokenizer = CharTokenizer(textContent)
     }
 
     override fun load(): Tensor =
-        Tensor(Shape(textContent.length), CharTokenizer(textContent).encode(textContent).map {
+        Tensor(Shape(textContent.length), tokenizer.encode(textContent).map {
             it.toDouble()
         }.toDoubleArray())
+
+    override val vocabSize: Long
+        get() = tokenizer.vocabularySize()
 }

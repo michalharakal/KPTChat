@@ -1,6 +1,5 @@
 package org.skainet.diff
 
-import kotlin.math.*
 
 import de.jugda.knanogpt.core.tensor.Tensor
 import de.jugda.knanogpt.core.tensor.Shape
@@ -8,6 +7,7 @@ import de.jugda.knanogpt.core.tensor.Shape
 import kotlin.test.Test
 
 import kotlin.test.assertEquals
+import kotlin.random.Random
 
 
 /*
@@ -19,7 +19,7 @@ import kotlin.test.assertEquals
  */
 
 fun scalar(value: Double) = Tensor(Shape(1), listOf(value).toDoubleArray())
-fun scalarD(value: Double) = D(scalar(value), scalar(0.0))
+fun scalarD(value: Double) = D(scalar(value), scalar(value))
 
 class ADTest {
     @Test
@@ -102,6 +102,72 @@ class ADTest {
         assertEquals(12.0, x.d.elements[0]) // dy/dx = 3 * x ^ 2 = 12
     }
 
+    @Test
+    fun testtanh() {
+        val x = scalarD(2.0) // diff w.r.t this x at 2
+        val y = grad { tanh(x) }
+        assertEquals(kotlin.math.tanh(2.0), y.x.elements[0])  //    y  = x ^ 3     = 8
+        assertEquals(12.0, x.d.elements[0]) // dy/dx = 3 * x ^ 2 = 12
+    }
+
+    @Test
+    fun testSinSimple() {
+        val x = scalarD(2.0) // diff w.r.t this x at 2
+        val y = grad { sins(x) }
+        assertEquals(kotlin.math.sin(2.0), y.x.elements[0])
+        assertEquals(kotlin.math.cos(2.0), x.d.elements[0])
+    }
+
+    @Test
+    fun testSinVector() {
+        val random = Random(1337)
+
+        // Define the range
+        val min = -2 * kotlin.math.PI
+        val max = 2 * kotlin.math.PI
+
+        // Generate a list of 100 random values within the range -2*PI to 2*PI
+        val randomValues = List(3) { min + random.nextDouble() * (max - min) }
+
+        //random.seed(19)
+        val x_ten = Tensor(Shape(randomValues.size), randomValues.toDoubleArray())
+        val y_cal = randomValues.map { kotlin.math.sin(it) }
+        val x = D(
+            x_ten, Tensor(x_ten.shape, List(x_ten.shape.volume) { 0.0 }.toDoubleArray())
+        )
+
+
+        val y = grad { sins(x) }
+        assertEquals(kotlin.math.sin(2.0), y.x.elements[0])
+        assertEquals(kotlin.math.cos(2.0), x.d.elements[0])
+    }
+
+    @Test
+    fun testSinVectorSecondDerivative() {
+        val random = Random(1337)
+
+        // Define the range
+        val min = -2 * kotlin.math.PI
+        val max = 2 * kotlin.math.PI
+
+        // Generate a list of 100 random values within the range -2*PI to 2*PI
+        val randomValues = List(3) { min + random.nextDouble() * (max - min) }
+
+        //random.seed(19)
+        val x_ten = Tensor(Shape(randomValues.size), randomValues.toDoubleArray())
+        val y_cal = randomValues.map { kotlin.math.sin(it) }
+        val x = D(
+            x_ten, Tensor(x_ten.shape, List(x_ten.shape.volume) { 0.0 }.toDoubleArray())
+        )
+
+
+        val y = grad { sins(x) }
+        val y2 = grad { grad {sins(y) }}
+        assertEquals(kotlin.math.sin(2.0), y.x.elements[0])
+        assertEquals(kotlin.math.cos(2.0), x.d.elements[0])
+    }
+
+
     /*
     @Test
     fun testPowFull() {
@@ -135,6 +201,15 @@ class ADTest {
         assertEquals(1.0, y.x.elements[0])          //     y = x ^ n = 1
         assertEquals(n.toDouble(), x.d.elements[0]) // dy/dx = n * x ^ (n - 1) = n - 1
     }
+
+    @Test
+    fun testSin() {
+        val x = scalarD(kotlin.math.PI / 6.0)
+        //val y = grad { sin(x) }
+        //assertApprox(0.5, y.x.elements[0])           //    y = sin(PI/6) = 0.5
+        //assertApprox(sqrt(3.0) / 2, x.d.elements[0]) // dy/dx = cos(PI/6) = sqrt(3)/2
+    }
+
     /*
 
     @Test
@@ -153,13 +228,7 @@ class ADTest {
         assertEquals(1.0 / 8, x.d.elements[0]) // dy/dx = 1/2 / x ^ 1/4 = 1/8
     }
 
-    @Test
-    fun testSin() {
-        val x = D(PI / 6)
-        val y = grad { sin(x) }
-        assertApprox(0.5, y.x.elements[0])           //    y = sin(PI/6) = 0.5
-        assertApprox(sqrt(3.0) / 2, x.d.elements[0]) // dy/dx = cos(PI/6) = sqrt(3)/2
-    }
+
 
     @Test
     fun testCos() {

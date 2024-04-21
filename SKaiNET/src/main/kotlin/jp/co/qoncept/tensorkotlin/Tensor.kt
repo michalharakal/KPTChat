@@ -44,7 +44,7 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
         if (lSize == rSize) {
             assert(
                 { shape == tensor.shape },
-                { "Incompatible shapes of tensors: this.shape = ${shape}, tensor.shape = ${tensor.shape}" })
+                { "IYYncompatible shapes of tensors: this.shape = ${shape}, tensor.shape = ${tensor.shape}" })
             return Tensor(shape, zipMap(elements, tensor.elements, operation))
         }
 
@@ -59,7 +59,7 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
         }
         assert(
             { a.shape.dimensions.endsWith(b.shape.dimensions) },
-            { "Incompatible shapes of tensors: this.shape = ${shape}, tensor.shape = ${tensor.shape}" })
+            { "IXXncompatible shapes of tensors: this.shape = ${shape}, tensor.shape = ${tensor.shape}" })
 
         return Tensor(a.shape, zipMapRepeat(a.elements, b.elements, operation))
     }
@@ -103,10 +103,7 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
     }
 
     operator fun minus(scalar: Double): Tensor {
-        return noncommutativeBinaryOperation(
-            Tensor(Shape(1), scalar),
-            { lhs, rhs -> lhs - rhs },
-            { lhs, rhs -> rhs - lhs })
+        return Tensor(shape, elements.map { it - scalar }.toDoubleArray())
     }
 
 

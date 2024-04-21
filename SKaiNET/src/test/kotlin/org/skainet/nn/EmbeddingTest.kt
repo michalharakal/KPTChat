@@ -38,4 +38,7 @@ class EmbeddingTest {
         assertEquals("Index out of bounds: 5", exception.message)
 
     }
+
+
+    //JsonNamedParamsLoader
 }

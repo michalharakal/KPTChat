@@ -57,6 +57,7 @@ fun Tensor.maxPool(kernelSize: IntArray, strides: IntArray): Tensor {
     return Tensor(Shape(outRows, outCols, numChannels), elements)
 }
 
+/*
 fun Tensor.conv2d(filter: Tensor, strides: IntArray): Tensor {
     val inChannels = filter.shape.dimensions[2]
 
@@ -122,6 +123,53 @@ fun Tensor.conv2d(filter: Tensor, strides: IntArray): Tensor {
 
     return Tensor(Shape(outRows, outCols, outChannels), elements)
 }
+
+ */
+
+fun Tensor.conv2d(
+    inChannels: Int,
+    outChannels: Int,
+    kernel: Tensor,
+    stride: Int = 1,
+    padding: Int = 0,
+    dilation: Int = 1, // Note: This implementation does not fully support dilation > 1.
+    bias: Boolean = true
+): Tensor {
+    // Assuming the first dimension of kernel shape is output channels,
+    // and the input tensor shape is [channels, height, width].
+    val (kernelHeight, kernelWidth) = kernel.shape.dimensions
+    val (inputHeight, inputWidth) = this.shape.dimensions
+
+    val outputHeight = ((inputHeight + 2 * padding - dilation * (kernelHeight - 1) - 1) / stride) + 1
+    val outputWidth = ((inputWidth + 2 * padding - dilation * (kernelWidth - 1) - 1) / stride) + 1
+
+    val outputElements = DoubleArray(outChannels * outputHeight * outputWidth) { if (bias) 1.0 else 0.0 }
+    val outputTensor = Tensor(Shape(outChannels, outputHeight, outputWidth), outputElements)
+
+    for (oc in 0 until outChannels) {
+        for (h in 0 until outputHeight) {
+            for (w in 0 until outputWidth) {
+                var sum = 0.0
+                for (ic in 0 until inChannels) {
+                    for (kh in 0 until kernelHeight) {
+                        for (kw in 0 until kernelWidth) {
+                            val ih = h * stride + kh - padding
+                            val iw = w * stride + kw - padding
+                            if (ih in 0..<inputHeight && iw >= 0 && iw < inputWidth) {
+                                sum += this.elements[(ic * inputHeight + ih) * inputWidth + iw] *
+                                        kernel.elements[((oc * inChannels + ic) * kernelHeight + kh) * kernelWidth + kw]
+                            }
+                        }
+                    }
+                }
+                outputTensor.elements[(oc * outputHeight + h) * outputWidth + w] += sum
+            }
+        }
+    }
+
+    return outputTensor
+}
+
 
 internal fun matmuladd(
     inCols1Rows2: Int,

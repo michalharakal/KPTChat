@@ -1,0 +1,12 @@
+= Tokenisierung
+
+== Tokenisierung and der Wortebene
+
+.Tokenisierung and der Wortebene
+image::tokenisierung-Wort.drawio.svg[]
+
+Bei der Tokenisierung auf Wortebene wird der Text in Wörter zerlegt. Ein Wort ist eine Abfolge von Buchstaben, Zahlen und/oder Sonderzeichen, die durch Leerzeichen oder Satzzeichen voneinander getrennt sind. Zu jedem Wort wird ein Token erstellt, das als eindeutige Repräsentation des Wortes dient.
+
+== Tokenisierung and der Buchstabenebene
+
+Bei der Tokenisierung auf Buchstabenebene, die auch als Zeichen- oder Buchstabentokenisierung bekannt ist, wird der Text in seine grundlegenden Bestandteile, die einzelnen Buchstaben, zerlegt. Im Gegensatz zur Wort- oder Subwort-Tokenisierung, bei der Wörter oder Wortteile als Token dienen, wird hier jedes Zeichen des Textes (inklusive Leerzeichen und Satzzeichen) als eigenständiger Token behandelt.

@@ -34,7 +34,7 @@ fun grad(body: AD.() -> D): D =
         val result = body()
         result.d = Tensor(
             result.x.shape,
-            List(result.x.elements.size) { 1.0 }.toDoubleArray()
+            List(result.x.elements.size) { 0.0 }.toDoubleArray()
         ) // computing derivative w.r.t result
         runBackwardPass()
         result
@@ -173,6 +173,7 @@ fun AD.exp(x: D): D = derive(D(x.x.exp)) { z ->
     x.d += z.d * z.x
 }
 
+
 // ln(x)
 /*
 fun AD.ln(x: D): D = derive(D(x.x.ln())) { z ->
@@ -182,13 +183,12 @@ fun AD.ln(x: D): D = derive(D(x.x.ln())) { z ->
  */
 
 // x ^ y (any)
-fun AD.pow(x: D, y: D): D = D(( y.x * x.x.ln).exp)
-
+//fun AD.pow(x: D, y: D): D = D((y.x * x.x.ln).exp)
 
 
 // sin(x)
-fun AD.sin(x: D): D = derive(D(x.x.sin)) { z ->
-    x.d += z.d * x.x.cos
+fun AD.sins(x: D): D = derive(D(x.x.cos)) { z ->
+    z.d += x.x.cos
 }
 
 // cos(x)
@@ -196,3 +196,7 @@ fun AD.cos(x: D): D = derive(D(x.x.cos)) { z ->
     x.d -= z.d * x.x.sin
 }
 
+fun AD.tanh(x: D): D = derive(D(x.x.tanh)) { z: D ->
+    //val dif = scale 1 - z.x.tanh * z.x.tanh
+    //x.d = x.d + z.d * (1 - z.x.tanh * z.x.tanh)
+}

@@ -5,4 +5,6 @@ interface Tokenizer<T> {
     fun encode(text: String): List<T>
 
     fun decode(tokens: List<T>): String
+
+    fun vocabularySize(): Long
 }

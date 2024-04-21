@@ -10,6 +10,8 @@ class CharTokenizer(text: String) : Tokenizer<Int> {
         return text.map { c -> stoi[c] ?: error("Character not found") }
     }
 
+    override fun vocabularySize(): Long = chars.size.toLong()
+
     override fun decode(tokens: List<Int>): String {
         // Reconstructs the text from the tokens.
         return tokens.map { i -> itos[i] ?: error("Token not found") }.joinToString("")

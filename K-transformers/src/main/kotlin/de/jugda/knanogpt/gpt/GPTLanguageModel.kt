@@ -55,10 +55,10 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
         get() = listOf(token_embedding_table, position_embedding_table, ln_f, lm_head) + blocks
 
     override fun forward(input: Tensor): Tensor {
-         val (B, T) = input.shape.dimensions
-         val tok_emb = token_embedding_table(input)  //# (B,T,C)
-         val pos_emb = position_embedding_table(arange(end = T.toDouble())) // # (T,C)
-         val emb = tok_emb + pos_emb // # (B,T,C)
+        val (B, T) = input.shape.dimensions
+        val tok_emb = token_embedding_table(input)  //# (B,T,C)
+        val pos_emb = position_embedding_table(arange(end = T.toDouble())) // # (T,C)
+        val emb = tok_emb + pos_emb // # (B,T,C)
         return emb
 
         /*
