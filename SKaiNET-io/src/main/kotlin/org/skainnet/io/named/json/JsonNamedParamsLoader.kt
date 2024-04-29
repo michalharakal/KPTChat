@@ -10,7 +10,14 @@ import java.io.File
 class JsonNamedParamsLoader(private val jsonFile: File) : NamedParamsLoader {
     override fun load(namedParameterEvent: (NamedParameter) -> Unit) {
         // Example: Loading JSON from a file
-        val jsonString = jsonFile.readText(Charsets.UTF_8)
+        var jsonString = ""
+        try {
+            jsonString = jsonFile.readText(Charsets.UTF_8)
+        } catch (oome: OutOfMemoryError) {
+            //Log the info
+            System.err.println("Array size too large")
+            System.err.println("Max JVM memory: " + Runtime.getRuntime().maxMemory())
+        }
 
         // Initialize Json object
         val json = Json { ignoreUnknownKeys = true }

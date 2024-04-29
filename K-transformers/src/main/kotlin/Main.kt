@@ -6,17 +6,35 @@ import de.jugda.knanogpt.core.data.ResourcesDataProvider
 import de.jugda.knanogpt.core.tensor.Tensor
 import de.jugda.knanogpt.core.tensor.TrainTestSplitter
 import de.jugda.knanogpt.transformer.TransformerConfig
+import org.skainnet.io.named.json.JsonNamedParamsLoader
+import java.nio.file.Paths
 
 
 fun main() {
     // Step 1. Import ..
+
+    // Step 1.1. Read the data
+    val urlEmbedding = JsonNamedParamsLoader::class.java.classLoader.getResource("full_gpt_model_parameters.json")
+    val uriEmbedding = urlEmbedding?.toURI() ?: throw IllegalArgumentException("File not found in resources.")
+    val pathEmbedding = Paths.get(uriEmbedding)
+
+
+    val embeddingTensors = mutableListOf<Tensor>()
+    with(JsonNamedParamsLoader(pathEmbedding.toFile())) {
+        load { namedParameter ->
+            if (namedParameter.name.contains("token_embedding_table.weight")) {
+                embeddingTensors.add(namedParameter.value)
+            }
+        }
+    }
+
+    println(embeddingTensors[0].shape)
 
     // Step 2. Initialisierung-Block
     //how many independent sequences will we process in parallel?
     val batchSize = 64
     // what is the maximum context length for predictions?
     val blockSize = 256
-
 
 
     // Step 3. 4.  Load & tokenize data
@@ -56,11 +74,11 @@ fun main() {
     val model = GPTLanguageModel(
         TransformerConfig(
             head_size = 64,
-            n_embd = 6,
+            n_embd = 384,
             num_heads = 8,
             dropout = 0.2,
-            vocab_size = 65,
-            block_size = 384,
+            vocab_size = dataProvider.vocabSize.toInt(),
+            block_size = 256,
             n_layer = 8
         ), "GPT"
     )

@@ -14,6 +14,46 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
         }
     }
 
+    operator fun get(indices: Tensor): Tensor {
+        require(shape.dimensions.isNotEmpty()) { "Tensor must be at least 1D" }
+        if (indices.shape.dimensions.size == 2) {
+            return getMatrixIndices(indices)
+        }
+        require(indices.shape.dimensions.size == 1) { "Indices tensor must be 1D" }
+
+        val rowLength = shape.dimensions.last()
+        val selectedElements = DoubleArray(indices.shape.volume * rowLength)
+
+        indices.elements.map { it.toInt() }.forEachIndexed { newIndex, originalIndex ->
+            System.arraycopy(elements, originalIndex * rowLength, selectedElements, newIndex * rowLength, rowLength)
+        }
+
+        return Tensor(Shape(indices.shape.volume, rowLength), selectedElements)
+    }
+
+    private fun getMatrixIndices(matrixIndices: Tensor): Tensor {
+        require(matrixIndices.shape.dimensions.size == 2) { "Matrix indices tensor must be 2D" }
+        val numRows = matrixIndices.shape.dimensions.first()
+        val numIndices = matrixIndices.shape.dimensions.last()
+        val rowLength = shape.dimensions.last()
+        val selectedElements = DoubleArray(numRows * numIndices * rowLength)
+
+        for (row in 0 until numRows) {
+            for (col in 0 until numIndices) {
+                val index = matrixIndices.elements[row * numIndices + col].toInt()
+                System.arraycopy(
+                    elements,
+                    index * rowLength,
+                    selectedElements,
+                    (row * numIndices + col) * rowLength,
+                    rowLength
+                )
+            }
+        }
+
+        return Tensor(Shape(numRows, numIndices, rowLength), selectedElements)
+    }
+
     operator fun get(vararg indices: Int): Double {
         return elements[index(indices)]
     }
