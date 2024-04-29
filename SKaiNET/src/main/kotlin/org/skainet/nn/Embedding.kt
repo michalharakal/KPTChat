@@ -2,7 +2,6 @@ package org.skainet.nn
 
 import de.jugda.knanogpt.core.tensor.Shape
 import de.jugda.knanogpt.core.tensor.Tensor
-import kotlin.random.Random
 
 /**
  * A simple lookup table that stores embeddings of a fixed dictionary and size.
@@ -18,31 +17,28 @@ import kotlin.random.Random
 class Embedding(
     private val numEmbeddings: Int,
     private val embeddingDim: Int,
-    private val random: Random = Random.Default,
-    override val name: String = "Embedding"
+    override val name: String = "Embedding",
+    private val weights: Tensor = Tensor(
+        Shape(numEmbeddings, embeddingDim),
+        List(numEmbeddings * embeddingDim) { 0.0 }.map { it }.toDoubleArray()
+    )
 ) : Module() {
-    private val embeddings: Array<DoubleArray> =
-        Array(numEmbeddings) { DoubleArray(embeddingDim) { random.nextDouble() - 0.5 } }
     override val params: List<NamedParameter>
         get() = listOf(
-            NamedParameter("numEmbeddings", numEmbeddings.toTensor()),
-            NamedParameter("embeddingDim", embeddingDim.toTensor())
+            NamedParameter("weight", weights)
         )
     override val modules: List<Module>
         get() = emptyList()
 
     override fun forward(input: Tensor): Tensor {
-        // Flatten the input tensor to work with indices
-        val flatInput = input.elements.map { it.toInt() }
-        val outputElements = DoubleArray(flatInput.size * embeddingDim)
-
-        for ((index, value) in flatInput.withIndex()) {
-            if (value !in 0 until numEmbeddings) throw IllegalArgumentException("Index out of bounds: $value")
-            System.arraycopy(embeddings[value], 0, outputElements, index * embeddingDim, embeddingDim)
-        }
-
-        return Tensor(Shape(flatInput.size, embeddingDim), outputElements)
+        val weight = params.by("weight")!!
+        return weight.value[input]
     }
 }
 
-private fun Int.toTensor(): Tensor = Tensor(Shape(), doubleArrayOf(this.toDouble()))
+fun from_pretrained(
+    weights: Tensor
+): Embedding {
+    assert(weights.shape.dimensions.size == 2)
+    return Embedding(weights.shape.dimensions[0], weights.shape.dimensions[0], weights = weights)
+}
