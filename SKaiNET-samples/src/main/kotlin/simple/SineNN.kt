@@ -5,10 +5,9 @@ import de.jugda.knanogpt.core.tensor.Tensor
 import org.skainet.Summary
 import org.skainet.summary
 import org.skainet.activations.relu
-import org.skainet.dsl.network
+import org.skainet.dsl.sequential
 import org.skainet.nn.Module
 import org.skainet.nn.NamedParameter
-import java.io.File
 
 // https://www.hackster.io/news/easy-tinyml-on-esp32-and-arduino-a9dbc509f26c
 import org.skainnet.io.named.ModelsNamedParamsUpdater
@@ -17,15 +16,15 @@ import java.nio.file.Paths
 
 class SineNN(override val name: String = "SineNN") : Module() {
 
-    private val sineModule = network {
+    private val sineModule = sequential {
         input(1)
-        dense(16, "layer1") {
+        linear(16, "layer1") {
             activation = relu
         }
-        dense(16, "layer2") {
+        linear(16, "layer2") {
             activation = relu
         }
-        dense(1, "output_layer")
+        linear(1, "output_layer")
     }
     override val params: List<NamedParameter>
         get() = emptyList()

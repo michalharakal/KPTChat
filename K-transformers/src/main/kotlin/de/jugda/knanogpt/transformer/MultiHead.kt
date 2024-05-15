@@ -5,7 +5,7 @@ import org.skainet.nn.Module
 import org.skainet.nn.NamedParameter
 import de.jugda.knanogpt.core.tensor.ext.cat
 import de.jugda.knanogpt.transformer.dsl.multiHead
-import org.skainet.dsl.network
+import org.skainet.dsl.sequential
 
 
 /**
@@ -32,9 +32,9 @@ class MultiHeadAttention(
 
             _modules +=
                 listOf(
-                    network {
+                    sequential {
                         input(n_embd)
-                        dense(head_size * num_heads)
+                        linear(head_size * num_heads)
                         dropout(dropout)
                     }
                 )

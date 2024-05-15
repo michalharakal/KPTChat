@@ -7,11 +7,12 @@ import de.jugda.knanogpt.transformer.Block
 import org.skainet.nn.*
 import org.skainet.init.normalInit
 import de.jugda.knanogpt.core.tensor.zeros
+import org.skainet.dsl.sequential
 
 class GPTLanguageModel(config: TransformerConfig, override val name: String) : Module() {
     private val lm_head: Linear
     private val ln_f: LayerNorm
-    private val blocks: List<Block>
+    private val blocks: Module
     private val position_embedding_table: Embedding
     private val token_embedding_table: Embedding
 
@@ -20,12 +21,14 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
         with(config) {
             token_embedding_table = Embedding(vocab_size, n_embd)
             position_embedding_table = Embedding(block_size, n_embd)
-            blocks = List(n_layer) {
-                Block(config)
+            blocks = sequential {
+                List(n_layer) {
+                    Block(config)
+                }
             }
 
             ln_f = LayerNorm(n_embd)
-            lm_head = Linear(n_embd, vocab_size)
+            lm_head = Linear(vocab_size, n_embd)
         }
         initWeights()
     }
@@ -59,7 +62,13 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
         val tok_emb = token_embedding_table(input)  //# (B,T,C)
         val pos_emb = position_embedding_table(arange(end = T.toDouble())) // # (T,C)
         val emb = tok_emb + pos_emb // # (B,T,C)
-        return emb
+        val bl = blocks(emb)
+        val ln = ln_f(bl)
+        print("ln shape: ${ln.shape}")
+        val logits = lm_head(ln) // # (B,T,V)
+
+
+        return ln
 
         /*
         val (B, T) = input.shape.dimensions

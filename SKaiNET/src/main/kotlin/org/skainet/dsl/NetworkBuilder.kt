@@ -13,7 +13,7 @@ import org.skainet.nn.Module
 annotation class NetworkDsl
 
 @NetworkDsl
-fun network(content: NeuralNetworkDsl.() -> Unit) = NeuralNetworkDslImpl()
+fun sequential(content: NeuralNetworkDsl.() -> Unit) = NeuralNetworkDslImpl()
     .apply(content)
     .create()
 
@@ -25,7 +25,7 @@ interface NeuralNetworkDsl : NetworkDslItem {
     fun input(inputSize: Int, id: String = "")
     fun input(vararg dimensions: Int, id: String = "")
 
-    fun dense(outputDimension: Int, id: String = "", content: DENSE.() -> Unit = {})
+    fun linear(outputDimension: Int, id: String = "", content: LINEAR.() -> Unit = {})
 
     fun embedding(numEmbeddings: Int, embeddingDim: Int, id: String = "")
 
@@ -33,7 +33,7 @@ interface NeuralNetworkDsl : NetworkDslItem {
 }
 
 @NetworkDsl
-interface DENSE : NetworkDslItem {
+interface LINEAR : NetworkDslItem {
     var activation: (Tensor) -> Tensor
     fun weights(initBlock: (Shape) -> Tensor)
     fun bias(initBlock: (Shape) -> Tensor)
@@ -41,12 +41,12 @@ interface DENSE : NetworkDslItem {
 
 private fun getDefaultName(id: String, s: String, size: Int): String {
     if (id.isNotEmpty()) return id
-    return "$s-$size"
+    return "$s$size"
 }
 
 class DenseImpl(
     private val inputDimension: Int, private val outputDimension: Int, private val id: String
-) : DENSE {
+) : LINEAR {
 
     private var weightsValue: Tensor? = null
     private var _activation: (Tensor) -> Tensor = { tensor -> tensor }
@@ -89,7 +89,7 @@ private class NeuralNetworkDslImpl : NeuralNetworkDsl {
         modules.add(Input(Shape(*dimensions), name = getDefaultName(id, "Input", modules.size)))
     }
 
-    override fun dense(outputDimension: Int, id: String, content: DENSE.() -> Unit) {
+    override fun linear(outputDimension: Int, id: String, content: LINEAR.() -> Unit) {
         val inputDimension = lastDimension
         lastDimension = outputDimension
         val impl = DenseImpl(

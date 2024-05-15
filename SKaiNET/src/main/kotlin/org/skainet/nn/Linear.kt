@@ -25,7 +25,7 @@ class Linear(
     ),
     initBias: Tensor = Tensor(
         Shape(outFeatures),
-        List(inFeatures * outFeatures) { 0.0 }.map { it }.toDoubleArray()
+        List(outFeatures) { 0.0 }.map { it }.toDoubleArray()
     )
 ) : Module() {
     private val bias = NamedParameter("bias", initBias)

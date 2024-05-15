@@ -28,7 +28,7 @@ class Summary {
 
 
         return NodeSummary(
-            "${module::class.simpleName}-$index",
+            "${module.name}",
             input,
             output.shape,
             params

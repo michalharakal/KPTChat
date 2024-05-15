@@ -2,7 +2,7 @@ package de.jugda.knanogpt.transformer
 
 import de.jugda.knanogpt.core.tensor.Tensor
 import org.skainet.activations.relu
-import org.skainet.dsl.network
+import org.skainet.dsl.sequential
 import org.skainet.nn.Module
 import org.skainet.nn.NamedParameter
 
@@ -15,13 +15,13 @@ class FeedForward(
 
     init {
         with(config) {
-            sequential = network {
+            sequential = sequential {
                 input(n_embd)
-                dense(4 * n_embd) {
+                linear(4 * n_embd) {
                     activation = relu
 
                 }
-                dense(n_embd)
+                linear(n_embd)
                 dropout(dropout)
             }
         }
