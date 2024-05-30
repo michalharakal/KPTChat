@@ -1,16 +1,17 @@
-package de.jugda.de.jugda.knanogpt.gpt
+package de.jugda.knanogpt.gpt
 
 import de.jugda.knanogpt.core.tensor.Tensor
 import de.jugda.knanogpt.core.tensor.arange
 import de.jugda.knanogpt.transformer.TransformerConfig
 import de.jugda.knanogpt.transformer.Block
+import  de.jugda.knanogpt.transformer.BatchedLinear
 import org.skainet.nn.*
 import org.skainet.init.normalInit
 import de.jugda.knanogpt.core.tensor.zeros
 import org.skainet.dsl.sequential
 
 class GPTLanguageModel(config: TransformerConfig, override val name: String) : Module() {
-    private val lm_head: Linear
+    private val lm_head: BatchedLinear
     private val ln_f: LayerNorm
     private val blocks: Module
     private val position_embedding_table: Embedding
@@ -28,7 +29,7 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
             }
 
             ln_f = LayerNorm(n_embd)
-            lm_head = Linear(vocab_size, n_embd)
+            lm_head = BatchedLinear(vocab_size, n_embd)
         }
         initWeights()
     }
@@ -68,7 +69,7 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
         val logits = lm_head(ln) // # (B,T,V)
 
 
-        return ln
+        return logits
 
         /*
         val (B, T) = input.shape.dimensions

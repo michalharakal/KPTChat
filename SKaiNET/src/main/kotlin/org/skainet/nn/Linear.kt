@@ -15,7 +15,7 @@ import de.jugda.knanogpt.core.tensor.ext.t
  * @param initBias Initial bias
  */
 
-class Linear(
+open class Linear(
     inFeatures: Int,
     outFeatures: Int,
     override val name: String = "Linear",

@@ -1,6 +1,6 @@
 package de.jugda
 
-import de.jugda.de.jugda.knanogpt.gpt.GPTLanguageModel
+import de.jugda.knanogpt.gpt.GPTLanguageModel
 import de.jugda.knanogpt.core.data.BatchProvider
 import de.jugda.knanogpt.core.data.ResourcesDataProvider
 import de.jugda.knanogpt.core.tensor.Tensor
@@ -82,6 +82,7 @@ fun main() {
             n_layer = 8
         ), "GPT"
     )
-    model.forward(xb)
+    val y =  model.forward(xb)
+    print(y.shape)
 }
 
