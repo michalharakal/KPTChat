@@ -84,5 +84,32 @@ private fun ravelIndex(indices: IntArray, dimensions: IntArray, strides: IntArra
 
 fun Tensor.prod(): Double = this.elements.fold(1.0) { acc, element -> acc * element }
 
+/**
+ * Returns a new tensor with the same data as the self tensor but of a different shape.
+ * The returned tensor shares the same data and must have the same number of elements, but may have a different size
+ * For more information: https://pytorch.org/docs/stable/tensor_view.html
+ *
+ * @param shape the desired size
+ * @return tensor with new shape
+ */
+fun Tensor.view(shape: Shape): Tensor = Tensor(shape, this.elements)
 
+operator fun Shape.plus(shape: Shape): Shape =
+    Shape(*(dimensions.toList() + shape.dimensions.toList()).toIntArray())
 
+internal val Tensor.matrices: List<Tensor>
+    get() {
+        val n = shape.dimensions.size
+        check(n >= 2) { "Expected tensor with 2 or more dimensions, got size $n" }
+        val matrixOffset = shape.dimensions[n - 1] * shape.dimensions[n - 2]
+        val matrixShape = Shape(shape.dimensions[n - 2], shape.dimensions[n - 1])
+
+        val size = matrixShape.volume
+
+        return List((shape.volume / matrixOffset).toInt()) { index ->
+            val offset = index * matrixOffset
+            Tensor(matrixShape, elements.view(offset, size))
+        }
+    }
+
+private fun DoubleArray.view(offset: Int, size: Int): DoubleArray = this.sliceArray(offset until size)

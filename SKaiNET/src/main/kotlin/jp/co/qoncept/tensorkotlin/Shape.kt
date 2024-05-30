@@ -6,6 +6,10 @@ class Shape(vararg dimensions: Int) {
     val volume: Int
         get() = dimensions.fold(1) { a, x -> a * x }
 
+    val size: Int
+        get() = dimensions.size
+
+
     override fun equals(other: Any?): Boolean {
         if (other !is Shape) {
             return false
@@ -30,4 +34,6 @@ class Shape(vararg dimensions: Int) {
         return "Shape: Dimensions = $dimensionsString, Size (Volume) = $volume"
     }
 
+
+    fun first(i: Int): Shape = Shape(*dimensions.copyOfRange(0, i).map { it }.toIntArray())
 }

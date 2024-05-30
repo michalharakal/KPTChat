@@ -1,5 +1,9 @@
 package jp.co.qoncept.tensorkotlin
 
+import de.jugda.knanogpt.core.tensor.RowStrides
+import de.jugda.knanogpt.core.tensor.Strides
+import de.jugda.knanogpt.core.tensor.matmulKMath
+
 data class Tensor(val shape: Shape, val elements: DoubleArray) {
     constructor(shape: Shape, element: Double = 0.0) : this(shape, doubleArrayOf(shape.volume, element)) {
     }
@@ -151,6 +155,11 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
         return commutativeBinaryOperation(tensor) { lhs, rhs -> lhs * rhs }
     }
 
+    fun sum(): Double {
+        return elements.reduce() { sum, element -> sum + element }
+    }
+
+
     operator fun div(tensor: Tensor): Tensor {
         return noncommutativeBinaryOperation(tensor, { lhs, rhs -> lhs / rhs }, { lhs, rhs -> rhs / lhs })
     }
@@ -206,7 +215,8 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
             return Tensor(newShape, result)
         }
 
-        throw IllegalArgumentException("Unsupported tensor shapes for multiplication.")
+        return matmulKMath(other)
+
     }
 
     override fun toString(): String {
