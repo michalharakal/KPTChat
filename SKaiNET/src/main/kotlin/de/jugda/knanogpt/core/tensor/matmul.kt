@@ -39,9 +39,8 @@ public infix fun Tensor.matmulKMath(other: Tensor): Tensor {
         "Tensors dot operation dimension mismatch: ($l, $m1) x ($m2, $n)"
     }
 
-    val resShapeDimensions =
-        newThis.shape.dimensions.slice(0..(newThis.shape.dimensions.size - 2)) + intArrayOf(newOther.shape.dimensions.last())
-    val resShape = Shape(*resShapeDimensions.map { it as Int }.toIntArray())
+    val resShape =
+        newThis.shape.slice(0..(newThis.shape.dimensions.size - 2)) + Shape(*intArrayOf(newOther.shape.dimensions.last()))
     val resSize = resShape.volume
     val resTensor = Tensor(resShape, DoubleArray(resSize))
 
@@ -61,6 +60,8 @@ public infix fun Tensor.matmulKMath(other: Tensor): Tensor {
         resTensor
     }
 }
+
+private fun Shape.slice(range: IntRange): Shape = Shape(*dimensions.sliceArray(range))
 
 
 internal fun dotTo(

@@ -27,12 +27,8 @@ class BatchedLinear(
         val weight = params.by("W")!!
         val bias = params.by("B")!!
 
-        val resized = broadcastTo(weight.value, input.shape)
-
-        print("Broadcasted shape ${resized.shape}")
-
         // Assuming Tensor has a matmul (matrix multiplication) method and a plus method for addition
-        val output = input.matmul(resized) + bias.value
+        val output = input.matmul(weight.value.t()) + bias.value
         return output
     }
 }

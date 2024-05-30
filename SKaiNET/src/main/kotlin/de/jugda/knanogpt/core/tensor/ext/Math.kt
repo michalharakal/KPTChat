@@ -106,10 +106,12 @@ internal val Tensor.matrices: List<Tensor>
 
         val size = matrixShape.volume
 
-        return List((shape.volume / matrixOffset).toInt()) { index ->
+        val result = List(shape.volume / matrixOffset) { index ->
             val offset = index * matrixOffset
-            Tensor(matrixShape, elements.view(offset, size))
+            val tensor = Tensor(matrixShape, elements.view(offset, offset + size))
+            tensor
         }
+        return result
     }
 
 private fun DoubleArray.view(offset: Int, size: Int): DoubleArray = this.sliceArray(offset until size)

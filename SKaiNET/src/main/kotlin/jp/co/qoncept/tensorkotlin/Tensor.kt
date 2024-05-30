@@ -156,7 +156,7 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
     }
 
     fun sum(): Double {
-        return elements.reduce() { sum, element -> sum + element }
+        return elements.fold(0.0) { sum, element -> sum + element }
     }
 
 

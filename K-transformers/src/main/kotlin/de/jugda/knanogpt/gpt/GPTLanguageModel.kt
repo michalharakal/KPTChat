@@ -29,7 +29,7 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
             }
 
             ln_f = LayerNorm(n_embd)
-            lm_head = BatchedLinear(vocab_size, n_embd)
+            lm_head = BatchedLinear(n_embd, vocab_size)
         }
         initWeights()
     }
