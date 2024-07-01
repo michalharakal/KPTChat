@@ -8,9 +8,10 @@ import  de.jugda.knanogpt.transformer.BatchedLinear
 import org.skainet.nn.*
 import org.skainet.init.normalInit
 import de.jugda.knanogpt.core.tensor.zeros
+import org.skainet.activations.softmax
 import org.skainet.dsl.sequential
 
-class GPTLanguageModel(config: TransformerConfig, override val name: String) : Module() {
+class GPTLanguageModel(private val config: TransformerConfig, override val name: String) : Module() {
     private val lm_head: BatchedLinear
     private val ln_f: LayerNorm
     private val blocks: Module
@@ -68,18 +69,25 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
         print("ln shape: ${ln.shape}")
         val logits = lm_head(ln) // # (B,T,V)
 
-
         return logits
+    }
 
-        /*
-        val (B, T) = input.shape.dimensions
-        return (token_embedding_table(input) + position_embedding_table(arange(end = B.toDouble()))) // # (B,T,C)
-            .let { blocks.fold(it) { acc, block -> block(acc) } } // # (B,T,C)
-            .let { ln_f(it) } // # (B,T,C)
-            .let { lm_head(it) } // # (B,T,V)
-
-
-         */
-
+    fun generate(input: Tensor, max_new_tokens: Int): Tensor {
+        // idx is (B, T) array of indices in the current context
+        for (i in 1..max_new_tokens) {
+            // crop input to the last block_size tokens
+            val idx_cond = input[0..-config.block_size]
+            // get the predictions
+            val logits = forward(idx_cond)
+            // focus only on the last time step
+            val last_logits = logits[0..config.block_size, 0..config.block_size]  // # becomes (B, C)
+            // apply softmax to get probabilities
+            val probs = last_logits.softmax()  // (B, C)
+            // sample from the distribution
+            //idx_next = torch.multinomial(probs, num_samples=1)  # (B, 1)
+            // append sampled index to the running sequence
+            //idx = torch.cat((idx, idx_next), dim=1)  # (B, T+1)
+        }
+        return input
     }
 }
