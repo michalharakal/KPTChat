@@ -1,7 +1,9 @@
 package jp.co.qoncept.tensorkotlin
 
-import de.jugda.knanogpt.core.tensor.RowStrides
-import de.jugda.knanogpt.core.tensor.Strides
+import de.jugda.knanogpt.core.tensor.Tensor
+import de.jugda.knanogpt.core.tensor.broadcast.Slice
+import de.jugda.knanogpt.core.tensor.broadcast.end
+import de.jugda.knanogpt.core.tensor.broadcast.start
 import de.jugda.knanogpt.core.tensor.matmulKMath
 
 data class Tensor(val shape: Shape, val elements: DoubleArray) {
@@ -60,6 +62,35 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
 
     operator fun get(vararg indices: Int): Double {
         return elements[index(indices)]
+    }
+
+    operator fun get(vararg ranges: Slice): Tensor {
+        val shapeElements = ranges.filter { slice ->
+            slice.start() >= 0
+        }.map { slice ->
+            slice.end().toInt() - slice.start().toInt()
+        }.toIntArray()
+        val shape = Shape(*shapeElements)
+        var offset = 0
+        val offsets = ranges.mapIndexed() { index, slice ->
+            val markers = Pair(offset + slice.start(), offset + slice.end())
+            offset += (slice.start() + slice.end()).toInt()
+            markers
+        }
+        print(offsets)
+        val reversedShape = shapeElements.reversed()
+        val indices = IntArray(shape.volume)
+        val elements = DoubleArray(shapeElements.fold(1, Int::times)) {
+            var i = it
+            var dimensionIndex = 0 // size - 1
+            for (dimension in reversedShape) {
+                //indices[dimensionIndex] = i % dimension + ranges[dimensionIndex].start
+                i /= dimension
+                dimensionIndex--
+            }
+            get(*indices)
+        }
+        return Tensor(shape, elements)
     }
 
     operator fun get(vararg ranges: IntRange): Tensor {
