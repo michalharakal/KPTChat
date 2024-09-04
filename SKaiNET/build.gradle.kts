@@ -1,44 +1,34 @@
 plugins {
-    kotlin("jvm")
+    alias(libs.plugins.kotlinMultiplatform)
     id("maven-publish")
 }
 
-group = "sk.ai.net"
-version = "0.0.1"
+group = "sk.net.ai"
 
-repositories {
-    mavenCentral()
-
-}
-
-dependencies {
-
-
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("junit:junit:4.13.2")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
 kotlin {
     jvmToolchain(17)
-}
 
-publishing {
-    publications {
-        // Create a publication named 'myLibrary'
-        create("skainet", MavenPublication::class) {
-            // Set the artifact ID
-            artifactId = "core"
+    jvm()
 
-            // Include components from the 'java' plugin
-            from(components["java"])
+    sourceSets {
+        commonMain.dependencies {
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.slf4j)
         }
-    }
 
-    repositories {
-        // Publish to the local Maven repository
-        mavenLocal()
+        commonTest.dependencies {
+            implementation(kotlin("test-common"))
+            implementation(kotlin("test-annotations-common"))
+            implementation(libs.kotlinx.coroutines.test)
+        }
+
+        jvmMain.dependencies { implementation(libs.slf4j) }
+
+
+        jvmTest.dependencies {
+            implementation(kotlin("test-junit"))
+            implementation(libs.logback)
+            implementation(libs.junit)
+        }
     }
 }
