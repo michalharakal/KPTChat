@@ -1,4 +1,4 @@
-package org.markup.dsl.graphviz.dot
+    package org.markup.dsl.graphviz.dot
 
 // DSL Marker to restrict the DSL to its intended scope
 @DslMarker
