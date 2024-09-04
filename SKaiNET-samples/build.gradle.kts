@@ -1,26 +1,39 @@
 plugins {
-    kotlin("jvm")
+    alias(libs.plugins.kotlinMultiplatform)
+    id("maven-publish")
 }
 
-group = "de.jugda"
-version = "1.0-SNAPSHOT"
+group = "sk.net.ai"
 
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation(project(":SKaiNET"))
-    implementation(project(":SKaiNET-summary"))
-    implementation(project(":SKaiNET-io"))
-
-    testImplementation("org.jetbrains.kotlin:kotlin-test")
-    testImplementation("junit:junit:4.13.2")
-}
-
-tasks.test {
-    useJUnitPlatform()
-}
 kotlin {
     jvmToolchain(17)
+
+    jvm()
+
+    sourceSets {
+        commonMain.dependencies {
+
+            implementation(project(":SKaiNET"))
+            implementation(project(":SKaiNET-summary"))
+
+
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.slf4j)
+        }
+
+        commonTest.dependencies {
+            implementation(kotlin("test-common"))
+            implementation(kotlin("test-annotations-common"))
+            implementation(libs.kotlinx.coroutines.test)
+        }
+
+        jvmMain.dependencies { implementation(libs.slf4j) }
+
+
+        jvmTest.dependencies {
+            implementation(kotlin("test-junit"))
+            implementation(libs.logback)
+            implementation(libs.junit)
+        }
+    }
 }

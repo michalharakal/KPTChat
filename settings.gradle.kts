@@ -15,9 +15,9 @@ dependencyResolutionManagement {
 
 rootProject.name = "KPTChat"
 //include("docs")
-//include("K-transformers")
 include("SKaiNET")
-//include("SKaiNET-mikrograd")
-// include("SKaiNET-io")
-//include("SKaiNET-samples")
 include("SKaiNET-summary")
+include("SKaiNET-io")
+//include("K-transformers")
+//include("SKaiNET-samples")
+
