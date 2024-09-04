@@ -1,23 +1,32 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.kotlin.serialization)
     id("maven-publish")
 }
 
 group = "sk.net.ai"
+version = "0.0.1"
 
 kotlin {
     jvmToolchain(17)
 
     jvm()
 
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64(),
+    ).forEach {
+        it.binaries.framework {
+            baseName = "SKaiNetKit"
+        }
+    }
+
     sourceSets {
         commonMain.dependencies {
-            api(project(":SKaiNET"))
+
 
             implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.kotlinx.serialization.json)
-            implementation(libs.kotlinx.io)
+            implementation(libs.slf4j)
         }
 
         commonTest.dependencies {

@@ -18,6 +18,7 @@ rootProject.name = "KPTChat"
 include("SKaiNET")
 include("SKaiNET-summary")
 include("SKaiNET-io")
+include("SKaiNET-mobile")
 //include("K-transformers")
 //include("SKaiNET-samples")
 

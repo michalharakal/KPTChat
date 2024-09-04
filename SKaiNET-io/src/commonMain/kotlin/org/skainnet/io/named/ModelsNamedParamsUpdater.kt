@@ -1,18 +1,19 @@
 package org.skainnet.io.named
 
 import jp.co.qoncept.tensorkotlin.Shape
+import kotlinx.io.Source
 import org.skainet.nn.Module
 import org.skainet.nn.NamedParameter
 
 class ModelsNamedParamsUpdater(private val namedParamsLoader: NamedParamsLoader) {
     fun update(
         model: Module,
-        resourceName: String,
+        source: Source,
         propertyName: String,
         shape: Shape,
     ) {
         namedParamsLoader.load(
-            resourceName = resourceName,
+            source = source,
             propertyName = propertyName,
             shape = shape
         ) { loadedNamedParameter ->
