@@ -64,7 +64,7 @@ class SliceBuilder(private val tensor: Tensor, private val dimensionIndex: Int) 
 
     fun all() {
         this.startIndex = 0
-        this.endIndex = tensor.shape.dimensions[dimensionIndex].toLong()
+        this.endIndex = tensor.shape.dimensions[dimensionIndex].toLong() - 1
     }
 
     fun none() {
@@ -77,7 +77,8 @@ class SliceBuilder(private val tensor: Tensor, private val dimensionIndex: Int) 
 
     inner class FromBuilder(private val sliceBuilder: SliceBuilder) {
         infix fun to(end: Int) {
-            sliceBuilder.endIndex = if (end == -1) tensor.shape.dimensions[dimensionIndex].toLong() else end.toLong()
+            sliceBuilder.endIndex =
+                if (end == -1) tensor.shape.dimensions[dimensionIndex].toLong() - 1 else end.toLong()
         }
     }
 }

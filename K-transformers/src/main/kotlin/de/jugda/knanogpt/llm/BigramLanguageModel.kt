@@ -1,4 +1,4 @@
-package de.jugda.de.jugda.knanogpt.llm
+package de.jugda.knanogpt.llm
 
 
 import de.jugda.knanogpt.core.tensor.Tensor

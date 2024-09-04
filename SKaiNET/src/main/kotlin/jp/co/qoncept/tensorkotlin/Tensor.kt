@@ -68,29 +68,30 @@ data class Tensor(val shape: Shape, val elements: DoubleArray) {
         val shapeElements = ranges.filter { slice ->
             slice.start() >= 0
         }.map { slice ->
-            slice.end().toInt() - slice.start().toInt()
+            slice.end().toInt() + 1 - slice.start().toInt()
         }.toIntArray()
-        val shape = Shape(*shapeElements)
+        val newShape = Shape(*shapeElements)
         var offset = 0
+        // offset contains also dimension to be removed
         val offsets = ranges.mapIndexed() { index, slice ->
             val markers = Pair(offset + slice.start(), offset + slice.end())
-            offset += (slice.start() + slice.end()).toInt()
+            offset += (slice.start() + slice.end() + 1).toInt()
             markers
         }
-        print(offsets)
-        val reversedShape = shapeElements.reversed()
-        val indices = IntArray(shape.volume)
-        val elements = DoubleArray(shapeElements.fold(1, Int::times)) {
-            var i = it
-            var dimensionIndex = 0 // size - 1
-            for (dimension in reversedShape) {
-                //indices[dimensionIndex] = i % dimension + ranges[dimensionIndex].start
-                i /= dimension
-                dimensionIndex--
+        var valueOffset = 0
+        val elements = DoubleArray(newShape.volume)
+        var dimensionOffset = 0
+        offsets.forEachIndexed { index, offsetValues ->
+
+            valueOffset = dimensionOffset
+            val (start, end) = offsetValues
+            (start..end).forEach { index ->
+                elements[valueOffset] = this.elements[valueOffset + index.toInt()]
+                valueOffset += 1
             }
-            get(*indices)
+            valueOffset += shape.dimensions[index]
         }
-        return Tensor(shape, elements)
+        return Tensor(newShape, elements)
     }
 
     operator fun get(vararg ranges: IntRange): Tensor {

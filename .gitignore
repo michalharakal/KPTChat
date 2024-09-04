@@ -19,3 +19,5 @@ out/
 
 ### Mac OS ###
 .DS_Store
+full_gpt_model_parameters.json
+input_for_embedding.json

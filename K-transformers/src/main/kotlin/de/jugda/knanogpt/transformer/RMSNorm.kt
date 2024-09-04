@@ -1,4 +1,4 @@
-package de.jugda.de.jugda.knanogpt.transformer
+package de.jugda.knanogpt.transformer
 
 import de.jugda.knanogpt.core.tensor.Tensor
 import de.jugda.knanogpt.transformer.TransformerConfig

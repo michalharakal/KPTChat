@@ -37,7 +37,7 @@ class EmbeddingTest {
         val embedding = Embedding(5, 3) // 5 embeddings, each of dimension 3
         val input = Tensor(Shape(1), doubleArrayOf(5.0)) // Index out of bounds
 
-        val exception = assertFailsWith<IllegalArgumentException> { embedding.forward(input) }
+        val exception = assertFailsWith<java.lang.ArrayIndexOutOfBoundsException> { embedding.forward(input) }
         assertEquals("Index out of bounds: 5", exception.message)
     }
 

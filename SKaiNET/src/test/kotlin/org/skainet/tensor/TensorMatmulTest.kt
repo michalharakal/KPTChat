@@ -1,15 +1,12 @@
 package org.skainet.tensor
 
-import org.skainet.activations.relu
 import kotlin.test.assertEquals
 
 
 import de.jugda.knanogpt.core.tensor.Shape
-import de.jugda.knanogpt.core.tensor.Tensor
 import org.skainet.init.normalInit
 import kotlin.test.Test
 
-import kotlin.test.assertContentEquals
 
 class TensorMatmulTest {
 
@@ -22,6 +19,4 @@ class TensorMatmulTest {
         val result = tensor3d.matmul(tensor2d)
         assertEquals(result.shape, Shape(64, 256, 65), "ReLU should correctly apply to 3D tensor with mixed values")
     }
-
 }
-

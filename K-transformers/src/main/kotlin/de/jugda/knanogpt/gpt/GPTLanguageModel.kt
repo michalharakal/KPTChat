@@ -2,6 +2,8 @@ package de.jugda.knanogpt.gpt
 
 import de.jugda.knanogpt.core.tensor.Tensor
 import de.jugda.knanogpt.core.tensor.arange
+import de.jugda.knanogpt.core.tensor.ext.cat
+import de.jugda.knanogpt.core.tensor.ext.multinomial
 import de.jugda.knanogpt.transformer.TransformerConfig
 import de.jugda.knanogpt.transformer.Block
 import  de.jugda.knanogpt.transformer.BatchedLinear
@@ -73,20 +75,25 @@ class GPTLanguageModel(private val config: TransformerConfig, override val name:
     }
 
     fun generate(input: Tensor, max_new_tokens: Int): Tensor {
+        var idx = input
         // idx is (B, T) array of indices in the current context
         for (i in 1..max_new_tokens) {
             // crop input to the last block_size tokens
-            val idx_cond = input[0..-config.block_size]
+            val idx_cond = idx[
+                0..<idx.shape.dimensions[0],
+                idx.shape.dimensions[1] - config.block_size..<idx.shape.dimensions[1]
+            ] // (B, C)
             // get the predictions
             val logits = forward(idx_cond)
             // focus only on the last time step
-            val last_logits = logits[0..config.block_size, 0..config.block_size]  // # becomes (B, C)
+            val last_logits =
+                logits[0..<logits.shape.dimensions[0], 0..0, 0..<logits.shape.dimensions[1]]  // # becomes (B, C)
             // apply softmax to get probabilities
             val probs = last_logits.softmax()  // (B, C)
             // sample from the distribution
-            //idx_next = torch.multinomial(probs, num_samples=1)  # (B, 1)
+            val idx_next = probs.multinomial(1) // # (B, 1)
             // append sampled index to the running sequence
-            //idx = torch.cat((idx, idx_next), dim=1)  # (B, T+1)
+            idx = cat(listOf(idx, idx_next), dim = 1) // (B, T+1)
         }
         return input
     }
