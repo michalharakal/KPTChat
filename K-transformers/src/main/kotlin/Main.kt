@@ -82,7 +82,7 @@ fun main() {
             n_layer = 8
         ), "GPT"
     )
-    val y =  model.forward(xb)
+    val y = model.generate(xb, 32)
     print(y.shape)
 }
 
