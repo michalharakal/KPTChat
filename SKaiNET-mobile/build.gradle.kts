@@ -4,7 +4,7 @@ plugins {
 }
 
 group = "sk.net.ai"
-version = "0.0.1"
+version = "0.0.2"
 
 kotlin {
     jvmToolchain(17)
