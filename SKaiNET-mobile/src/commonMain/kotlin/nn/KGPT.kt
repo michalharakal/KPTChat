@@ -1,5 +1,7 @@
 package nn
 
+import kotlin.math.max
+import kotlin.math.min
 import kotlin.random.Random
 
 class KGPT(modelIndex: Int) {
@@ -30,7 +32,7 @@ When dawn returns to chase the night away.""""
             val range = shakespeare.indices// Define your range
             val randomIndex = Random.nextInt(range.first, range.last) // Generate random index
 
-            shakespeare.substring(randomIndex, randomIndex + maxNewTokens)
+            shakespeare.substring(min(0, randomIndex), max(randomIndex + maxNewTokens, shakespeare.length - 1))
         }
     }
 
