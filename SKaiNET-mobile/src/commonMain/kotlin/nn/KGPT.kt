@@ -22,7 +22,7 @@ Restoring faith in love once more,
 When dawn returns to chase the night away.""""
 
     fun generate(from: String, maxNewTokens: Int): String {
-        return if (loaded) {
+        return if (!loaded) {
             val charset = ('a'..'z') + ('A'..'Z') + ('0'..'9') + ' '
 
             return (1..maxNewTokens)
@@ -31,8 +31,15 @@ When dawn returns to chase the night away.""""
         } else {
             val range = shakespeare.indices// Define your range
             val randomIndex = Random.nextInt(range.first, range.last) // Generate random index
+            val safeStart = min(randomIndex, shakespeare.length - 1)
 
-            shakespeare.substring(min(0, randomIndex), max(randomIndex + maxNewTokens, shakespeare.length - 1))
+            shakespeare.substring(
+                max(0, safeStart),
+                min(
+                    randomIndex + maxNewTokens,
+                    shakespeare.length - 1
+                )
+            )
         }
     }
 
