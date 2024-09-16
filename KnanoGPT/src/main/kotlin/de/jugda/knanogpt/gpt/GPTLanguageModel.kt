@@ -33,7 +33,7 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
         modules.forEach { module ->
             if (module is Linear) {
                 module.params.by("W")?.let { weights ->
-                    weights.value = normalInit(weights.value.shape, 0.0, 0.02)
+                    weights.value = normalInit(weights.value.shape, 0.0, 0.0)
                 }
                 module.params.by("B")?.let { bias ->
                     bias.value = bias.value.shape.zeros()
@@ -41,7 +41,7 @@ class GPTLanguageModel(config: TransformerConfig, override val name: String) : M
             }
             if (module is Embedding) {
                 module.params.by("W")?.let { weights ->
-                    weights.value = normalInit(weights.value.shape, 0.0, 0.02)
+                    weights.value = normalInit(weights.value.shape, 0.0, 0.0)
                 }
             }
         }
