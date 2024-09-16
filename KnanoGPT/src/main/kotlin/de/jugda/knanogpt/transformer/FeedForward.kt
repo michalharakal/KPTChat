@@ -14,7 +14,7 @@ class FeedForward(
     override val name: String = "FeedForward"
 ) : Module() {
 
-    private val sequential: FeedForwardNetwork
+    private val sequential: Module
 
     init {
         with(config) {
